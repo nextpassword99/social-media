@@ -6,6 +6,8 @@
   --background-secondary: #ebebeb;
   --primary-color: #0866ff;
   --text-color: #050505;
+  --text-color-secondary: #606770;
+  --background-text: #f2f2f2;
   --button-secondary: #e4e6eb;
   --button-secondary-hover: #d8dadf;
 }

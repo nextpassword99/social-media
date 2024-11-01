@@ -1,11 +1,13 @@
 <style>
   .user-container {
-    display: flex;
     width: 100%;
     max-width: 1218px;
-    gap: 1rem;
     margin: 0 auto;
     padding: 1rem;
+  }
+  .panel-container {
+    display: flex;
+    gap: 1rem;
   }
   .user-container .panel-left {
     width: 42%;
@@ -15,6 +17,9 @@
   }
 </style>
 <div class="user-container">
-  <div class="panel-left">{{aside}}</div>
-  <div class="content-user">{{content}}</div>
+  <div>{{perfil_user}}</div>
+  <div class="panel-container">
+    <div class="panel-left">{{aside}}</div>
+    <div class="content-user">{{content}}</div>
+  </div>
 </div>
