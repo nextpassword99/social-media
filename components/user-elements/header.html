@@ -5,7 +5,7 @@
   .cover-photo {
     width: 100%;
     height: 300px;
-    background: url("https://scontent.flim14-1.fna.fbcdn.net/v/t39.30808-6/267786846_297323162332189_3942470735916278137_n.jpg?stp=dst-jpg_s960x960&_nc_cat=108&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeGZjctPs_v_kORRLqzLGsl1vmC18ueDdeq-YLXy54N16qhJGSYI7wddYz97z3Y1x8chZBLTlIt1LJH8M3lHDkW2&_nc_ohc=IjNifJSx7gAQ7kNvgHIoYfC&_nc_zt=23&_nc_ht=scontent.flim14-1.fna&_nc_gid=AXLA4_WTdVO1ZAzjDVmUB9Y&oh=00_AYD_945PGoVWfuvZs7N-s5wIuLR8NWEdSWNLzncFAdXOKg&oe=672A90D7")
+    background: url("{{imagen_fondo}}")
       no-repeat center center;
     background-size: cover;
     position: relative;
@@ -38,7 +38,7 @@
     border: 5px solid var(--background-primary);
     margin-top: -84px;
     margin-right: 20px;
-    background: url("https://scontent.flim14-1.fna.fbcdn.net/v/t39.30808-1/279474951_377843944280110_5256609486639112786_n.jpg?stp=c0.0.1056.1056a_dst-jpg_s200x200&_nc_cat=110&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeES5yt9YHSlZdDXln_ZLV9lEv4PjVOgOoAS_g-NU6A6gKc08eZlmS_3MMy0c4vVJ2YBj_JIUYUTRTlZx0u-d-2k&_nc_ohc=_MTpqtZWM5IQ7kNvgHOnkNd&_nc_zt=24&_nc_ht=scontent.flim14-1.fna&_nc_gid=AXLA4_WTdVO1ZAzjDVmUB9Y&oh=00_AYAOPYR9Bi8MgxIP0k4KUg-dZ2cNyP0YHUmr5ll7XZphrg&oe=672A8183")
+    background: url("{{imagen_perfil}}")
       no-repeat center center;
     background-size: cover;
     position: relative;
@@ -130,59 +130,10 @@
       <h1>{{nombre_usuario}}</h1>
       <p>{{numero_amigos}}</p>
       <div class="friends-photos">
-        <img
-          alt="Friend 1"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/81U7IvsIOD7IJRfwYmMY6TBIteyF233MZUikJEQVIjPpWpsTA.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 2"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/67FalA2LvZ7jE5keu50TKdlrzMxEhGKNU4nvJ5eJ6QDnWpsTA.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 3"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/jKszflAPAJQVZamRcPmLswWDQnFVdfOi7FArmKo5fKfpalyOB.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 4"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/eXHzDJKFS1SAZ6nRR7JuCkppx3oGOftfvc7m6LCpeoM2alyOB.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 5"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/vGlHjO1IPW7kCVmLKMpTmad5UuR4yuDVwIWGOfn92wIXrU2JA.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 6"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/AK0GhaXg6V4FH5cYy4CXfObATEJeAJ7nTUcYq10hXksmWpsTA.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
-        <img
-          alt="Friend 7"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/ifAYUCjJfkm6V0FRfiaXIJ2DJq76m2fMHJg38Ec5jEZtalyOB.jpg"
-          style="border-radius: 50%; margin-right: 2px"
-          width="32"
-        />
+        {{fotos_amigos}}
       </div>
     </div>
     <div class="profile-actions">
-      <button>+ Agregar a historia</button>
       <button class="edit-profile">Editar perfil</button>
       <div class="more-options">
         <i class="fas fa-ellipsis-h"> </i>
