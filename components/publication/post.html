@@ -33,9 +33,28 @@
     margin: 0;
     font-size: 14px;
   }
-  .post-image {
-    width: 100%;
+  .post-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .post-images img {
     height: auto;
+  }
+  .post-images img:nth-child(1):nth-last-child(1) {
+    width: 100%;
+  }
+  .post-images img:first-child:nth-last-child(2),
+  .post-images img:first-child:nth-last-child(2) ~ img {
+    width: calc(50% - 5px);
+  }
+  .post-images img:first-child:nth-last-child(3),
+  .post-images img:first-child:nth-last-child(3) ~ img {
+    width: calc(33.33% - 7px);
+  }
+  .post-images img:first-child:nth-last-child(4),
+  .post-images img:first-child:nth-last-child(4) ~ img {
+    width: calc(50% - 5px);
   }
   .post-reactions {
     padding: 10px 15px;
@@ -110,28 +129,10 @@
   <div class="post-content">
     <p>{{content_text}}</p>
   </div>
-  <img
-    alt="Group of young people posing for a photo"
-    class="post-image"
-    height="300"
-    src="{{content_visual}}"
-    width="500"
-  />
+  <div class="post-images">{{content_visual}}</div>
   <div class="post-reactions">
-    <img
-      alt="Like icon"
-      height="20"
-      src="https://storage.googleapis.com/a1aa/image/pdeIDYDCxGWVDi0UB9Sum1EyI82wEDcBxEeXSuquUK7imgsTA.jpg"
-      width="20"
-    />
-    <img
-      alt="Heart icon"
-      height="20"
-      src="https://storage.googleapis.com/a1aa/image/E0BPHCoOjQYZCx9NL4unDCUI2sQUZv9MffQSYQvx8pshmgsTA.jpg"
-      width="20"
-    />
     <span>
-      Nissade Shiomara Roca Layme, Emperatriz Alanoca y 9 personas más
+      {{usuarios_likes}}
     </span>
   </div>
   <div class="post-actions">
