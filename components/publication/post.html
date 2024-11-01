@@ -61,6 +61,7 @@
     border-top: 1px solid #dddfe2;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .post-reactions img {
     width: 20px;
@@ -92,6 +93,22 @@
   }
   .post-comment {
     padding: 10px 15px;
+  }
+  .historial-comment {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .comment-content {
+    background-color: var(--background-input);
+    border-radius: 20px;
+    padding: 10px 15px;
+  }
+  .comment-content .author {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .container-comment {
     display: flex;
     align-items: center;
   }
@@ -104,9 +121,10 @@
   .post-comment input {
     width: 100%;
     padding: 8px 10px;
-    border: 1px solid #dddfe2;
+    border: 0;
     border-radius: 20px;
     font-size: 14px;
+    background-color: var(--background-input);
   }
 </style>
 
@@ -131,9 +149,8 @@
   </div>
   <div class="post-images">{{content_visual}}</div>
   <div class="post-reactions">
-    <span>
-      {{usuarios_likes}}
-    </span>
+    <span> {{numero_reacciones}} me gusta </span>
+    <span> {{numero_comentarios}} comentarios </span>
   </div>
   <div class="post-actions">
     <button>
@@ -154,15 +171,24 @@
     </button>
   </div>
   <div class="post-comment">
-    <img
-      alt="Profile picture"
-      height="30"
-      src="{{imagen_perfil}}"
-      width="30"
-    />
-    <input
-      placeholder="Comentar como {{usuario_actual}}"
-      type="text"
-    />
+    <div class="historial-comment">
+      <img src="{{imagen_autor_comentario}}" />
+      <div class="comment-content">
+        <div class="author">{{usuario_comentario}}</div>
+        <div class="text">{{contenido_comentario}}</div>
+      </div>
+    </div>
+    <div class="container-comment">
+      <img
+        alt="Profile picture"
+        height="30"
+        src="{{imagen_perfil}}"
+        width="30"
+      />
+      <input
+        placeholder="Comentar como {{usuario_actual}}"
+        type="text"
+      />
+    </div>
   </div>
 </div>
