@@ -1,54 +1,6 @@
 <?php
-$response = [
-  'user' => [
-    'id' => 12,
-    'name' => 'Edison Pontecil',
-    'profile_image' => 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/08/05/000796433W.jpg',
-    'imagen_portada' => 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/08/05/000796433W.jpg',
-    'numero_amigos' => 25,
-    'location' => 'Perú, Cusco',
-    'origin' => 'Cusco'
-  ],
-  'amigos' => [
-    [
-      'image_perfil' => 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/08/05/000796433W.jpg',
-      'name' => 'Edison Pontecil',
-      'location' => 'Perú, Cusco'
-    ]
-  ],
-  'posts' => [
-    [
-      'image_perfil' => 'https://portal.andina.pe/EDPfotografia3/Thumbnail/2021/08/05/000796433W.jpg',
-      'author' => 'Edison Pontecil',
-      'date' => '31 de octubre de 2024',
-      'content_text' => 'Hola mundo. Este es mi primera publicación.',
-      'content_images' => [
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Family_Portrait.jpg/1200px-Family_Portrait.jpg',
-      ],
-      'comentarios' => [
-        'numero_comentarios' => 8,
-        'content_comentarios' => [
-          [
-            'imagen_perfil' => 'https://img.olympics.com/images/image/private/t_1-1_300/f_auto/v1687307644/primary/cqxzrctscdr8x47rly1g',
-            'autor_comentario' => 'Alex Perez',
-            'fecha_comentario' => '31 de octubre de 2024',
-            'contenido_comentario' => 'Buen día.',
-          ]
-        ]
-      ],
-      'reacciones' => [
-        'numero_reacciones' => 12,
-        'usuarios_reacciones' => [
-          'Edison Pontecil',
-          'Edison Pontecil',
-          'Edison Pontecil',
-          'Edison Pontecil',
-        ]
-      ]
-    ],
-  ]
-];
-
+include_once __DIR__ . '/../api/user/perfil_user.php';
+$response =  buildResponse($id);
 
 
 $user_name = $response['user']['name'];
