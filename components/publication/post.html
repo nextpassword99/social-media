@@ -1,0 +1,167 @@
+<style>
+  .post-container {
+    /* width: 500px; */
+    /* margin: 20px auto; */
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+  }
+  .post-header img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  .post-header .post-author {
+    font-weight: bold;
+  }
+  .post-header .post-date {
+    color: #606770;
+    font-size: 12px;
+  }
+  .post-content {
+    padding: 0 15px 10px 15px;
+  }
+  .post-content p {
+    margin: 0;
+    font-size: 14px;
+  }
+  .post-image {
+    width: 100%;
+    height: auto;
+  }
+  .post-reactions {
+    padding: 10px 15px;
+    border-top: 1px solid #dddfe2;
+    display: flex;
+    align-items: center;
+  }
+  .post-reactions img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  .post-reactions span {
+    color: #606770;
+    font-size: 14px;
+  }
+  .post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #dddfe2;
+    border-bottom: 1px solid #dddfe2;
+  }
+  .post-actions button {
+    background: none;
+    border: none;
+    color: #606770;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .post-actions button i {
+    margin-right: 5px;
+  }
+  .post-comment {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+  }
+  .post-comment img {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  .post-comment input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #dddfe2;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+</style>
+
+<div class="post-container">
+  <div class="post-header">
+    <img
+      alt="Profile picture"
+      height="40"
+      src="{{imagen_perfil}}"
+      width="40"
+    />
+    <div>
+      <div class="post-author">{{autor_post}}</div>
+      <div class="post-date">
+        {{fecha_post}} ·
+        <i class="fas fa-globe-americas"> </i>
+      </div>
+    </div>
+  </div>
+  <div class="post-content">
+    <p>{{content_text}}</p>
+  </div>
+  <img
+    alt="Group of young people posing for a photo"
+    class="post-image"
+    height="300"
+    src="{{content_visual}}"
+    width="500"
+  />
+  <div class="post-reactions">
+    <img
+      alt="Like icon"
+      height="20"
+      src="https://storage.googleapis.com/a1aa/image/pdeIDYDCxGWVDi0UB9Sum1EyI82wEDcBxEeXSuquUK7imgsTA.jpg"
+      width="20"
+    />
+    <img
+      alt="Heart icon"
+      height="20"
+      src="https://storage.googleapis.com/a1aa/image/E0BPHCoOjQYZCx9NL4unDCUI2sQUZv9MffQSYQvx8pshmgsTA.jpg"
+      width="20"
+    />
+    <span>
+      Nissade Shiomara Roca Layme, Emperatriz Alanoca y 9 personas más
+    </span>
+  </div>
+  <div class="post-actions">
+    <button>
+      <i class="far fa-thumbs-up"> </i>
+      Me gusta
+    </button>
+    <button>
+      <i class="far fa-comment"> </i>
+      Comentar
+    </button>
+    <button>
+      <i class="far fa-share-square"> </i>
+      Enviar
+    </button>
+    <button>
+      <i class="fas fa-share"> </i>
+      Compartir
+    </button>
+  </div>
+  <div class="post-comment">
+    <img
+      alt="Profile picture"
+      height="30"
+      src="{{imagen_perfil}}"
+      width="30"
+    />
+    <input
+      placeholder="Comentar como {{usuario_actual}}"
+      type="text"
+    />
+  </div>
+</div>

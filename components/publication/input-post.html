@@ -1,0 +1,82 @@
+<style>
+  .post-container {
+    background-color: var(--background-primary);
+    border-radius: 8px;
+    padding: 10px;
+    /* width: 500px; */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .post-input {
+    background-color: var(--background-input);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    color: #b0b3b8;
+    width: 100%;
+  }
+  .post-input:hover {
+    background-color: var(--background-input-hover);
+  }
+  .post-input::placeholder {
+    color: #b0b3b8;
+  }
+  .post-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  .post-action {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b0b3b8;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .post-action i {
+    margin-right: 5px;
+  }
+  .post-action:hover {
+    background-color: var(--background-primary-hover);
+    border-radius: 5px;
+  }
+</style>
+
+<div class="post-container">
+  <div class="post-header">
+    <img
+      alt="Profile picture"
+      class="profile-pic"
+      height="40"
+      src="{{imagen_perfil}}"
+      width="40"
+    />
+    <input
+      class="post-input"
+      placeholder="¿Qué estás pensando?"
+      type="text"
+    />
+  </div>
+  <div class="post-actions">
+    <div class="post-action">
+      <i
+        class="fas fa-video"
+        style="color: #f02849"
+      >
+      </i>
+      <span>Agregar video o foto</span>
+    </div>
+  </div>
+</div>
