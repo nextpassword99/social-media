@@ -21,6 +21,10 @@ foreach ($response['posts'] as $post) {
   $post_publicado = str_replace('{{content_text}}', $post['content_text'], $post_publicado);
   $post_publicado = str_replace('{{numero_reacciones}}', $post['reacciones']['numero_reacciones'], $post_publicado);
   $post_publicado = str_replace('{{numero_comentarios}}', $post['comentarios']['numero_comentarios'], $post_publicado);
+  $post_publicado = str_replace('{{post_id}}', $post['publicacion_id'], $post_publicado);
+  $post_publicado = str_replace('{{usuario_actual}}', $user_name, $post_publicado);
+  $post_publicado = str_replace('{{user_id}}', $id, $post_publicado);
+  $post_publicado = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas': 'far', $post_publicado);
   
   $comentarios = $post['comentarios']['content_comentarios'] ?? [];
   $primer_comentario = $comentarios[0] ?? null;
