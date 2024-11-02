@@ -1,5 +1,7 @@
 <?php
 include_once __DIR__ . '/../api/main/main.php';
+include_once __DIR__ . '/../utils/functions.php';
+
 $id = 1;
 $response = buildResponseMain($id);
 
@@ -13,8 +15,11 @@ $create_post = str_replace('{{imagen_perfil}}', $profile_image, $create_post);
 
 $content_user = $create_post;
 
+$post_publicado = file_get_contents(__DIR__ . '/../components/publication/post.html');
+$content_user .= extractStyles($post_publicado);
+$template_post = removeStyles($post_publicado);
 foreach ($response['posts'] as $post) {
-  $post_publicado = file_get_contents(__DIR__ . '/../components/publication/post.html');
+  $post_publicado = $template_post;
   $post_publicado = str_replace('{{imagen_perfil}}', $post['image_perfil'], $post_publicado);
   $post_publicado = str_replace('{{autor_post}}', $post['author'], $post_publicado);
   $post_publicado = str_replace('{{fecha_post}}', $post['date'], $post_publicado);
@@ -24,11 +29,11 @@ foreach ($response['posts'] as $post) {
   $post_publicado = str_replace('{{post_id}}', $post['publicacion_id'], $post_publicado);
   $post_publicado = str_replace('{{usuario_actual}}', $user_name, $post_publicado);
   $post_publicado = str_replace('{{user_id}}', $id, $post_publicado);
-  $post_publicado = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas': 'far', $post_publicado);
-  
+  $post_publicado = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas' : 'far', $post_publicado);
+
   $comentarios = $post['comentarios']['content_comentarios'] ?? [];
   $primer_comentario = $comentarios[0] ?? null;
-  
+
   $post_publicado = str_replace('{{view_comment}}', $post['comentarios']['numero_comentarios'] > 0 ? 'active' : 'disabled', $post_publicado);
   $post_publicado = str_replace('{{imagen_autor_comentario}}', $primer_comentario['imagen_perfil'] ?? '', $post_publicado);
   $post_publicado = str_replace('{{usuario_comentario}}', $primer_comentario['autor_comentario'] ?? '', $post_publicado);
