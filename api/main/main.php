@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . '/../db_config.php';
 include_once __DIR__ . '/../user/perfil_user.php';
+include_once __DIR__ . '/../user/like.php';
 
 /**
  * Devuelve las publicaciones de los amigos del usuario con el $user_id dado.
@@ -113,6 +114,7 @@ function buildResponseMain($user_id)
       ],
       'reacciones' => [
         'numero_reacciones' => getCountLikesByPostId($post_id),
+        'is_liked' => checkIfLikeExists($post_id, $user_id),
       ]
     ];
   }
