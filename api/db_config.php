@@ -1,11 +1,11 @@
 <?php
 function getConnection()
 {
-  $host = '23.108.108.219';
+  $host = 'localhost';
   $port = '5432';
-  $dbname = 'socialmedia';
-  $user = 'socialmedia';
-  $pass = '23VUOvCCZIjkUOH';
+  $dbname = 'postgres';
+  $user = 'postgres';
+  $pass = '123456';
 
   try {
     $conn = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $pass);
