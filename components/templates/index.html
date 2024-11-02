@@ -1,7 +1,7 @@
 <style>
   .user-container {
     width: 100%;
-    max-width: 1218px;
+    max-width: 1470px;
     margin: 0 auto;
     padding: 1rem;
   }
@@ -9,16 +9,17 @@
     display: flex;
     gap: 1rem;
   }
-  .user-container .panel-left {
-    width: 42%;
+  .user-container :is(.panel-left, .panel-right) {
+    width: 20%;
   }
   .user-container .content-user {
-    width: 58%;
+    width: 80%;
   }
 </style>
 <div class="user-container">
   <div class="panel-container">
-    <div class="panel-left">{{aside}}</div>
+    <div class="panel-left">{{aside_left}}</div>
     <div class="content-user">{{content}}</div>
+    <div class="panel-right">{{aside_right}}</div>
   </div>
 </div>
