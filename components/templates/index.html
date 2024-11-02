@@ -29,26 +29,35 @@
     const allPostContainer = document.querySelectorAll(".post-container");
 
     allPostContainer.forEach((postContainer) => {
-      const likeButton = postContainer.getElementById("like-button");
+      const likeButton = postContainer.querySelector(".like-button");
+      const likeCount = postContainer.querySelector(
+        ".post-reactions .count-likes"
+      );
 
-      likeButton.addEventListener("click", function () {
-        const postId = this.dataset.postId;
-
-        fetch("/handle-form/like.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ post_id: postId }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data) {
-              likeButton.querySelector("i").classList.replace("far", "fas");
-            }
+      if (likeButton) {
+        likeButton.addEventListener("click", function () {
+          const postId = this.dataset.postId;
+          const userId = this.dataset.userId;
+          fetch("/handle-form/like", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ post_id: postId, user_id: userId }),
           })
-          .catch((error) => console.error("Error:", error));
-      });
+            .then((response) => response.json())
+            .then((data) => {
+              if (data) {
+                likeButton.querySelector("i").classList.replace("far", "fas");
+                likeCount.textContent = parseInt(likeCount.textContent) + 1;
+              } else {
+                likeButton.querySelector("i").classList.replace("fas", "far");
+                likeCount.textContent = parseInt(likeCount.textContent) - 1;
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+      }
     });
   });
 </script>
