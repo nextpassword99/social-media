@@ -173,11 +173,15 @@
   </div>
   <div class="post-images">{{content_visual}}</div>
   <div class="post-reactions">
-    <span> {{numero_reacciones}} me gusta </span>
-    <span> {{numero_comentarios}} comentarios </span>
+    <span>{{numero_reacciones}} me gusta</span>
+    <span>{{numero_comentarios}} comentarios</span>
   </div>
   <div class="post-actions">
-    <button>
+    <button
+      id="like-button"
+      data-post-id="{{post_id}}"
+      class="{{liked_class}}"
+    >
       <i class="far fa-thumbs-up"> </i>
       Me gusta
     </button>
