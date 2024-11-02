@@ -92,6 +92,7 @@ function buildResponseMain($user_id)
     $comentarios = getCommentsByPostId($post_id);
 
     $response['posts'][] = [
+      'publicacion_id' => $post['publicacion_id'],
       'image_perfil' => $post['image_perfil'],
       'author' => $post['author'],
       'date' => $post['fecha_publicacion'],
