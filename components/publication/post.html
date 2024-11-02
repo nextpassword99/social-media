@@ -99,6 +99,9 @@
     align-items: center;
     margin-bottom: 10px;
   }
+  .historial-comment.disabled {
+    display: none;
+  }
   .comment-content {
     background-color: var(--background-input);
     border-radius: 20px;
@@ -191,7 +194,7 @@
     </button>
   </div>
   <div class="post-comment">
-    <div class="historial-comment">
+    <div class="historial-comment {{view_comment}}">
       <img src="{{imagen_autor_comentario}}" />
       <div class="comment-content">
         <div class="author">{{usuario_comentario}}</div>
