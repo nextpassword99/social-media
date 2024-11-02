@@ -49,7 +49,23 @@ function getRandomPosts($limit = 5)
   return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
+/**
+ * Devuelve el número de likes de una publicación.
+ *
+ * @param int $post_id El ID de la publicación.
+ *
+ * @return int El número de likes.
+ */
+function getCountLikesByPostId($post_id)
+{
+  $conn = getConnection();
+  $sql = "SELECT COUNT(*) AS total_likes FROM t_likes WHERE publicacion_id = :post_id";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(':post_id', $post_id);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result['total_likes'];
+}
 
 function buildResponseMain($user_id)
 {
@@ -95,8 +111,7 @@ function buildResponseMain($user_id)
         }, $comentarios)
       ],
       'reacciones' => [
-        'numero_reacciones' => 0,
-        'usuarios_reacciones' => []
+        'numero_reacciones' => getCountLikesByPostId($post_id),
       ]
     ];
   }
