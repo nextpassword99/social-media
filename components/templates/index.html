@@ -23,3 +23,32 @@
     <div class="panel-right">{{aside_right}}</div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const allPostContainer = document.querySelectorAll(".post-container");
+
+    allPostContainer.forEach((postContainer) => {
+      const likeButton = postContainer.getElementById("like-button");
+
+      likeButton.addEventListener("click", function () {
+        const postId = this.dataset.postId;
+
+        fetch("/handle-form/like.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ post_id: postId }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data) {
+              likeButton.querySelector("i").classList.replace("far", "fas");
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    });
+  });
+</script>
