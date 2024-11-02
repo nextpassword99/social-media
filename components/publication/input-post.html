@@ -3,7 +3,6 @@
     background-color: var(--background-primary);
     border-radius: 8px;
     padding: 10px;
-    /* width: 500px; */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   .post-header {
@@ -52,6 +51,68 @@
     background-color: var(--background-primary-hover);
     border-radius: 5px;
   }
+
+  .create-post-container {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .create-post-content {
+    background-color: var(--background-primary);
+    padding: 1rem;
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .create-post-perfil {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .create-post-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #dddfe2;
+    padding: 8px;
+  }
+  .create-post-input {
+    width: 100%;
+  }
+  .create-post-input textarea {
+    width: 100%;
+    min-height: 10rem;
+    resize: none;
+    border: none;
+    font-size: 2rem;
+    outline: none;
+  }
+  .create-post-actions button {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+  }
+  .create-post-actions button:hover {
+    background-color: darken(var(--primary-color), 10%);
+  }
 </style>
 
 <div class="post-container">
@@ -59,9 +120,7 @@
     <img
       alt="Profile picture"
       class="profile-pic"
-      height="40"
       src="{{imagen_perfil}}"
-      width="40"
     />
     <input
       class="post-input"
@@ -74,9 +133,53 @@
       <i
         class="fas fa-video"
         style="color: #f02849"
-      >
-      </i>
+      ></i>
       <span>Agregar video o foto</span>
     </div>
   </div>
 </div>
+
+<div class="create-post-container">
+  <div class="create-post-content">
+    <div class="create-post-header">
+      <h2>Crear publicación</h2>
+    </div>
+    <div class="create-post-perfil">
+      <img
+        class="profile-pic"
+        src="{{imagen_perfil}}"
+        alt="Profile picture"
+      />
+      <span>{{autor_post}}</span>
+    </div>
+    <div class="create-post-input">
+      <textarea
+        class="post-input"
+        placeholder="¿Qué estás pensando?"
+      ></textarea>
+    </div>
+    <div class="create-post-actions">
+      <button>Publicar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const postInput = document.querySelector(".post-input");
+  const containerPost = document.querySelector(".create-post-container");
+
+  postInput.addEventListener("click", () => {
+    containerPost.style.display = "block";
+  });
+
+  containerPost.addEventListener("click", (event) => {
+    if (
+      event.target !== containerPost.querySelector(".create-post-content") &&
+      !containerPost
+        .querySelector(".create-post-content")
+        .contains(event.target)
+    ) {
+      containerPost.style.display = "none";
+    }
+  });
+</script>
