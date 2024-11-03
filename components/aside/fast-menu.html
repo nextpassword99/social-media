@@ -1,0 +1,78 @@
+<style>
+  .fast-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-color);
+    width: 100%;
+    max-width: 344px;
+  }
+  .fast-menu-item:hover {
+    background-color: var(--background-input-hover);
+  }
+  .fast-menu-item img {
+    width: 36px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
+  .fast-menu-item span {
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .fast-menu-item .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+  }
+  .fast-menu-item .icon i {
+    color: var(--background-primary);
+    font-size: 20px;
+  }
+</style>
+
+<div class="fast-menu">
+  <div class="fast-menu-container">
+    <a
+      href="#"
+      class="fast-menu-item"
+    >
+      <img src="{{imagen_perfil}}" />
+      <span>{{usuario_actual}}</span>
+    </a>
+    <a
+      href="#"
+      class="fast-menu-item"
+    >
+      <div class="icon">
+        <i class="fas fa-user-friends"></i>
+      </div>
+      <span>Amigos</span>
+    </a>
+    <a
+      href="#"
+      class="fast-menu-item"
+    >
+      <div class="icon">
+        <i class="fas fa-images"></i>
+      </div>
+      <span>Imágenes</span>
+    </a>
+    <a
+      href="#"
+      class="fast-menu-item"
+    >
+      <div class="icon">
+        <i class="fas fa-video"></i>
+      </div>
+      <span>Videos</span>
+    </a>
+  </div>
+</div>
