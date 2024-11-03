@@ -2,6 +2,13 @@
 include_once __DIR__ . '/../api/main/main.php';
 include_once __DIR__ . '/../utils/functions.php';
 
+define('POST_HTML_PATH', __DIR__ . '/../components/publication/post.html');
+define('INPUT_POST_HTML_PATH', __DIR__ . '/../components/publication/input-post.html');
+define('ASIDE_LEFT_HTML_PATH', __DIR__ . '/../components/aside/fast-menu.html');
+define('TEMPLATE_HTML_PATH', __DIR__ . '/../components/templates/index.html');
+define('LAYOUT_PATH', __DIR__ . '/../layouts/layout.php');
+
+
 $id = 1;
 $response = buildResponseMain($id);
 
@@ -9,57 +16,81 @@ $user_name = $response['user']['name'];
 $profile_image = $response['user']['profile_image'];
 $title_page = "Social Media";
 
-$create_post = file_get_contents(__DIR__ . '/../components/publication/input-post.html');
-$create_post = str_replace('{{title}}', "Usuario $user_name", $create_post);
-$create_post = str_replace('{{imagen_perfil}}', $profile_image, $create_post);
+$content_user = generateUserContent($response, $user_name, $profile_image);
+$aside_left = generateAsideMenu($profile_image, $user_name);
+$template_user = generateMainTemplate($content_user, $aside_left);
+outputFinalLayout($template_user);
 
-$content_user = $create_post;
+function generateUserContent($response, $user_name, $profile_image)
+{
+  $create_post = file_get_contents(INPUT_POST_HTML_PATH);
+  $create_post = str_replace('{{title}}', "Usuario $user_name", $create_post);
+  $create_post = str_replace('{{imagen_perfil}}', $profile_image, $create_post);
 
-$post_publicado = file_get_contents(__DIR__ . '/../components/publication/post.html');
-$content_user .= extractStyles($post_publicado);
-$template_post = removeStyles($post_publicado);
-foreach ($response['posts'] as $post) {
-  $post_publicado = $template_post;
-  $post_publicado = str_replace('{{imagen_perfil}}', $post['image_perfil'], $post_publicado);
-  $post_publicado = str_replace('{{autor_post}}', $post['author'], $post_publicado);
-  $post_publicado = str_replace('{{fecha_post}}', $post['date'], $post_publicado);
-  $post_publicado = str_replace('{{content_text}}', $post['content_text'], $post_publicado);
-  $post_publicado = str_replace('{{numero_reacciones}}', $post['reacciones']['numero_reacciones'], $post_publicado);
-  $post_publicado = str_replace('{{numero_comentarios}}', $post['comentarios']['numero_comentarios'], $post_publicado);
-  $post_publicado = str_replace('{{post_id}}', $post['publicacion_id'], $post_publicado);
-  $post_publicado = str_replace('{{usuario_actual}}', $user_name, $post_publicado);
-  $post_publicado = str_replace('{{user_id}}', $id, $post_publicado);
-  $post_publicado = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas' : 'far', $post_publicado);
+  $content_user = $create_post;
+  $content_user .= extractStyles(file_get_contents(POST_HTML_PATH));
+  $post_template = removeStyles(file_get_contents(POST_HTML_PATH));
+
+  foreach ($response['posts'] as $post) {
+    $content_user .= buildPostHtml($post, $post_template, $user_name);
+  }
+
+  return $content_user;
+}
+
+function buildPostHtml($post, $post_template, $user_name)
+{
+  $post_html = $post_template;
+  $post_html = str_replace('{{imagen_perfil}}', $post['image_perfil'], $post_html);
+  $post_html = str_replace('{{autor_post}}', $post['author'], $post_html);
+  $post_html = str_replace('{{fecha_post}}', $post['date'], $post_html);
+  $post_html = str_replace('{{content_text}}', $post['content_text'], $post_html);
+  $post_html = str_replace('{{numero_reacciones}}', $post['reacciones']['numero_reacciones'], $post_html);
+  $post_html = str_replace('{{numero_comentarios}}', $post['comentarios']['numero_comentarios'], $post_html);
+  $post_html = str_replace('{{post_id}}', $post['publicacion_id'], $post_html);
+  $post_html = str_replace('{{usuario_actual}}', $user_name, $post_html);
+  $post_html = str_replace('{{user_id}}', 1, $post_html);
+  $post_html = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas' : 'far', $post_html);
 
   $comentarios = $post['comentarios']['content_comentarios'] ?? [];
   $primer_comentario = $comentarios[0] ?? null;
 
-  $post_publicado = str_replace('{{view_comment}}', $post['comentarios']['numero_comentarios'] > 0 ? 'active' : 'disabled', $post_publicado);
-  $post_publicado = str_replace('{{imagen_autor_comentario}}', $primer_comentario['imagen_perfil'] ?? '', $post_publicado);
-  $post_publicado = str_replace('{{usuario_comentario}}', $primer_comentario['autor_comentario'] ?? '', $post_publicado);
-  $post_publicado = str_replace('{{contenido_comentario}}', $primer_comentario['contenido_comentario'] ?? '', $post_publicado);
+  $post_html = str_replace('{{view_comment}}', $post['comentarios']['numero_comentarios'] > 0 ? 'active' : 'disabled', $post_html);
+  $post_html = str_replace('{{imagen_autor_comentario}}', $primer_comentario['imagen_perfil'] ?? '', $post_html);
+  $post_html = str_replace('{{usuario_comentario}}', $primer_comentario['autor_comentario'] ?? '', $post_html);
+  $post_html = str_replace('{{contenido_comentario}}', $primer_comentario['contenido_comentario'] ?? '', $post_html);
 
   $content_visual = '';
-  if (count($post['content_images']) > 0) {
-    foreach ($post['content_images'] as $image_url) {
-      $content_visual .= '<img alt="Post image" src="' . htmlspecialchars($image_url) . '" />';
-    }
+  foreach ($post['content_images'] as $image_url) {
+    $content_visual .= '<img alt="Post image" src="' . htmlspecialchars($image_url) . '" />';
   }
-  $post_publicado = str_replace('{{content_visual}}', $content_visual, $post_publicado);
+  $post_html = str_replace('{{content_visual}}', $content_visual, $post_html);
 
-  $content_user .= $post_publicado;
+  return $post_html;
 }
 
-$aside_left = file_get_contents(__DIR__ . '/../components/aside/fast-menu.html');
-$aside_left = str_replace('{{imagen_perfil}}', $profile_image, $aside_left);
-$aside_left = str_replace('{{usuario_actual}}', $user_name, $aside_left);
+function generateAsideMenu($profile_image, $user_name)
+{
+  $aside_left = file_get_contents(ASIDE_LEFT_HTML_PATH);
+  $aside_left = str_replace('{{imagen_perfil}}', $profile_image, $aside_left);
+  $aside_left = str_replace('{{usuario_actual}}', $user_name, $aside_left);
 
-$template_user = file_get_contents(__DIR__ . '/../components/templates/index.html');
-$template_user = str_replace('{{content}}', $content_user, $template_user);
-$template_user = str_replace('{{aside_left}}', $aside_left, $template_user);
+  return $aside_left;
+}
 
-ob_start();
-include __DIR__ . '/../layouts/layout.php';
-$template = ob_get_clean();
-$template = str_replace('{{content}}', $template_user, $template);
-echo $template;
+function generateMainTemplate($content_user, $aside_left)
+{
+  $template_user = file_get_contents(TEMPLATE_HTML_PATH);
+  $template_user = str_replace('{{content}}', $content_user, $template_user);
+  $template_user = str_replace('{{aside_left}}', $aside_left, $template_user);
+
+  return $template_user;
+}
+
+function outputFinalLayout($template_user)
+{
+  ob_start();
+  include LAYOUT_PATH;
+  $template = ob_get_clean();
+  echo str_replace('{{content}}', $template_user, $template);
+}
