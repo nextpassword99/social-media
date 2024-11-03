@@ -1,0 +1,35 @@
+<style>
+  .amigo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 12px;
+    color: var(--text-color);
+  }
+  .amigo:hover {
+    background-color: var(--background-input-hover);
+  }
+  .amigo .container-img {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    clip-path: circle(50.2% at 50% 50%);
+  }
+  .amigo .container-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<div class="amigo">
+  <div class="container-img">
+    <img
+      alt="Profile picture"
+      src="{{imagen_perfil}}"
+    />
+  </div>
+  <span>{{usuario_actual}}</span>
+</div>
