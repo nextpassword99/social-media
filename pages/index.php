@@ -19,7 +19,7 @@ $title_page = "Social Media";
 $content_user = generateUserContent($response, $user_name, $profile_image);
 $aside_left = generateAsideMenu($profile_image, $user_name);
 $template_user = generateMainTemplate($content_user, $aside_left);
-outputFinalLayout($template_user);
+outputFinalLayout($template_user, $title_page);
 
 function generateUserContent($response, $user_name, $profile_image)
 {
@@ -87,10 +87,12 @@ function generateMainTemplate($content_user, $aside_left)
   return $template_user;
 }
 
-function outputFinalLayout($template_user)
+function outputFinalLayout($template_user, $title_page)
 {
   ob_start();
   include LAYOUT_PATH;
   $template = ob_get_clean();
-  echo str_replace('{{content}}', $template_user, $template);
+  $template = str_replace('{{title}}', $title_page, $template);
+  $template = str_replace('{{content}}', $template_user, $template);
+  echo  $template;
 }
