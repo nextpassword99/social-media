@@ -5,6 +5,7 @@ include_once __DIR__ . '/../utils/functions.php';
 define('POST_HTML_PATH', __DIR__ . '/../components/publication/post.html');
 define('INPUT_POST_HTML_PATH', __DIR__ . '/../components/publication/input-post.html');
 define('ASIDE_LEFT_HTML_PATH', __DIR__ . '/../components/aside/fast-menu.html');
+define('ASIDE_RIGHT_HTML_PATH', __DIR__ . '/../components/aside/amigos.html');
 define('TEMPLATE_HTML_PATH', __DIR__ . '/../components/templates/index.html');
 define('LAYOUT_PATH', __DIR__ . '/../layouts/layout.php');
 
@@ -18,7 +19,8 @@ $title_page = "Social Media";
 
 $content_user = generateUserContent($response, $user_name, $profile_image);
 $aside_left = generateAsideMenu($profile_image, $user_name);
-$template_user = generateMainTemplate($content_user, $aside_left);
+$aside_right = generateFriendsPanel($response['amigos']);
+$template_user = generateMainTemplate($content_user, $aside_left, $aside_right);
 outputFinalLayout($template_user, $title_page);
 
 function generateUserContent($response, $user_name, $profile_image)
@@ -78,11 +80,33 @@ function generateAsideMenu($profile_image, $user_name)
   return $aside_left;
 }
 
-function generateMainTemplate($content_user, $aside_left)
+function generateFriendsPanel($friends)
+{
+  $aside_right = file_get_contents(ASIDE_RIGHT_HTML_PATH);
+  $card_amigo = file_get_contents(__DIR__ . '/../components/aside/amigo-card.html');
+
+  $card_amigo_styles = extractStyles($card_amigo);
+  $card_amigo = removeStyles($card_amigo);
+
+  $content_amigos = '';
+  foreach ($friends as $friend) {
+    $card_amigo = str_replace('{{imagen_perfil}}', $friend['profile_image'], $card_amigo);
+    $card_amigo = str_replace('{{nombre_amigo}}', $friend['name'], $card_amigo);
+    $content_amigos .= $card_amigo;
+  }
+
+  $aside_right = str_replace('{{content_amigos}}', $content_amigos, $aside_right);
+  $aside_right .= $card_amigo_styles;
+
+  return $aside_right;
+}
+
+function generateMainTemplate($content_user, $aside_left, $aside_right)
 {
   $template_user = file_get_contents(TEMPLATE_HTML_PATH);
   $template_user = str_replace('{{content}}', $content_user, $template_user);
   $template_user = str_replace('{{aside_left}}', $aside_left, $template_user);
+  $template_user = str_replace('{{aside_right}}', $aside_right, $template_user);
 
   return $template_user;
 }
