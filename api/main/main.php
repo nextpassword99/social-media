@@ -81,7 +81,17 @@ function buildResponseMain($user_id)
       'name' => $user['nombre'] . ' ' . $user['apellido'],
       'profile_image' => $user['foto_perfil'],
     ],
-    'posts' => []
+    'posts' => [],
+    'amigos' => array_map(
+      function ($c) {
+        return [
+          'id' => $c['usuario_id'],
+          'name' => $c['nombre'] . ' ' . $c['apellido'],
+          'profile_image' => $c['foto_perfil'],
+        ];
+      },
+      getFriendsByUserId($user_id)
+    ),
   ];
 
   $posts = getPostsFromFriends($user_id) ?? [];
