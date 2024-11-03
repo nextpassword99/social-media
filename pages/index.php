@@ -50,8 +50,13 @@ foreach ($response['posts'] as $post) {
   $content_user .= $post_publicado;
 }
 
+$aside_left = file_get_contents(__DIR__ . '/../components/aside/fast-menu.html');
+$aside_left = str_replace('{{imagen_perfil}}', $profile_image, $aside_left);
+$aside_left = str_replace('{{usuario_actual}}', $user_name, $aside_left);
+
 $template_user = file_get_contents(__DIR__ . '/../components/templates/index.html');
 $template_user = str_replace('{{content}}', $content_user, $template_user);
+$template_user = str_replace('{{aside_left}}', $aside_left, $template_user);
 
 ob_start();
 include __DIR__ . '/../layouts/layout.php';
