@@ -1,0 +1,98 @@
+<style>
+  .video-container {
+    width: 800px;
+    margin-left: 80px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #dddfe3;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .video iframe {
+    width: 100%;
+    height: calc(100% * 9 / 16);
+    border-radius: 8px;
+  }
+
+  .content-video {
+    padding: 5px 15px 10px;
+  }
+
+  .content-video p {
+    margin: 0;
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+  }
+
+  .interactions-video {
+    padding: 10px 15px;
+    border-top: 1px solid #dddfe2;
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+    justify-content: space-between;
+    color: #606770;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .interactions-video .actions-video {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+  }
+
+  .interactions-video .reactions-video {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    white-space: nowrap;
+    margin-right: 20px;
+    overflow: auto;
+  }
+  .actions-video button {
+    background: none;
+    border: none;
+    color: #606770;
+    font-size: 14px;
+    display: flex;
+    margin-right: 25px;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .actions-video i {
+    margin-right: 5px;
+  }
+</style>
+<div class="video-container">
+  <div class="video">
+    {{content-visual}}
+  </div>
+  <div class="content-video">
+    <p>{{content-text}}</p>
+  </div>
+  <div class="interactions-video">
+    <div class="actions-video">
+      <button class="like-button-video">
+        <i class="far fa-thumbs-up"></i>Me gusta
+      </button>
+      <button><i class="far fa-comment"></i>Comentar</button>
+      <button><i class="fas fa-share"></i>Compartir</button>
+    </div>
+    <div class="reactions-video">
+      <div>
+        <span class="count-likes-video">{{numero-reacciones-video}}</span>Me
+        gusta
+      </div>
+      <div>
+        <span class="count-comments-video">{{numero-comentarios-video}}</span
+        >Comentar
+      </div>
+    </div>
+  </div>
+</div>
