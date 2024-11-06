@@ -10,15 +10,15 @@ define('TEMPLATE_HTML_PATH', __DIR__ . '/../components/templates/index.html');
 define('LAYOUT_PATH', __DIR__ . '/../layouts/layout.php');
 
 
-$id = 1;
-$response = buildResponseMain($id);
+$id_user_actual = 1;
+$response = buildResponseMain($id_user_actual);
 
 $user_name = $response['user']['name'];
 $profile_image = $response['user']['profile_image'];
 $title_page = "Social Media";
 
 $content_user = generateUserContent($response, $user_name, $profile_image);
-$aside_left = generateAsideMenu($profile_image, $user_name);
+$aside_left = generateAsideMenu($profile_image, $user_name, $id_user_actual);
 $aside_right = generateFriendsPanel($response['amigos']);
 $template_user = generateMainTemplate($content_user, $aside_left, $aside_right);
 outputFinalLayout($template_user, $title_page);
@@ -71,11 +71,12 @@ function buildPostHtml($post, $post_template, $user_name)
   return $post_html;
 }
 
-function generateAsideMenu($profile_image, $user_name)
+function generateAsideMenu($profile_image, $user_name, $id_user_actual)
 {
   $aside_left = file_get_contents(ASIDE_LEFT_HTML_PATH);
   $aside_left = str_replace('{{imagen_perfil}}', $profile_image, $aside_left);
   $aside_left = str_replace('{{usuario_actual}}', $user_name, $aside_left);
+  $aside_left = str_replace('{{id_usuario_actual}}', (int)$id_user_actual, $aside_left);
 
   return $aside_left;
 }
