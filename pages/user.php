@@ -1,6 +1,6 @@
 <?php
 include_once __DIR__ . '/../api/user/perfil_user.php';
-$response =  buildResponse($id);
+$response =  buildResponse($id_user_actual);
 
 
 $user_name = $response['user']['name'];
