@@ -1,8 +1,8 @@
 <?php
 include_once __DIR__ . '/../api/user/perfil_user.php';
+$id_user_actual = $id; // `$id` es el valor del parámetro de la URL
+
 $response =  buildResponse($id_user_actual);
-
-
 $user_name = $response['user']['name'];
 $profile_image = $response['user']['profile_image'];
 $title_page = "$user_name | Social Media";
