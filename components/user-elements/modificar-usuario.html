@@ -1,0 +1,134 @@
+    <style>
+        .centrar {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .details-window {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+        }
+        .details-window h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .details-section {
+            border:none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .details-section h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .details-section button {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            color: blue;
+            border: none;
+            border-radius: 2px;
+            padding: 4px 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .details-section button .add-icon {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        .botonestilo {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border: none;
+            margin-top: 10px;
+        }
+        .cancelarbtn {
+            background-color: #d3d3d3;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .cancelarbtn {
+            background-color: #bcbcbc;
+        }
+        .guardarbtn {
+            background-color: #1877F2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .guardarbtn {
+            background-color: #145db2;
+        }
+    </style>
+    <centrar>
+    <div class="details-window">
+        <h2>Editar detalles</h2>
+        <hr>
+
+        <div class="details-section">
+            <h3>Pronombres</h3>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir pronombres
+            </button>
+        </div>
+
+        <div class="details-section">
+            <h3>Empleo</h3>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir un lugar de trabajo
+            </button>
+        </div>
+
+        <div class="details-section">
+            <h3>Formación académica</h3>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir un instituto
+            </button>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir una universidad
+            </button>
+        </div>
+
+        <div class="details-section">
+            <h3>Ciudad actual</h3>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir ciudad actual
+            </button>
+        </div>
+
+        <div class="details-section">
+            <h3>Situación sentimental</h3>
+            <button>
+                <span class="add-icon">+</span>
+                Añadir situación sentimental
+            </button>
+        </div>
+
+        <hr>
+        <div class="botonstilo">
+    <button class="cancelarbtn" onclick="window.location.href='h1.html'">Cancelar</button>
+    <button class="guardarbtn">Guardar</button>
+</div>
+    </div>
+</centrar>
