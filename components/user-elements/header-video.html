@@ -1,0 +1,74 @@
+<style>
+  .vd-header {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .vd-header button {
+    background-color: #e0e3ea;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .vd-header .vd-text {
+    font-weight: 1000;
+    font-size: 25px;
+    color: black;
+    margin-right: 15px;
+    text-decoration: none;
+  }
+  .vd-text a {
+    text-decoration: none;
+    color: black;
+  }
+  .vd-header .vd-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .vd-search {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    border-radius: 20px;
+    background-color: #e0e3ea;
+    padding: 8px 15px;
+    position: relative;
+    margin-left: auto;
+  }
+  .vd-search input {
+    border: none;
+    background: none;
+    outline: none;
+    padding-left: 5px;
+    font-size: 15px;
+  }
+
+  .vd-search i {
+    color: #757575ff;
+  }
+</style>
+
+<div class="vd-header">
+  <div class="vd-text"><a href="#">Video</a></div>
+  <a href="#"><button>Inicio</button></a>
+  <a href="#"><button>En vivo</button></a>
+  <a href="#"><button>Reels</button></a>
+  <a href="#"><button>Programas</button></a>
+  <a href="#"><button>Explorar</button></a>
+  <a href="#"><button>Videos guardados</button></a>
+  <a href="#"><button>Seguidas</button></a>
+  <div class="vd-search">
+    <i class="fas fa-search"></i>
+    <input type="text" placeholder="Buscar videos" />
+  </div>
+</div>
