@@ -11,7 +11,7 @@
     vertical-align: top;
   }
 
-  .video iframe {
+  .video video {
     width: 100%;
     height: calc(100% * 9 / 16);
     border-radius: 8px;
@@ -71,10 +71,12 @@
 </style>
 <div class="video-container">
   <div class="video">
-    {{content-visual}}
+    <video controls>
+      <source src="{{url_video}}">
+    </video>
   </div>
   <div class="content-video">
-    <p>{{content-text}}</p>
+    <p>{{content_text}}</p>
   </div>
   <div class="interactions-video">
     <div class="actions-video">
@@ -86,11 +88,11 @@
     </div>
     <div class="reactions-video">
       <div>
-        <span class="count-likes-video">{{numero-reacciones-video}}</span>Me
+        <span class="count-likes-video">{{numero_reacciones_video}}</span>Me
         gusta
       </div>
       <div>
-        <span class="count-comments-video">{{numero-comentarios-video}}</span
+        <span class="count-comments-video">{{numero_comentarios_video}}</span
         >Comentar
       </div>
     </div>
