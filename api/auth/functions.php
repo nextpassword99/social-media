@@ -2,6 +2,16 @@
 include_once __DIR__ . "/../db_config.php";
 
 
+/**
+ * Comprueba las credenciales de un usuario y devuelve un array con el id del
+ * usuario y su token de inicio de sesión si es v lido, o false de lo contrario.
+ *
+ * @param string $email El correo electrónico del usuario a verificar.
+ * @param string $password La contraseña del usuario a verificar.
+ *
+ * @return array|false Un array con el id del usuario y su token de inicio de
+ *         sesión si es válido, o false de lo contrario.
+ */
 function comprobarCredencialesDeUsuario($email, $password)
 {
     $conn = getConnection();
