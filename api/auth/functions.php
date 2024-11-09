@@ -5,12 +5,21 @@ include_once __DIR__ . "/../db_config.php";
 function comprobarCredencialesDeUsuario($email, $password)
 {
     $conn = getConnection();
-    $sql = "SELECT usuario_id FROM t_usuarios WHERE email = :email AND contraseña = :pass";
+    $sql = "SELECT usuario_id, token, contraseña FROM t_usuarios WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":email", $email, PDO::PARAM_STR);
-    $stmt->bindParam(":pass", $password, PDO::PARAM_STR);
     $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario && password_verify($password, $usuario['contraseña'])) {
+        return [
+            'usuario_id' => $usuario['usuario_id'],
+            'token' => $usuario['token']
+        ];
+    } else {
+        return false;
+    }
 }
 
 function comprobarSiExisteEmail($email)
