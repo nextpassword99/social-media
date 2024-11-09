@@ -1,0 +1,72 @@
+<style>
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #dcdfe6;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 0px solid;
+        border-radius: 3px;
+        box-sizing: border-box;
+        background-color: #0D92F4;
+        color: white;
+        cursor: pointer;
+    }
+
+    .container {
+        background-color: #FFF;
+        border-radius: 10px;
+        padding: 30px;
+        border: 1px solid #dcdfe6;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+    }
+
+    body {
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .foto {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 20px auto;
+        background-size: cover;
+    }
+    .botons{
+        color :#fff ;
+        background-color: #0D92F4;
+        border-radius: 5px;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+
+<div class="container">
+    <h1>
+        Inicio de Sesión
+        <div>{{foto_de_perfil}}</div>
+    </h1>
+    <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Usuario" required>
+        <br>
+        <input type="password" name="password" placeholder="Contraseña" required>
+        <br>
+        <button type="submit" class="botons">Iniciar sección</button>
+    </form>
+</div>
