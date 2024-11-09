@@ -62,12 +62,17 @@
     margin: 0;
     font-size: 24px;
   }
+  .auth-container__error {
+    color: red;
+    font-size: 12px;
+    text-transform: capitalize;
+  }
 </style>
 
 <div class="auth-container">
   <h1 class="auth-container__title">Inicio de Sesión</h1>
   <form
-    action="/login"
+    action="/login-process"
     method="POST"
     class="auth-form"
   >
@@ -94,4 +99,5 @@
       Iniciar sesión
     </button>
   </form>
+  <div class="auth-container__error">{{mensaje_error}}</div>
 </div>
