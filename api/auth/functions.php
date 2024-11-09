@@ -22,6 +22,27 @@ function comprobarCredencialesDeUsuario($email, $password)
     }
 }
 
+/**
+ * Genera un token aleatorio para el usuario con el ID dado.
+ *
+ * @param int $usuario_id El ID del usuario al que se le va a generar el token.
+ *
+ * @return string El token generado.
+ */
+function generarToken($usuario_id)
+{
+    $token = bin2hex(random_bytes(32));
+
+    $conn = getConnection();
+    $sql = "UPDATE t_usuarios SET token = :token WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":token", $token, PDO::PARAM_STR);
+    $stmt->bindParam(":usuario_id", $usuario_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $token;
+}
+
 function comprobarSiExisteEmail($email)
 {
     $conn = getConnection();
