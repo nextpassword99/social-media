@@ -41,3 +41,18 @@ function crearCuentaDeUsuario($nombre, $apellido, $email, $pass)
         return 0;
     }
 }
+
+/**
+ * Comprueba si se ha iniciado una sesión de usuario.
+ * La sesión se considera iniciada si se ha establecido el id_usuario
+ * y el token de sesión.
+ *
+ * @param int $id_usuario El id del usuario.
+ * @param string $token El token de sesión.
+ *
+ * @return bool True si se ha iniciado una sesión, false en caso contrario.
+ */
+function comprobarInicioSession($id_usuario, $token)
+{
+    return (isset($id_usuario) && isset($token));
+}
