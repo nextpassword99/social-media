@@ -43,6 +43,32 @@ function generarToken($usuario_id)
     return $token;
 }
 
+/**
+ * Verifica que el token sea válido para el usuario con el ID dado.
+ *
+ * @param int    $usuario_id El ID del usuario al que se le va a verificar el token.
+ * @param string $token      El token a verificar.
+ *
+ * @return bool True si el token es válido, false de lo contrario.
+ */
+function verificarToken($usuario_id, $token)
+{
+    $conn = getConnection();
+    $sql = "SELECT token FROM t_usuarios WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":usuario_id", $usuario_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario && $usuario['token'] === $token) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function comprobarSiExisteEmail($email)
 {
     $conn = getConnection();
