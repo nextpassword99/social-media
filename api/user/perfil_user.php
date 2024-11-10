@@ -1,5 +1,7 @@
 <?php
 include_once __DIR__ . '/../db_config.php';
+include_once __DIR__ . '/like.php';
+include_once __DIR__ . '/../main/main.php';
 
 /**
  * Devuelve una matriz asociativa que representa al usuario con el $user_id dado
@@ -136,8 +138,8 @@ function buildResponse($user_id)
         }, $comentarios)
       ],
       'reacciones' => [
-        'numero_reacciones' => 0,
-        'usuarios_reacciones' => []
+        'numero_reacciones' => getCountLikesByPostId($post_id),
+        'is_liked' => checkIfLikeExists($post_id, $user_id),
       ]
     ];
   }
