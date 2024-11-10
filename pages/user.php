@@ -23,6 +23,7 @@ foreach ($response['posts'] as $post) {
   $post_publicado = str_replace('{{imagen_autor_comentario}}', $post['comentarios']['content_comentarios'][0]['imagen_perfil'], $post_publicado);
   $post_publicado = str_replace('{{usuario_comentario}}', $post['comentarios']['content_comentarios'][0]['autor_comentario'], $post_publicado);
   $post_publicado = str_replace('{{contenido_comentario}}', $post['comentarios']['content_comentarios'][0]['contenido_comentario'], $post_publicado);
+  $post_publicado = str_replace('{{is_liked}}', $post['reacciones']['is_liked'] ? 'fas' : 'far', $post_publicado);
 
   $content_visual = '';
   if (count($post['content_images']) > 0) {
