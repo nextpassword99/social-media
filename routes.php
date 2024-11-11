@@ -4,7 +4,7 @@ require_once __DIR__.'/router.php';
 
 get('/', 'pages/index.php');
 get('/user/$id', 'pages/user');
-get('/user/$id/amigos', 'pages/amigos.php');
+get('/amigos', 'pages/amigos.php');
 post('/handle-form/like', 'pages/handle-form/add_like.php');
 GET('/login', 'pages/login.php');
 GET('/login/$error', 'pages/login.php');
