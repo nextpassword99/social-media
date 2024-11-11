@@ -16,18 +16,17 @@
     display: flex;
     align-items: center;
     text-transform: uppercase;
+    text-decoration: none;
+    color: black;
   }
   .header img {
-    /* width: 30px; */
     height: 30px;
     padding: 5px 10px;
     border-radius: 20px;
-    /* border: 1px solid #dddfe2; */
   }
   .header .icons {
     display: flex;
     align-items: center;
-    /* background-color: red; */
   }
   .header .icons i {
     margin: 0 10px;
@@ -37,19 +36,21 @@
 </style>
 
 <div class="header">
-  <div class="logo">
+  <a
+    href="/"
+    class="logo"
+  >
     <img
       src="https://cdn-icons-png.flaticon.com/512/9942/9942115.png"
       alt=""
     />
     <span>Social Media</span>
-  </div>
+  </a>
   <div class="icons">
-    <i class="fas fa-home"> </i>
-    <i class="fas fa-tv"></i>
-    <i class="fas fa-store"></i>
-    <i class="fas fa-users"></i>
-    <i class="fas fa-bell"></i>
-    <i class="fas fa-user-circle"></i>
+    <a href="/"><i class="fas fa-home"></i></a>
+    <a href="#"><i class="fas fa-tv"></i></a>
+    <a href="#"><i class="fas fa-users"></i></a>
+    <a href="#"><i class="fas fa-bell"></i></a>
+    <a href="#"><i class="fas fa-user-circle"></i></a>
   </div>
 </div>

@@ -1,10 +1,15 @@
 <style>
   .information-user {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
     width: 100%;
+    height: 100%;
+  }
+  .information-user .content-detalles {
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    position: sticky;
+    top: calc(50px + 1rem);
   }
   .information-user h2 {
     font-size: 18px;
@@ -13,7 +18,6 @@
   }
   .information-user .details > * {
     margin-bottom: 20px;
-    
   }
   .button {
     background-color: var(--button-secondary);
@@ -41,18 +45,20 @@
 </style>
 
 <div class="information-user">
-  <h2>Detalles</h2>
-  <div class="details">
-    <button class="button">Agregar presentación</button>
-    <div class="info">
-      <i class="fas fa-home"></i>
-      Vive en {{lugar_vive}}
+  <div class="content-detalles">
+    <h2>Detalles</h2>
+    <div class="details">
+      <button class="button">Agregar presentación</button>
+      <div class="info">
+        <i class="fas fa-home"></i>
+        Vive en {{lugar_vive}}
+      </div>
+      <div class="info">
+        <i class="fas fa-map-marker-alt"></i>
+        De {{lugar_origen}}
+      </div>
+      <button class="button">Editar detalles</button>
+      <button class="button">Agregar destacados</button>
     </div>
-    <div class="info">
-      <i class="fas fa-map-marker-alt"></i>
-      De {{lugar_origen}}
-    </div>
-    <button class="button">Editar detalles</button>
-    <button class="button">Agregar destacados</button>
   </div>
 </div>
