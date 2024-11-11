@@ -1,6 +1,15 @@
 <?php
+session_start();
 include_once __DIR__ . '/../api/main/main.php';
 include_once __DIR__ . '/../utils/functions.php';
+include __DIR__ . '/../api/auth/functions.php';
+
+$validarSession = comprobarInicioSession($_SESSION["usuario_id"], $_SESSION["token"]);
+if (!$validarSession) {
+  header('Location: /login');
+  exit;
+}
+
 
 define('POST_HTML_PATH', __DIR__ . '/../components/publication/post.html');
 define('INPUT_POST_HTML_PATH', __DIR__ . '/../components/publication/input-post.html');
