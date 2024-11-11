@@ -4,7 +4,7 @@ include_once __DIR__ . "/../api/user/perfil_user.php";
 include_once __DIR__ . "/../api/videos/videos.php";
 
 define('LAYOUT_PATH', __DIR__ . '/../layouts/layout.php');
-define('TEMPLATE_HTML_VIDEOS', __DIR__ . '/../components/templates/videos.html');
+define('TEMPLATE_HTML_VIDEOS', __DIR__ . '/../components/templates/video_id.html');
 define('VIDEO_PLAYER', __DIR__ . '/../components/publication/video-player.html');
 define('CONTENT_COMENTARIOS', __DIR__ . '/../components/publication/contenedor-comentario.html');
 
