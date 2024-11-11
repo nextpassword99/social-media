@@ -1,8 +1,6 @@
 <style>
   .video-container {
-    width: 800px;
-    margin-left: 80px;
-    margin-bottom: 20px;
+    width: 100%;
     background-color: #fff;
     border: 1px solid #dddfe3;
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
@@ -13,8 +11,9 @@
 
   .video video {
     width: 100%;
-    height: calc(100% * 9 / 16);
+    aspect-ratio: 16 / 9;
     border-radius: 8px;
+    background-color: black;
   }
 
   .content-video {
