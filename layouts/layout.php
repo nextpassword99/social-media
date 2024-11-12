@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+class Layout
+{
+  private $contenido;
+  private $meta_tags;
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php echo htmlspecialchars($title_page); ?></title>
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    rel="stylesheet" />
-  <!-- <link rel="stylesheet" href="/styles/style.css"> -->
+  public function __construct(string $contenido, array $meta_tags)
+  {
+    $this->contenido = $contenido;
+    $this->meta_tags = $meta_tags;
+  }
 
-  <style>
-    <?php
+  public function render()
+  {
+    $layout = file_get_contents(__DIR__ . '/main.html');
+    $header = file_get_contents(__DIR__ . '/header.html');
     $css = file_get_contents(__DIR__ . '/../styles/style.css');
-    echo $css;
-    ?>
-  </style>
-</head>
+    $css_html = '<style>' . $css . '</style>';
 
-<body>
-  <?php include 'header.html'; ?>
+    $layout = str_replace('{{titulo_pagina}}', $this->meta_tags['titulo_pagina'], $layout);
+    $layout = str_replace('{{estilos_css}}', $css_html, $layout);
+    $layout = str_replace('{{header}}', $header, $layout);
+    $layout = str_replace('{{content}}', $this->contenido, $layout);
 
-  <main>
-    {{content}}
-  </main>
-
-</body>
-
-</html>
+    echo $layout;
+  }
+}
