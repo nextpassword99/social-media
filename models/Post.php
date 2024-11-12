@@ -12,6 +12,7 @@ class Post
   {
     $this->post_id = $post_id;
     $this->db = new DB();
+    $this->cargarPost();
   }
 
   private function cargarPost()
@@ -63,7 +64,7 @@ class Post
   public function getImgsPorIdPost($post_id)
   {
     $conn = $this->db->getConnection();
-    $query = "SELECT url_imagen FROM t_imagenes WHERE post_id = :post_id";
+    $query = "SELECT * FROM t_imagenes WHERE post_id = :post_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':post_id', $post_id);
     $stmt->execute();
