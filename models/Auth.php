@@ -135,7 +135,7 @@ class Auth
    *
    * @return bool True si la sesión es válida, false de lo contrario.
    */
-  public function validarSession()
+  public static function validarSession()
   {
     return isset($_SESSION['usuario_id']) && isset($_SESSION['token']);
   }
