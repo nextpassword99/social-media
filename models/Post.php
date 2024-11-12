@@ -34,8 +34,8 @@ class Post
   public function getPostsPorIdUsuario($user_id)
   {
     $conn = $this->db->getConnection();
-    $query = "SELECT p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil AS image_perfil, u.nombre AS author
-              FROM t_publicaciones p
+    $query = "SELECT u.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
+              FROM t_posts p
                       JOIN t_usuarios u ON u.usuario_id = p.usuario_id
               WHERE p.usuario_id = :user_id";
     $stmt = $conn->prepare($query);
