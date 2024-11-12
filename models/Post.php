@@ -49,7 +49,7 @@ class Post
   public function getComentariosPorIdPost($post_id)
   {
     $conn = $this->db->getConnection();
-    $query = "SELECT c.contenido, c.fecha_comentario, u.foto_perfil AS imagen_perfil, u.nombre AS autor_comentario
+    $query = "SELECT c.usuario_id, c.contenido, c.fecha_comentario, u.foto_perfil, u.nombre, u.apellido
             FROM t_comentarios c
               JOIN t_usuarios u ON u.usuario_id = c.usuario_id
             WHERE c.post_id = :post_id";
