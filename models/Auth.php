@@ -125,4 +125,18 @@ class Auth
       return 0;
     }
   }
+
+  /**
+   * Verifica si la sesión actual es válida.
+   *
+   * Verifica que se hayan establecido las variables de sesión 'usuario_id' y
+   * 'token'. Si se han establecido, devuelve true, de lo contrario devuelve
+   * false.
+   *
+   * @return bool True si la sesión es válida, false de lo contrario.
+   */
+  public function validarSession()
+  {
+    return isset($_SESSION['usuario_id']) && isset($_SESSION['token']);
+  }
 }
