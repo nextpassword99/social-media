@@ -1,47 +1,8 @@
 <style>
-  .description-container-video {
-    width: calc(100% - 80px);
-    margin-left: 0px;
-    max-width: 540px;
-    margin-bottom: 20px;
-    height: auto;
-    border: 1px solid #dddfe2;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    vertical-align: top;
+  .container-comentarios {
+    width: 100%;
   }
-
-  .post-header-video {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-  }
-
-  .post-header-video img {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
-  .post-description-video {
-    display: flex;
-    border-top: 1px solid #dddfe2;
-    border-bottom: 1px solid #dddfe2;
-  }
-  .container-comment-video {
-    display: flex;
-    align-items: center;
-    padding: 5px 5px 5px 5px;
-    border-top: 1px solid #dddfe2;
-  }
-  .description-container-video img {
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-  }
-  .description-container-video textarea {
+  .container-comentarios textarea {
     width: 100%;
     height: 2rem;
     padding: 8px 20px;
@@ -52,47 +13,43 @@
     resize: none;
     outline: none;
   }
-  .description-container-video
+  .content-send-comentario {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 1rem;
+  }
+  .content-send-comentario
     textarea:not(:placeholder-shown)
-    ~ .comment-send-post-video {
+    ~ .content-button-comentario {
     display: block;
   }
-  .description-container-video .comment-send-post-video {
+  .content-send-comentario .content-button-comentario {
     margin-left: 1rem;
     display: none;
   }
-  .description-container-video .comment-send-post-video button {
+  .content-send-comentarios button {
     background: none;
     border: none;
     color: #606770;
-    font-size: 14px;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .comment-video {
-    padding: 8px 8px 8px 8px;
-  }
 </style>
-<div class="description-container-video">
-  <div class="post-header-video">
-    <img src="{{imagen_perfil}}" alt="Profile picture" height="40" width="40" />
-    <div>
-      <div class="post-autor">{{autor_post}}</div>
-      <div class="post-date">
-        {{fecha_post}} <i class="fas fa-globe-americas"></i>
-      </div>
-    </div>
-  </div>
-  <div class="post-description-video">
-    <p>{{content_description}}</p>
-  </div>
-  <div class="comment-video">{{content_comentarios_video}}</div>
-  <div class="container-comment-video">
-    <img alt="Profile picture" height="30" src="{{imagen_perfil}}" width="30" />
+<div class="container-comentarios">
+  <div class="content-comentarios">{{content_comentarios_video}}</div>
+  <div class="content-send-comentario">
+    <img
+      alt="Profile picture"
+      height="30"
+      src="{{imagen_perfil}}"
+      width="30"
+    />
     <textarea placeholder="Comentar como {{usuario_actual}}"></textarea>
-    <div class="comment-send-post-video">
+    <div class="content-button-comentario">
       <button><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
