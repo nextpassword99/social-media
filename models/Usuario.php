@@ -12,6 +12,7 @@ class Usuario
   {
     $this->usuario_id = $usuario_id;
     $this->db = new DB();
+    $this->cargarDatos();
   }
 
   private function cargarDatos()
