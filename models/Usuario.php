@@ -31,6 +31,11 @@ class Usuario
     $this->foto_perfil = $data['foto_perfil'];
   }
 
+  public function getUsuarioId()
+  {
+    return $this->usuario_id;
+  }
+
   public function getNombre()
   {
     return $this->nombre;
