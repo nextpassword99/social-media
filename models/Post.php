@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/DB.php';
 class Post
 {
   private $post_id;
