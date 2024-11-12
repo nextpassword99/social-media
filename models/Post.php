@@ -72,6 +72,24 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  /**
+   * Devuelve los videos de una publicación dada.
+   *
+   * @param int $post_id El ID de la publicación.
+   *
+   * @return array Los videos de la publicación.
+   */
+  public function getVideosPorIdPost($post_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT * FROM t_videos WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   public function getPostsAleatorios($limit = 10)
   {
     $conn = $this->db->getConnection();
