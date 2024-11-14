@@ -26,8 +26,10 @@ class IndexController
   {
     $template = file_get_contents(__DIR__ . '/../views/components/templates/index.html');
     return str_replace([
+      '{{aside_left}}',
       '{{content}}'
     ], [
+      $this->generarMenu(),
       $this->generarPosts()
     ], $template);
   }
@@ -58,5 +60,24 @@ class IndexController
     $post_html .= $file_post_estilos;
 
     return $post_html;
+  }
+
+  public function generarMenu()
+  {
+    $template = file_get_contents(__DIR__ . '/../views/components/aside/fast-menu.html');
+
+    return str_replace(
+      [
+        '{{imagen_perfil}}',
+        '{{usuario_actual}}',
+        '{{id_usuario_actual}}'
+      ],
+      [
+        $this->data_usuario_session['foto_perfil'],
+        $this->data_usuario_session['nombre'] . " " . $this->data_usuario_session['apellido'],
+        $this->usuario_id_session ?? 1
+      ],
+      $template
+    );
   }
 }
