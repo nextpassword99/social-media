@@ -10,8 +10,7 @@ require_once __DIR__ . '/../controllers/indexController.php';
 
 require_once __DIR__ . '/../layouts/layout.php';
 
-// $index = new IndexController(1);
-$index = new IndexController($_SESSION["usuario_id"]);
+$index = new IndexController($_SESSION["usuario_id"] ?? 1);
 $html = $index->render();
 $final = new Layout($html, ['titulo_pagina' => 'Social Media']);
 $final->render();
