@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/DB.php';
 class Auth
 {
   private $db;
@@ -21,14 +22,14 @@ class Auth
   public function comprobarCredencialesDeUsuario($email, $password)
   {
     $conn = $this->db->getConnection();
-    $sql = "SELECT usuario_id, token, contraseña FROM t_usuarios WHERE email = :email";
+    $sql = "SELECT usuario_id, token, pass FROM t_usuarios WHERE email = :email";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(":email", $email, PDO::PARAM_STR);
     $stmt->execute();
 
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuario && password_verify($password, $usuario['contraseña'])) {
+    if ($usuario && password_verify($password, $usuario['pass'])) {
       return [
         'usuario_id' => $usuario['usuario_id'],
         'token' => $usuario['token']
