@@ -63,9 +63,10 @@ class Usuario
    *
    * @return array Los datos de los usuarios
    */
-  public function getUsuariosAleatorios($limit = 10)
+  public static function getUsuariosAleatorios($limit = 10)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $sql = "SELECT * FROM t_usuarios ORDER BY RANDOM() LIMIT :limit";
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
