@@ -93,8 +93,8 @@ class Post
   public function getPostsAleatorios($limit = 10)
   {
     $conn = $this->db->getConnection();
-    $query = "SELECT p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
-              FROM t_publicaciones p
+    $query = "SELECT p.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
+              FROM t_posts p
                 JOIN t_usuarios u ON u.usuario_id = p.usuario_id
               ORDER BY RANDOM() 
               LIMIT :limit";
