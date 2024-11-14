@@ -1,5 +1,13 @@
 <?php
-// To call this page, in the browser type a route that doesn't exist like:
-// http://localhost/test/route
+require_once _DIR_ . '/../models/Auth.php';
 
-echo 'PAGE NOT FOUND';
+if (!Auth::validarSession()) {
+    header('Location: /login');
+    exit;
+}
+
+require_once _DIR_ . '/../layouts/layout.php';
+$hmtl = file_get_contents(_DIR_ . '/../views/components/templates/404.html');
+
+$final = new Layout($hmtl, ['titulo_pagina' => '404']);
+$final->render();
