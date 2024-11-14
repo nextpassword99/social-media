@@ -1,5 +1,5 @@
 <?php
-class amigo
+class Amigo
 {
   private $usuario_id_1;
   private $usuario_id_2;
@@ -31,11 +31,12 @@ class amigo
     $stmt->bindParam(":usuario_id_2", $this->usuario_id_2);
     $stmt->execute();
   }
-  public function getAmigosPorIdUsuario($user_id)
+  public static function getAmigosPorIdUsuario($user_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT u.usuario_id, u.nombre, u.apellido, u.ubicacion, u.foto_perfil
-              FROM t_amistades a
+              FROM t_amigos a
               JOIN t_usuarios u ON (u.usuario_id = a.usuario_id_2)
               WHERE a.usuario_id_1 = :user_id AND a.estado = 'aceptado'";
     $stmt = $conn->prepare($query);
