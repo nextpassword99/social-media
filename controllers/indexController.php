@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Post.php';
+require_once __DIR__ . '/../models/Amigo.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
 require_once __DIR__ . '/../components/PostComponent.php';
 class IndexController
@@ -27,10 +28,12 @@ class IndexController
     $template = file_get_contents(__DIR__ . '/../views/components/templates/index.html');
     return str_replace([
       '{{aside_left}}',
-      '{{content}}'
+      '{{content}}',
+      '{{aside_right}}',
     ], [
       $this->generarMenu(),
-      $this->generarPosts()
+      $this->generarPosts(),
+      $this->generarAmigos(),
     ], $template);
   }
 
@@ -79,5 +82,33 @@ class IndexController
       ],
       $template
     );
+  }
+
+  public function generarAmigos()
+  {
+
+    $template_container = file_get_contents((__DIR__ . '/../views/components/aside/amigos.html'));
+    $template_card = file_get_contents((__DIR__ . '/../views/components/aside/amigo-card.html'));
+
+    $amigo_card_sin_estilos = HtmlHelper::removeStyles($template_card);
+
+    $amigos = Amigo::getAmigosPorIdUsuario($this->usuario_id_session);
+    $amigo_card = HtmlHelper::extractStyles($template_card);
+    foreach ($amigos as $amigo) {
+      $amigo_card .= str_replace(
+        [
+          '{{imagen_perfil}}',
+          '{{nombre_amigo}}',
+        ],
+        [
+          $amigo['foto_perfil'],
+          $amigo['nombre'] . " " . $amigo['apellido']
+        ],
+        $amigo_card_sin_estilos
+      );
+    }
+    $template_container = str_replace('{{content_amigos}}', $amigo_card, $template_container);
+
+    return $template_container;
   }
 }
