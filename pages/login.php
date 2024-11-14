@@ -1,36 +1,61 @@
 <?php
 session_start();
 
-include __DIR__ . '/../api/auth/functions.php';
-define('LAYOUT_PATH', __DIR__ . '/../layouts/layout.php');
-define('TEMPLATE_HTML_LOGIN', __DIR__ . '/../components/user-elements/login.html');
+$html_login = file_get_contents(__DIR__ . '/../views/components/user-elements/login.html');
+$html_login = str_replace(
+  [
+    '{{mensaje_error}}',
+  ],
+  [
+    $error ?? '',
+  ],
+  $html_login
+);
 
-if (isset($_SESSION["id_usuario_login"]) && isset($_SESSION["token"])) {
-  header('Location: /');
-  exit;
-}
+echo $html_login;
 
-$mensaje_error = str_replace('-', ' ', $error ?? ''); // `$error` Recuperar el error de la url
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  require_once __DIR__ . '/../models/Auth.php';
+  function login($email, $password)
+  {
+    $auth = new Auth();
+    $credenciales = $auth->comprobarCredencialesDeUsuario($email, $password);
 
-$titulo_pagina = "Inicio de Sesión - Social Media";
+    if (!$credenciales) {
+      return false;
+    }
 
-$contenido_login = crearContenidoLogin($mensaje_error);
+    $usuario_id = $credenciales['usuario_id'];
+    $token = $credenciales['token'];
 
-platillaFinalSalida($contenido_login, $titulo_pagina);
+    if (!$token) {
+      $token = generarToken($usuario_id);
+    }
 
-function crearContenidoLogin($mensaje_error)
-{
-  $template_user = file_get_contents(TEMPLATE_HTML_LOGIN);
-  $template_user = str_replace('{{mensaje_error}}', $mensaje_error ?? '', $template_user);
-  return $template_user;
-}
+    $_SESSION['usuario_id'] = $usuario_id;
+    $_SESSION['token'] = $token;
 
-function platillaFinalSalida($template_user, $title_page)
-{
-  ob_start();
-  include LAYOUT_PATH;
-  $template = ob_get_clean();
-  $template = str_replace('{{title}}', $title_page, $template);
-  $template = str_replace('{{content}}', $template_user, $template);
-  echo  $template;
+    return true;
+  }
+
+
+  $data = json_decode(file_get_contents('php://input'), true);
+  $email = $_POST["email"] ?? null;
+  $password = $_POST["password"] ?? null;
+
+  if (!isset($email) || !isset($password)) {
+    header('Location: /login/datos-incompletos');
+    exit;
+  }
+
+
+  if ($email && $password) {
+    $result = login($email, $password);
+
+    if (!$result) {
+      header('Location: /login/no-existe-esta-cuenta');
+      exit;
+    }
+    header('Location: /');
+  }
 }
