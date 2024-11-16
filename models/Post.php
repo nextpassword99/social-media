@@ -70,6 +70,28 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public function getCountComentariosPorIdPost() // Posible static
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT COUNT(post_id) as count FROM t_comentarios WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $this->post_id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+  }
+
+  public function getUnComentarioPorIdPost() // Posible static
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT * FROM t_comentarios WHERE post_id = :post_id ORDER BY fecha_comentario DESC LIMIT 1";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $this->post_id);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   public static function setComentario($post_id, $usuario_id, $comentario)
   {
     $db = new DB();
