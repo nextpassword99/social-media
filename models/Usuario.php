@@ -74,4 +74,20 @@ class Usuario
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public static function getImgsPorIdUsuario($user_id)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "SELECT i.* FROM t_imagenes i 
+              JOIN t_posts p ON i.post_id = p.post_id 
+              WHERE usuario_id = :usuario_id
+              ORDER BY i.fecha_subida DESC
+              LIMIT 9";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':usuario_id', $user_id);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
