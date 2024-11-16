@@ -37,7 +37,7 @@ class UserController
       ],
       [
         $this->encabezadoUsuario(),
-        $this->detallesUsuario(),
+        $this->generarAside(),
         $this->postsUsuario(),
       ],
       $template
@@ -98,6 +98,14 @@ class UserController
     );
   }
 
+  function generarAside()
+  {
+    $detalles_usuario = $this->detallesUsuario();
+    $fotos = $this->fotos();
+
+    return $detalles_usuario . $fotos;
+  }
+
   public function detallesUsuario()
   {
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/details.html');
@@ -118,6 +126,34 @@ class UserController
 
     return $detalles_html;
   }
+
+  public function fotos()
+  {
+    $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/fotos.html');
+
+    $id_usuario = $this->usuario->getUsuarioId();
+    $imgs = Usuario::getImgsPorIdUsuario($id_usuario);
+
+    $content_imgs = '';
+    foreach ($imgs as $img) {
+      $content_imgs .= '<img src="' . htmlspecialchars($img['url_imagen']) . '"/>';
+    }
+
+    $html = str_replace(
+      [
+        '{{usuario_id}}',
+        '{{fotos}}',
+      ],
+      [
+        $id_usuario,
+        $content_imgs,
+      ],
+      $detalles_plantilla
+    );
+
+    return $html;
+  }
+
   public function cargarRecursos()
   {
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
