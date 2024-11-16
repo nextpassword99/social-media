@@ -1,6 +1,8 @@
 <style>
   .container-fotos {
-    width: 100%;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 1rem;
   }
   .container-fotos .header-fotos {
@@ -25,7 +27,7 @@
 <div class="container-fotos">
   <div class="header-fotos">
     <span>Fotos</span>
-    <a href="/fotos">Ver todas las fotos</a>
+    <a href="/user/{{usuario_id}}/imagenes">Ver todas las fotos</a>
   </div>
   <div class="content-fotos">{{fotos}}</div>
 </div>
