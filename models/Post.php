@@ -22,6 +22,15 @@ class Post
     $stmt = $conn->prepare($query);
     $stmt->bindParam(":post_id", $this->post_id);
     $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $this->fecha_publicacion = $result['fecha_publicacion'];
+    $this->usuario_id = $result['usuario_id'];
+    $this->descripcion = $result['descripcion'];
+  }
+  public function getUsuarioId()
+  {
+    return $this->usuario_id;
   }
   public function getDescripcion()
   {
@@ -59,6 +68,20 @@ class Post
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public static function setComentario($post_id, $usuario_id, $comentario)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_comentarios (post_id, usuario_id, contenido) VALUES (:post_id, :usuario_id, :contenido)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+    $stmt->bindParam(':contenido', $comentario, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
   }
 
   public function getImgsPorIdPost($post_id)
@@ -104,6 +127,18 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
+  public static function getVideosAleatorios($limit = 10)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = 'SELECT * FROM t_videos ORDER BY RANDOM() LIMIT :limite';
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':limite', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
   /**
    * Devuelve el número de likes de una publicación específica.
    *
@@ -130,9 +165,10 @@ class Post
    *
    * @return bool True si se agrego el like, false de lo contrario.
    */
-  public function addLike($post_id, $user_id)
+  public static function addLike($post_id, $user_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $sql = "INSERT INTO t_likes (publicacion_id, usuario_id) VALUES (:post_id, :user_id)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':post_id', $post_id);
@@ -152,9 +188,10 @@ class Post
    *
    * @return bool True si se ha eliminado el like, false de lo contrario.
    */
-  public function deleteLike($post_id, $user_id)
+  public static function deleteLike($post_id, $user_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $sql = "DELETE FROM t_likes WHERE publicacion_id = :post_id AND usuario_id = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':post_id', $post_id);
