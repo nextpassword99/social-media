@@ -31,12 +31,22 @@
     font-weight: bold;
     font-size: 12px;
   }
+  .comment-content-video a {
+    text-decoration: none;
+    color: black;
+  }
+  .comment-content-video a:hover {
+    text-decoration: underline;
+  }
 </style>
+
 <div class="post-comment-video">
   <div class="historial-comment-video {{view_comment}}">
     <img src="{{imagen_autor_comentario}}" />
     <div class="comment-content-video">
-      <div class="author">{{usuario_comentario}}</div>
+      <div class="author">
+        <a href="/user/{{usuario_id_comentario}}">{{usuario_comentario}}</a>
+      </div>
       <div class="text">{{contenido_comentario}}</div>
     </div>
   </div>
