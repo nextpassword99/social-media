@@ -25,10 +25,9 @@
     display: block;
   }
   .content-send-comentario .content-button-comentario {
-    margin-left: 1rem;
     display: none;
   }
-  .content-send-comentarios button {
+  .content-send-comentario button {
     background: none;
     border: none;
     color: #606770;
@@ -39,7 +38,11 @@
     justify-content: center;
   }
 </style>
-<div class="container-comentarios">
+<div
+  class="container-comentarios"
+  data-id-usuario="{{usuario_id_session}}"
+  data-id-post="{{post_id}}"
+>
   <div class="content-comentarios">{{content_comentarios_video}}</div>
   <div class="content-send-comentario">
     <img
@@ -50,7 +53,95 @@
     />
     <textarea placeholder="Comentar como {{usuario_actual}}"></textarea>
     <div class="content-button-comentario">
-      <button><i class="fas fa-paper-plane"></i></button>
+      <button>
+        <i class="fas fa-paper-plane"></i>
+      </button>
     </div>
   </div>
 </div>
+
+<script>
+  function crearComentario(imagenAutor, autor, comentario) {
+    const comentarioHtml = `
+      <div class="post-comment-video">
+        <div class="historial-comment-video">
+          <img src="${imagenAutor}" />
+          <div class="comment-content-video">
+            <div class="author">${autor}</div>
+            <div class="text">${comentario}</div>
+          </div>
+        </div>
+      </div>
+      `;
+    return comentarioHtml;
+  }
+
+  function obtenerDatos(containerComentario) {
+    const sendComentario = containerComentario.querySelector(
+      ".content-send-comentario"
+    );
+    const imagenUsuario = sendComentario.querySelector("img").src;
+    const comentario = sendComentario.querySelector("textarea").value;
+    const autor = sendComentario
+      .querySelector("textarea")
+      .placeholder.replace("Comentar como ", "");
+
+    return {
+      imagenAutor: imagenUsuario,
+      autor: autor,
+      comentario: comentario,
+    };
+  }
+
+  const todosComentarios = document.querySelectorAll(".container-comentarios");
+
+  console.log(todosComentarios.length);
+
+  todosComentarios.forEach((comentario) => {
+    const button = comentario.querySelector("button");
+    if (button) {
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const textarea = comentario.querySelector("textarea");
+        if (!textarea.value.trim()) return;
+
+        const idUsuario = comentario.dataset.idUsuario;
+        const idPost = comentario.dataset.idPost;
+        const comentarioText = textarea.value;
+
+        fetch("/handle-form/comentario", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            usuario_id: parseInt(idUsuario),
+            post_id: parseInt(idPost),
+            comentario: comentarioText,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data === true) {
+              const data = obtenerDatos(comentario);
+              const comentarioHtml = crearComentario(
+                data.imagenAutor,
+                data.autor,
+                data.comentario
+              );
+
+              comentario.querySelector(".content-comentarios").innerHTML +=
+                comentarioHtml;
+              comentario.querySelector("textarea").value = "";
+            } else {
+              console.error("Error al agregar comentario");
+            }
+          })
+          .catch((error) => {
+            console.error("Error en la solicitud fetch:", error);
+          });
+      });
+    }
+  });
+</script>
