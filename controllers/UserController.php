@@ -7,17 +7,29 @@ require __DIR__ . '/../components/PostComponent.php';
 class UserController
 {
   private $usuario;
+  private $data_usuario_session;
 
-  public function __construct($usuario_id)
+  public function __construct($usuario_id_session, $usuario_id)
   {
     $this->usuario = new Usuario($usuario_id);
+    $this->cargarDatos($usuario_id_session);
+  }
+
+  public function cargarDatos($usuario_id_session)
+  {
+    $usuario = new Usuario($usuario_id_session);
+    $this->data_usuario_session = [
+      'usuario_id' => $usuario->getUsuarioId(),
+      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
+      'foto_perfil' => $usuario->getFotoPerfil(),
+    ];
   }
 
   public function render()
   {
     $template = file_get_contents(__DIR__ . '/../views/components/templates/user.html');
 
-    return str_replace(
+    $content = str_replace(
       [
         '{{perfil_user}}',
         '{{aside}}',
@@ -30,6 +42,8 @@ class UserController
       ],
       $template
     );
+    $recursos = $this->cargarRecursos();
+    return $content . $recursos;
   }
 
   public function postsUsuario()
@@ -46,9 +60,11 @@ class UserController
     foreach ($posts_data as $post) {
       $post_component = new PostComponent(
         $post['usuario_id'],
+        $this->data_usuario_session['foto_perfil'],
+        $post['post_id'],
         $post['post_id'],
         $this->usuario->getFotoPerfil(),
-        "Edison",
+        $this->data_usuario_session['nombre_completo'],
         $post["nombre"] . " " . $post["apellido"],
         $post["fecha_publicacion"],
         $post["descripcion"],
@@ -65,12 +81,21 @@ class UserController
   public function encabezadoUsuario()
   {
     $header_plantilla = file_get_contents(__DIR__ . '/../views/components/user-elements/header.html');
-    $header_plantilla = str_replace('{{nombre_usuario}}', $this->usuario->getNombre(), $header_plantilla);
-    $header_plantilla = str_replace('{{imagen_perfil}}', $this->usuario->getFotoPerfil(), $header_plantilla);
-    $header_plantilla = str_replace('{{numero_amigos}}', '12', $header_plantilla);
-    $header_plantilla = str_replace('{{imagen_fondo}}', $this->usuario->getFotoPerfil(), $header_plantilla);
-
-    return $header_plantilla;
+    return str_replace(
+      [
+        '{{nombre_usuario}}',
+        '{{imagen_perfil}}',
+        '{{numero_amigos}}',
+        '{{imagen_fondo}}'
+      ],
+      [
+        $this->usuario->getNombre() . ' ' . $this->usuario->getApellido(),
+        $this->usuario->getFotoPerfil(),
+        11 . ' amigos',
+        $this->usuario->getFotoPerfil() ?? ''
+      ],
+      $header_plantilla
+    );
   }
 
   public function detallesUsuario()
@@ -92,5 +117,11 @@ class UserController
     );
 
     return $detalles_html;
+  }
+  public function cargarRecursos()
+  {
+    $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
+    $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
+    return $scripts_comentarios . $styles_burbuja;
   }
 }
