@@ -5,7 +5,7 @@ class ComentarioComponent
 {
   private $img_perfil;
   private $nombre_session;
-  private $usuario_id;
+  private $usuario_id_session;
   private $post_id;
   private $comentarios;
 
@@ -13,7 +13,7 @@ class ComentarioComponent
   {
     $this->img_perfil = $img_perfil;
     $this->nombre_session = $nombre_session;
-    $this->usuario_id = $usuario_id;
+    $this->usuario_id_session = $usuario_id;
     $this->post_id = $post_id;
     $this->comentarios = $comentarios;
   }
@@ -25,7 +25,7 @@ class ComentarioComponent
 
   public function render()
   {
-    $comentarios_contenedor = file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html');
+    $comentarios_contenedor = HtmlHelper::removeScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
     $comentario_burbuja = file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html');
 
     $comentarios_burbujas = $this->generarBurbujas($comentario_burbuja);
@@ -33,11 +33,15 @@ class ComentarioComponent
     return str_replace([
       '{{content_comentarios_video}}',
       '{{imagen_perfil}}',
-      '{{usuario_actual}}'
+      '{{usuario_actual}}',
+      '{{post_id}}',
+      '{{usuario_id_session}}',
     ], [
       $comentarios_burbujas,
       $this->img_perfil,
-      $this->nombre_session
+      $this->nombre_session,
+      $this->post_id,
+      $this->usuario_id_session,
     ], $comentarios_contenedor);
   }
 
@@ -51,14 +55,16 @@ class ComentarioComponent
       $comentarios_burbujas .= str_replace([
         '{{imagen_autor_comentario}}',
         '{{usuario_comentario}}',
-        '{{contenido_comentario}}'
+        '{{contenido_comentario}}',
+        '{{usuario_id_comentario}}',
       ], [
         $usuario->getFotoPerfil(),
         $usuario->getNombre() . ' ' . $usuario->getApellido(),
-        $comentario['contenido']
+        $comentario['contenido'],
+        $usuario->getUsuarioId(),
       ], HtmlHelper::removeStyles($comentario_burbuja));
     }
 
-    return $comentarios_burbujas . HtmlHelper::extractStyles($comentario_burbuja);
+    return $comentarios_burbujas;
   }
 }
