@@ -17,8 +17,7 @@ class IndexController
     $usuario = new Usuario($this->usuario_id_session ?? 1);
     $this->data_usuario_session = $usuario = [
       // 'usuario_id' => $usuario->getUsuarioId(),
-      'nombre' => $usuario->getNombre(),
-      'apellido' => $usuario->getApellido(),
+      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
       'email' => $usuario->getEmail(),
       'foto_perfil' => $usuario->getFotoPerfil()
     ];
@@ -26,7 +25,7 @@ class IndexController
   public function render()
   {
     $template = file_get_contents(__DIR__ . '/../views/components/templates/index.html');
-    return str_replace([
+    $content = str_replace([
       '{{aside_left}}',
       '{{content}}',
       '{{aside_right}}',
@@ -35,6 +34,9 @@ class IndexController
       $this->generarPosts(),
       $this->generarAmigos(),
     ], $template);
+    $recursos = $this->cargarRecursos();
+
+    return $content . $recursos;
   }
 
   public function generarPosts()
@@ -49,10 +51,12 @@ class IndexController
     $post_html = '';
     foreach ($posts as $post) {
       $postComponent = new PostComponent(
+        $this->usuario_id_session,
+        $this->data_usuario_session['foto_perfil'],
         $post["usuario_id"],
         $post['post_id'],
         $post['foto_perfil'],
-        "Edison",
+        $this->data_usuario_session['nombre_completo'],
         $post["nombre"] . " " . $post["apellido"],
         $post["fecha_publicacion"],
         $post["descripcion"],
@@ -77,7 +81,7 @@ class IndexController
       ],
       [
         $this->data_usuario_session['foto_perfil'],
-        $this->data_usuario_session['nombre'] . " " . $this->data_usuario_session['apellido'],
+        $this->data_usuario_session['nombre_completo'],
         $this->usuario_id_session ?? 1
       ],
       $template
@@ -110,5 +114,12 @@ class IndexController
     $template_container = str_replace('{{content_amigos}}', $amigo_card, $template_container);
 
     return $template_container;
+  }
+
+  public function cargarRecursos()
+  {
+    $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
+    $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
+    return $scripts_comentarios . $styles_burbuja;
   }
 }
