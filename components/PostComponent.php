@@ -45,15 +45,17 @@ class PostComponent
   {
 
     $postObject = new Post($this->post_id);
-    $comentarios = $postObject->getComentariosPorIdPost($this->post_id);
+    $count_comentarios = $postObject->getCountComentariosPorIdPost();
     $images = $this->visual == 'Mixto' || $this->visual == 'img' ? $postObject->getImgsPorIdPost($this->post_id) : [];
     $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? $postObject->getVideosPorIdPost($this->post_id) : [];
     $countLikes = $postObject->getCountLikesPorIdPost($this->post_id);
     $existeLike = $postObject->checkIfLikeExists($this->post_id, $this->user_id_session);
 
+    $comentarios = $postObject->getUnComentarioPorIdPost();
+
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
-    $post_html = $this->remplazarVariablesHtml($comentarios, $contenido_visual, $countLikes, $existeLike);
+    $post_html = $this->remplazarVariablesHtml($count_comentarios, $contenido_visual, $countLikes, $existeLike);
 
     $comentario = new ComentarioComponent($this->foto_perfil_session, $this->nombre_session, $this->user_id_session, $this->post_id, $comentarios);
     $post_html = str_replace('{{content_comentarios}}', $comentario->render(), $post_html);
@@ -76,7 +78,7 @@ class PostComponent
     return $contenido_visual;
   }
 
-  private function remplazarVariablesHtml($comentarios, $contenido_visual, $countLikes, $existeLike)
+  private function remplazarVariablesHtml($count_comentarios, $contenido_visual, $countLikes, $existeLike)
   {
     return str_replace([
       '{{imagen_perfil}}',
@@ -97,7 +99,7 @@ class PostComponent
       $this->content_text,
       $contenido_visual,
       $countLikes,
-      count($comentarios),
+      $count_comentarios,
       $this->post_id,
       $this->user_id_session,
       $this->nombre_session,
