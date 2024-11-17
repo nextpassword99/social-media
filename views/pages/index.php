@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../models/Auth.php';
-require_once __DIR__ . '/../controllers/indexController.php';
+require_once __DIR__ . '/../../models/Auth.php';
+require_once __DIR__ . '/../../controllers/indexController.php';
 
 if (!Auth::validarSession()) {
   header('Location: /login');

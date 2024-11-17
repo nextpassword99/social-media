@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../models/Auth.php';
+require_once __DIR__ . '/../../models/Auth.php';
 
 if (!Auth::validarSession()) {
     header('Location: /login');
@@ -7,7 +7,7 @@ if (!Auth::validarSession()) {
 }
 
 require_once __DIR__ . '/../layouts/layout.php';
-$hmtl = file_get_contents(__DIR__ . '/../views/components/templates/404.html');
+$html = file_get_contents(__DIR__ . '/../components/templates/404.html');
 
-$final = new Layout($hmtl, ['titulo_pagina' => '404']);
+$final = new Layout($html, ['titulo_pagina' => '404']);
 $final->render();

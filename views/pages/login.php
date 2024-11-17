@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$html_login = file_get_contents(__DIR__ . '/../views/components/user-elements/login.html');
+$html_login = file_get_contents(__DIR__ . '/../components/user-elements/login.html');
 $html_login = str_replace(
   [
     '{{mensaje_error}}',
@@ -15,7 +15,7 @@ $html_login = str_replace(
 echo $html_login;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  require_once __DIR__ . '/../models/Auth.php';
+  require_once __DIR__ . '/../../models/Auth.php';
   function login($email, $password)
   {
     $auth = new Auth();
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $token = $credenciales['token'];
 
     if (!$token) {
-      $token = generarToken($usuario_id);
+      $token = $auth->generarToken($usuario_id);
     }
 
     $_SESSION['usuario_id'] = $usuario_id;

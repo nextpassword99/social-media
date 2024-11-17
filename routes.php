@@ -2,15 +2,15 @@
 require_once __DIR__ . '/router.php';
 
 
-get('/', 'pages/index.php');
-get('/user/$usuario_id', 'pages/user');
-get('/amigos', 'pages/amigos.php');
-post('/handle-form/like', 'pages/handle-form/like.php');
-GET('/login', 'pages/login.php');
-GET('/login/$error', 'pages/login.php');
-POST('/login-process', 'pages/login.php');
-GET('/videos', 'pages/videos.php');
-GET('/videos/$post_id', 'pages/video_id.php');
-POST('/handle-form/comentario', 'pages/handle-form/comentario.php');
+get('/', 'views/pages/index.php');
+get('/user/$usuario_id', 'views/pages/user');
+get('/amigos', 'views/pages/amigos.php');
+post('/handle-form/like', 'views/pages/handle-form/like.php');
+GET('/login', 'views/pages/login.php');
+GET('/login/$error', 'views/pages/login.php');
+POST('/login-process', 'views/pages/login.php');
+GET('/videos', 'views/pages/videos.php');
+GET('/videos/$post_id', 'views/pages/video_id.php');
+POST('/handle-form/comentario', 'views/pages/handle-form/comentario.php');
 
-any('/404', 'pages/404.php');
+any('/404', 'views/pages/404.php');
