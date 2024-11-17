@@ -1,5 +1,16 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../models/Auth.php';
+
+header('Content-Type: application/json');
+
+if (!Auth::validarSession()) {
+  echo json_encode([
+    'procesado' => false,
+    'mensaje' => 'Usuario no autenticado'
+  ]);
+  exit;
+}
 
 $data = json_decode(file_get_contents('php://input'), true);
 
