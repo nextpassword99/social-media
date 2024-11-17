@@ -35,13 +35,11 @@ class ComentarioComponent
       '{{imagen_perfil}}',
       '{{usuario_actual}}',
       '{{post_id}}',
-      '{{usuario_id_session}}',
     ], [
       $comentarios_burbujas,
       $this->img_perfil,
       $this->nombre_session,
       $this->post_id,
-      $this->usuario_id_session,
     ], $comentarios_contenedor);
   }
 

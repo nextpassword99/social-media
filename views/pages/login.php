@@ -1,5 +1,11 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../models/Auth.php';
+
+if (Auth::validarSession()) {
+  header('Location: /');
+  exit;
+}
 
 $html_login = file_get_contents(__DIR__ . '/../components/user-elements/login.html');
 $html_login = str_replace(

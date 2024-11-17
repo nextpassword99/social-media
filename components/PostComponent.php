@@ -89,7 +89,6 @@ class PostComponent
       '{{numero_reacciones}}',
       '{{numero_comentarios}}',
       '{{post_id}}',
-      '{{user_id}}',
       '{{usuario_actual}}',
       '{{is_liked}}'
     ], [
@@ -101,7 +100,6 @@ class PostComponent
       $countLikes,
       $count_comentarios,
       $this->post_id,
-      $this->user_id_session,
       $this->nombre_session,
       $existeLike ? 'fas' : 'far'
     ], $this->post_template);
