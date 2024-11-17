@@ -5,8 +5,7 @@
   .cover-photo {
     width: 100%;
     height: 300px;
-    background: url("{{imagen_fondo}}")
-      no-repeat center center;
+    background: url("{{imagen_fondo}}") no-repeat center center;
     background-size: cover;
     position: relative;
   }
@@ -38,8 +37,7 @@
     border: 5px solid var(--background-primary);
     margin-top: -84px;
     margin-right: 20px;
-    background: url("{{imagen_perfil}}")
-      no-repeat center center;
+    background: url("{{imagen_perfil}}") no-repeat center center;
     background-size: cover;
     position: relative;
   }
@@ -129,9 +127,7 @@
     <div class="profile-details">
       <h1>{{nombre_usuario}}</h1>
       <p>{{numero_amigos}}</p>
-      <div class="friends-photos">
-        {{fotos_amigos}}
-      </div>
+      <div class="friends-photos">{{fotos_amigos}}</div>
     </div>
     <div class="profile-actions">
       <button class="edit-profile">Editar perfil</button>
@@ -141,15 +137,24 @@
     </div>
   </div>
   <div class="nav-tabs">
-    <a
-      class="active"
-      href="#"
-    >
-      Publicaciones
-    </a>
-    <a href="#">Información</a>
-    <a href="#">Amigos</a>
-    <a href="#">Fotos</a>
-    <a href="#">Videos</a>
+    <a href="/user/{{usuario_id_session}}/"> Publicaciones </a>
+    <a href="/user/{{usuario_id_session}}/detalles">Información</a>
+    <a href="/user/{{usuario_id_session}}/amigos">Amigos</a>
+    <a href="/user/{{usuario_id_session}}/fotos">Fotos</a>
+    <a href="/user/{{usuario_id_session}}/videos">Videos</a>
   </div>
 </div>
+
+<script>
+  const currentPath = window.location.pathname;
+
+  const navLinks = document.querySelectorAll(".nav-tabs a");
+
+  navLinks.forEach((link) => {
+    if (currentPath === link.getAttribute("href")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+</script>
