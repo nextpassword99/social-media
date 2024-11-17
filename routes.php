@@ -5,7 +5,7 @@ require_once __DIR__ . '/router.php';
 get('/', 'pages/index.php');
 get('/user/$usuario_id', 'pages/user');
 get('/amigos', 'pages/amigos.php');
-post('/handle-form/like', 'pages/handle-form/add_like.php');
+post('/handle-form/like', 'pages/handle-form/like.php');
 GET('/login', 'pages/login.php');
 GET('/login/$error', 'pages/login.php');
 POST('/login-process', 'pages/login.php');
