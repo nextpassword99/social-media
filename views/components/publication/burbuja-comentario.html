@@ -1,0 +1,53 @@
+<style>
+  .post-comment-video {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    padding: 10px 10px 5px;
+    border: none;
+  }
+
+  .historial-comment-video {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .historial-comment-video img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+  .historial-comment-video .disabled {
+    display: none;
+  }
+  .comment-content-video {
+    background-color: #e0e3ea;
+    border-radius: 20px;
+    padding: 10px 15px;
+  }
+  .comment-content-video .author {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  .comment-content-video a {
+    text-decoration: none;
+    color: black;
+  }
+  .comment-content-video a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="post-comment-video">
+  <div class="historial-comment-video {{view_comment}}">
+    <img src="{{imagen_autor_comentario}}" />
+    <div class="comment-content-video">
+      <div class="author">
+        <a href="/user/{{usuario_id_comentario}}">{{usuario_comentario}}</a>
+      </div>
+      <div class="text">{{contenido_comentario}}</div>
+    </div>
+  </div>
+</div>

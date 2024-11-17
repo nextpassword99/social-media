@@ -1,0 +1,73 @@
+<style>
+  .user-container {
+    width: 100%;
+    max-width: 1218px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  .panel-container {
+    display: flex;
+    gap: 1rem;
+  }
+  .user-container .panel-left {
+    width: 42%;
+  }
+  .user-container .panel-left .content-aside {
+    position: sticky;
+    top: calc(50px + 1rem);
+  }
+  .user-container .content-user {
+    width: 58%;
+  }
+</style>
+<div class="user-container">
+  <div>{{perfil_user}}</div>
+  <div class="panel-container">
+    <div class="panel-left">
+      <div class="content-aside">{{aside}}</div>
+    </div>
+    <div class="content-user">{{content}}</div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const allPostContainer = document.querySelectorAll(".post-container");
+
+        allPostContainer.forEach((postContainer) => {
+          const likeButton = postContainer.querySelector(".like-button");
+          const likeCount = postContainer.querySelector(
+            ".post-reactions .count-likes"
+          );
+
+          if (likeButton) {
+            likeButton.addEventListener("click", function () {
+              const postId = this.dataset.postId;
+              const userId = this.dataset.userId;
+              fetch("/handle-form/like", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ post_id: postId, user_id: userId }),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data) {
+                    likeButton
+                      .querySelector("i")
+                      .classList.replace("far", "fas");
+                    likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                  } else {
+                    likeButton
+                      .querySelector("i")
+                      .classList.replace("fas", "far");
+                    likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                  }
+                })
+                .catch((error) => console.error("Error:", error));
+            });
+          }
+        });
+      });
+    </script>
+  </div>
+</div>

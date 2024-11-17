@@ -1,0 +1,64 @@
+<style>
+  .information-user {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .information-user .content-detalles {
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  .information-user h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  .information-user .details > * {
+    margin-bottom: 20px;
+  }
+  .button {
+    background-color: var(--button-secondary);
+    border: none;
+    border-radius: 6px;
+    color: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: var(--button-secondary-hover);
+  }
+  .info {
+    justify-content: flex-start;
+    padding: 4px;
+  }
+  .info i {
+    margin-right: 8px;
+  }
+</style>
+
+<div class="information-user">
+  <div class="content-detalles">
+    <h2>Detalles</h2>
+    <div class="details">
+      <div class="info">
+        <i class="fas pencil"></i>
+        {{descripcion}}
+      </div>
+      <div class="info">
+        <i class="fas fa-home"></i>
+        Vive en {{lugar_vive}}
+      </div>
+      <div class="info">
+        <i class="fas fa-map-marker-alt"></i>
+        De {{lugar_origen}}
+      </div>
+      <button class="button">Editar detalles</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<style>
+  .container-fotos {
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+  }
+  .container-fotos .header-fotos {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .container-fotos .content-fotos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .container-fotos .content-fotos img {
+    width: 100%;
+    max-width: 8rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+</style>
+
+<div class="container-fotos">
+  <div class="header-fotos">
+    <span>Fotos</span>
+    <a href="/user/{{usuario_id}}/imagenes">Ver todas las fotos</a>
+  </div>
+  <div class="content-fotos">{{fotos}}</div>
+</div>
