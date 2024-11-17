@@ -114,12 +114,12 @@ class UserController
       [
         '{{descripcion}}',
         '{{lugar_vive}}',
-        '{{lugar_origen}}',
+        '{{estado_civil}}',
       ],
       [
-        $this->usuario->getNombre(),
-        $this->usuario->getNombre(),
-        $this->usuario->getNombre(),
+        $this->usuario->getDescripcion(),
+        $this->usuario->getUbicacion(),
+        $this->usuario->getEstadoCivil(),
       ],
       $detalles_plantilla
     );
