@@ -1,5 +1,17 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../../models/Auth.php';
+
+header('Content-Type: application/json');
+
+if (!Auth::validarSession()) {
+  echo json_encode([
+    'procesado' => false,
+    'mensaje' => 'Usuario no autenticado'
+  ]);
+  exit;
+}
+
 require_once __DIR__ . '/../../../models/Post.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = !$post->deleteLike($post_id, $usuario_id_session);
   }
 
-  header('Content-Type: application/json');
   echo json_encode($response);
 }
