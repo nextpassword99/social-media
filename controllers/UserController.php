@@ -106,13 +106,15 @@ class UserController
         '{{nombre_usuario}}',
         '{{imagen_perfil}}',
         '{{numero_amigos}}',
-        '{{imagen_fondo}}'
+        '{{imagen_fondo}}',
+        '{{usuario_id_session}}',
       ],
       [
         $this->usuario->getNombre() . ' ' . $this->usuario->getApellido(),
         $this->usuario->getFotoPerfil(),
         11 . ' amigos',
-        $this->usuario->getFotoPerfil() ?? ''
+        $this->usuario->getFotoPerfil() ?? '',
+        $this->data_usuario_session['usuario_id'],
       ],
       $header_plantilla
     );
