@@ -40,7 +40,6 @@
 </style>
 <div
   class="container-comentarios"
-  data-id-usuario="{{usuario_id_session}}"
   data-id-post="{{post_id}}"
 >
   <div class="content-comentarios">{{content_comentarios_video}}</div>
@@ -95,8 +94,6 @@
 
   const todosComentarios = document.querySelectorAll(".container-comentarios");
 
-  console.log(todosComentarios.length);
-
   todosComentarios.forEach((comentario) => {
     const button = comentario.querySelector("button");
     if (button) {
@@ -106,7 +103,6 @@
         const textarea = comentario.querySelector("textarea");
         if (!textarea.value.trim()) return;
 
-        const idUsuario = comentario.dataset.idUsuario;
         const idPost = comentario.dataset.idPost;
         const comentarioText = textarea.value;
 
@@ -116,7 +112,6 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            usuario_id: parseInt(idUsuario),
             post_id: parseInt(idPost),
             comentario: comentarioText,
           }),
