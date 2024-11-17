@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../api/user/like.php';
+require_once __DIR__ . '/../../models/Post.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $data = json_decode(file_get_contents('php://input'), true);
@@ -13,10 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   $response = false;
-  if (!checkIfLikeExists($post_id, $user_id)) {
-    $response = addLike($post_id, $user_id);
+  $post = new Post($post_id);
+  if (!$post->checkIfLikeExists($post_id, $user_id)) {
+    $response = $post->addLike($post_id, $user_id);
   } else {
-    $response = !deleteLike($post_id, $user_id);
+    $response = !$post->deleteLike($post_id, $user_id);
   }
 
   header('Content-Type: application/json');
