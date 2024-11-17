@@ -137,15 +137,24 @@
     </div>
   </div>
   <div class="nav-tabs">
-    <a
-      class="active"
-      href="#"
-    >
-      Publicaciones
-    </a>
+    <a href="/user/{{usuario_id_session}}/"> Publicaciones </a>
     <a href="/user/{{usuario_id_session}}/detalles">Información</a>
     <a href="/user/{{usuario_id_session}}/amigos">Amigos</a>
     <a href="/user/{{usuario_id_session}}/fotos">Fotos</a>
     <a href="/user/{{usuario_id_session}}/videos">Videos</a>
   </div>
 </div>
+
+<script>
+  const currentPath = window.location.pathname;
+
+  const navLinks = document.querySelectorAll(".nav-tabs a");
+
+  navLinks.forEach((link) => {
+    if (currentPath === link.getAttribute("href")) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+</script>
