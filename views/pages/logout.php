@@ -1,7 +1,8 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../models/Auth.php';
 
-if (!isset($_SESSION["usuario_id"]) && !isset($_SESSION["token"])) {
+if (!Auth::validarSession()) {
   header('Location: /login');
   exit;
 }
