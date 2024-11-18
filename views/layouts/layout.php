@@ -14,11 +14,8 @@ class Layout
   {
     $layout = file_get_contents(__DIR__ . '/main.html');
     $header = file_get_contents(__DIR__ . '/header.html');
-    $css = file_get_contents(__DIR__ . '/../../assets/css/style.css');
-    $css_html = '<style>' . $css . '</style>';
 
     $layout = str_replace('{{titulo_pagina}}', $this->meta_tags['titulo_pagina'], $layout);
-    $layout = str_replace('{{estilos_css}}', $css_html, $layout);
     $layout = str_replace('{{header}}', $header, $layout);
     $layout = str_replace('{{content}}', $this->contenido, $layout);
 
