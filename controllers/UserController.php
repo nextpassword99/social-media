@@ -86,13 +86,15 @@ class UserController
         '{{nombre_usuario}}',
         '{{imagen_perfil}}',
         '{{numero_amigos}}',
-        '{{imagen_fondo}}'
+        '{{imagen_fondo}}',
+        '{{usuario_id_session}}',
       ],
       [
         $this->usuario->getNombre() . ' ' . $this->usuario->getApellido(),
         $this->usuario->getFotoPerfil(),
         11 . ' amigos',
-        $this->usuario->getFotoPerfil() ?? ''
+        $this->usuario->getFotoPerfil() ?? '',
+        $this->data_usuario_session['usuario_id'],
       ],
       $header_plantilla
     );
@@ -114,12 +116,12 @@ class UserController
       [
         '{{descripcion}}',
         '{{lugar_vive}}',
-        '{{lugar_origen}}',
+        '{{estado_civil}}',
       ],
       [
-        $this->usuario->getNombre(),
-        $this->usuario->getNombre(),
-        $this->usuario->getNombre(),
+        $this->usuario->getDescripcion(),
+        $this->usuario->getUbicacion(),
+        $this->usuario->getEstadoCivil(),
       ],
       $detalles_plantilla
     );

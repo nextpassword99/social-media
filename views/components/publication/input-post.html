@@ -1,6 +1,6 @@
 <style>
   .post-container-create {
-    background-color: var(--background-primary);
+    background-color: #ffffff;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -8,36 +8,43 @@
     margin: 0 auto;
     margin-bottom: 10px;
   }
+
   .post-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
+
   .profile-pic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
   }
+
   .post-input {
-    background-color: var(--background-input);
+    background-color: #f0f2f5;
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
     color: #b0b3b8;
     width: 100%;
   }
+
   .post-input:hover {
-    background-color: var(--background-input-hover);
+    background-color: #e4e6e9;
   }
+
   .post-input::placeholder {
     color: #b0b3b8;
   }
+
   .post-actions {
     display: flex;
     justify-content: space-around;
     margin-top: 10px;
   }
+
   .post-action {
     flex: 1;
     display: flex;
@@ -47,11 +54,13 @@
     cursor: pointer;
     padding: 8px;
   }
+
   .post-action i {
     margin-right: 5px;
   }
+
   .post-action:hover {
-    background-color: var(--background-primary-hover);
+    background-color: #f2f2f2;
     border-radius: 5px;
   }
 
@@ -67,11 +76,11 @@
   }
 
   .create-post-content {
-    background-color: var(--background-primary);
+    background-color: #ffffff;
     padding: 1rem;
     width: 100%;
     max-width: 500px;
-    height: 400px;
+    /* height: 410px; */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -79,64 +88,153 @@
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+
   .create-post-perfil {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
   }
+
   .create-post-header {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
     border-bottom: 1px solid #dddfe2;
-    padding: 8px;
+    padding: 12px;
   }
+
+  .create-post-header h2 {
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
   .create-post-input {
     width: 100%;
   }
+
   .create-post-input textarea {
     width: 100%;
-    min-height: 10rem;
+    min-height: 12rem;
     resize: none;
     border: none;
     font-size: 2rem;
     outline: none;
   }
+
+  .create-post-input textarea.cargar {
+    min-height: auto;
+    font-size: 1rem;
+  }
+
   .create-post-actions button {
     width: 100%;
     border: none;
     padding: 10px;
     font-size: 1rem;
     border-radius: 12px;
-    background-color: var(--primary-color);
+    background-color: #0866ff;
     color: white;
     cursor: pointer;
   }
+
   .create-post-actions button:hover {
-    background-color: darken(var(--primary-color), 10%);
+    background-color: darken(#0866ff, 10%);
+  }
+
+  .create-post-actions {
+    margin-top: 1px;
+  }
+
+  .agregar-foto-video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+  .agregar-foto-video .upload-file {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  }
+
+  .agregar-foto-video .upload-file i {
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    background-color: #f2f2f2f2;
+    color: #f02849;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 12px 115px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .agregar-foto-video .upload-file i:hover {
+    background-color: #b0b3b8;
+  }
+
+  .pre-view-file {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pre-view-file .visual {
+    height: auto;
+    object-fit: cover;
+  }
+
+  .pre-view-file video {
+    object-fit: cover;
+  }
+
+  .pre-view-file .visual:nth-child(1):nth-last-child(1) {
+    width: 100%;
+  }
+
+  .pre-view-file .visual:first-child:nth-last-child(2),
+  .pre-view-file .visual:first-child:nth-last-child(2) ~ .visual {
+    width: calc(50% - 5px);
+  }
+
+  .pre-view-file .visual:first-child:nth-last-child(3),
+  .pre-view-file .visual:first-child:nth-last-child(3) ~ .visual {
+    width: calc(33.33% - 7px);
+  }
+
+  .pre-view-file .visual:first-child:nth-last-child(4),
+  .pre-view-file .visual:first-child:nth-last-child(4) ~ .visual {
+    width: calc(50% - 5px);
+  }
+
+  .file-content {
+    border: 2px solid #ddd;
+    border-radius: 2px;
+    width: 100%;
+  }
+
+  .file-content :is(.select-image, .select-video) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 12rem;
   }
 </style>
 
 <div class="post-container-create">
   <div class="post-header">
-    <img
-      alt="Profile picture"
-      class="profile-pic"
-      src="{{imagen_perfil}}"
-    />
-    <input
-      class="post-input"
-      placeholder="¿Qué estás pensando?"
-      type="text"
-    />
+    <img alt="Profile picture" class="profile-pic" src="{{imagen_perfil}}" />
+    <input class="post-input" placeholder="¿Qué estás pensando?" type="text" />
   </div>
   <div class="post-actions">
     <div class="post-action">
-      <i
-        class="fas fa-video"
-        style="color: #f02849"
-      ></i>
+      <i class="fas fa-video" style="color: #f02849"></i>
       <span>Agregar video o foto</span>
     </div>
   </div>
@@ -148,15 +246,37 @@
       <h2>Crear publicación</h2>
     </div>
     <div class="create-post-perfil">
-      <img
-        class="profile-pic"
-        src="{{imagen_perfil}}"
-        alt="Profile picture"
-      />
+      <img class="profile-pic" src="{{imagen_perfil}}" alt="Profile picture" />
       <span>{{autor_post}}</span>
     </div>
     <div class="create-post-input">
       <textarea placeholder="¿Qué estás pensando?"></textarea>
+    </div>
+
+    <div class="pre-view-file" style="display: none"></div>
+    <div class="file-content">
+      <label class="select-image" for="input-imagen" style="display: none">
+        <input
+          id="input-imagen"
+          type="file"
+          accept="image/jpeg, image/png, image/jpg"
+          multiple
+          hidden
+        />
+        <span>Arrastra tus imágenes</span>
+      </label>
+
+      <label class="select-video" for="input-video" style="display: none">
+        <input id="input-video" type="file" accept="video/mp4" hidden />
+        <span>Arrastra tus videos</span>
+      </label>
+    </div>
+
+    <div class="agregar-foto-video">
+      <div class="upload-file">
+        <i id="icon-image" class="fas fa-image"></i>
+        <i id="icon-video" class="fas fa-video"></i>
+      </div>
     </div>
     <div class="create-post-actions">
       <button>Publicar</button>
@@ -180,6 +300,65 @@
         .contains(event.target)
     ) {
       containerPost.style.display = "none";
+    }
+  });
+
+  const createPostImage = document.querySelector("#icon-image");
+  const createPostVideo = document.querySelector("#icon-video");
+
+  const textArea = document.querySelector(".create-post-input textarea");
+  const selectImage = document.querySelector(".select-image");
+  const selectVideo = document.querySelector(".select-video");
+  const preview = document.querySelector(".pre-view-file");
+
+  createPostImage.addEventListener("click", () => {
+    if (selectImage.style.display == "none") {
+      textArea.classList.add("cargar");
+      selectImage.style.display = "flex";
+      selectVideo.style.display = "none";
+    } else {
+      selectImage.style.display = "none";
+      textArea.classList.remove("cargar");
+    }
+  });
+
+  createPostVideo.addEventListener("click", () => {
+    if (selectVideo.style.display == "none") {
+      textArea.classList.add("cargar");
+      selectVideo.style.display = "flex";
+      selectImage.style.display = "none";
+    } else {
+      selectVideo.style.display = "none";
+      textArea.classList.remove("cargar");
+    }
+  });
+
+  selectImage.querySelector("input").addEventListener("change", (event) => {
+    const files = event.target.files;
+
+    if (files.length > 0) {
+      preview.style.display = "flex";
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const img = files[i];
+
+      if (img && img.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          const imgCreado = document.createElement("img");
+          imgCreado.src = e.target.result;
+          imgCreado.classList.add("visual");
+          imgCreado.alt = img.name;
+
+          preview.appendChild(imgCreado);
+        };
+
+        reader.readAsDataURL(img);
+      } else {
+        console.error("El archivo seleccionado no es una imagen");
+      }
     }
   });
 </script>

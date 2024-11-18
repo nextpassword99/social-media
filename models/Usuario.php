@@ -6,6 +6,9 @@ class Usuario
   private $apellido;
   private $email;
   private $foto_perfil;
+  private $desc;
+  private $ubi;
+  private $estado_civil;
   private $db;
 
   public function __construct($usuario_id)
@@ -29,6 +32,9 @@ class Usuario
     $this->apellido = $data['apellido'];
     $this->email = $data['email'];
     $this->foto_perfil = $data['foto_perfil'];
+    $this->desc = $data['descripcion'];
+    $this->ubi = $data['ubicacion'];
+    $this->estado_civil = $data['estado_civil'];
   }
 
   public function getUsuarioId()
@@ -56,6 +62,32 @@ class Usuario
     return $this->foto_perfil;
   }
 
+  public function getDescripcion(): string
+  {
+    return $this->desc;
+  }
+
+  public function getUbicacion(): string
+  {
+    return $this->ubi;
+  }
+
+  public function getEstadoCivil(): string
+  {
+    $estado = $this->estado_civil;
+    switch ($estado) {
+      case 1:
+        return "Soltero";
+      case 2:
+        return "Casado";
+      case 3:
+        return "Viudo";
+      case 4:
+        return "Divorciado";
+      default:
+        return "Desconocido";
+    }
+  }
   /**
    * Devuelve una lista aleatoria de usuarios.
    *
