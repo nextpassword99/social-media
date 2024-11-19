@@ -162,4 +162,10 @@ class UserController
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
     return $scripts_comentarios . $styles_burbuja;
   }
+
+  public function generarCrearPost()
+  {
+    $template_crear_post = file_get_contents(__DIR__ . '/../views/components/publication/input-post.html');
+    return $template_crear_post;
+  }
 }
