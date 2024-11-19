@@ -28,3 +28,4 @@ if (isset($_FILES['videos_post'])) {
     }
   }
 }
+$post_id = Post::setPost($_SESSION['usuario_id'], $texto_post);
