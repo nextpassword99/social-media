@@ -63,3 +63,10 @@ echo json_encode([
 ]);
 
 
+function generarNombreArchivo($nombre_archivo)
+{
+  $extension = pathinfo($nombre_archivo, PATHINFO_EXTENSION);
+  $nombre_unico = uniqid() . '.' . $extension;
+  return $nombre_unico;
+}
+
