@@ -56,3 +56,10 @@ if (count($archivos['videos']) > 0) {
     Post::setImgPost($post_id, $value);
   }
 }
+
+echo json_encode([
+  'procesado' => true,
+  'mensaje' => 'Post creado correctamente',
+]);
+
+
