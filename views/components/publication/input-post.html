@@ -441,6 +441,71 @@
     }
   });
 
+  function crearPostHtml(
+    postId,
+    imagenPerfil = "/public/uploads/users/perfil-img/predeterminado.jpg",
+    autorPost,
+    fechaPost,
+    textoPost,
+    contentVisual,
+    numReacciones = 0,
+    numComentarios = 0,
+    contentComentarios = ""
+  ) {
+    const postHtml = `
+  <div class="post-container">
+    <div class="post-header">
+      <img
+        alt="Profile picture"
+        height="40"
+        src="${imagenPerfil}"
+        width="40"
+      />
+      <div>
+        <div class="post-author">${autorPost}</div>
+        <div class="post-date">
+          ${fechaPost} ·
+          <i class="fas fa-globe-americas"></i>
+        </div>
+      </div>
+    </div>
+    <div class="post-content">
+      <p>${textoPost}</p>
+    </div>
+    <div class="post-images">${contentVisual}</div>
+    <div class="post-reactions">
+      <div><span class="count-likes">${numReacciones}</span> me gusta</div>
+      <div>
+        <span class="count-comments">${numComentarios}</span> comentarios
+      </div>
+    </div>
+    <div class="post-actions">
+      <button
+        class="like-button"
+        data-post-id="${postId}"
+      >
+        <i class="fas fa-thumbs-up"></i>
+        Me gusta
+      </button>
+      <button>
+        <i class="far fa-comment"> </i>
+        Comentar
+      </button>
+      <button>
+        <i class="fas fa-share"> </i>
+        Compartir
+      </button>
+    </div>
+    <div class="post-comment">
+      <div class="historial-comment">
+        ${contentComentarios}
+      </div>
+    </div>
+  </div>`;
+
+    return postHtml;
+  }
+
   function getDataUser() {
     const perfil = document.querySelector(".create-post-perfil img").src;
     const nombre = document.querySelector(
