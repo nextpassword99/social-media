@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/../../../models/Auth.php';
 
+header('Content-Type: application/json');
 if (!Auth::validarSession()) {
   echo json_encode([
     'procesado' => false,
@@ -10,7 +11,7 @@ if (!Auth::validarSession()) {
   exit;
 }
 
-$carpeta_uploads = '/public/uploads';
+$carpeta_uploads = 'public/uploads';
 
 $archivos = [
   'imgs' => [],
@@ -24,7 +25,7 @@ if (isset($_FILES['imgs_post'])) {
     $ruta_archivo = $carpeta_uploads . '/posts/imgs/' . basename($nombre_unico);
 
     if (move_uploaded_file($value, $ruta_archivo)) {
-      $archivos['imgs'][] = $ruta_archivo;
+      $archivos['imgs'][] = '/' . $ruta_archivo;
     }
   }
 }
@@ -36,7 +37,7 @@ if (isset($_FILES['videos_post'])) {
     $ruta_archivo = $carpeta_uploads . '/posts/videos/' . basename($nombre_unico);
 
     if (move_uploaded_file($value, $ruta_archivo)) {
-      $archivos['videos'][] = $ruta_archivo;
+      $archivos['videos'][] = '/' .  $ruta_archivo;
     }
   }
 }
@@ -72,6 +73,7 @@ if (count($archivos['videos']) > 0) {
 echo json_encode([
   'procesado' => true,
   'mensaje' => 'Post creado correctamente',
+  'post_id' => $post_id
 ]);
 
 
