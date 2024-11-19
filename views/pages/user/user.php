@@ -14,7 +14,7 @@ $html_user = new UserController($_SESSION['usuario_id'], $usuario_id);
 $elementos = [
   $html_user->renderHeader(),
   $html_user->renderAside(),
-  $html_user->renderPosts()
+  $html_user->renderCrearPost() . $html_user->renderPosts(),
 ];
 
 $contenido_html = $html_user->renderCompletePage($elementos);
