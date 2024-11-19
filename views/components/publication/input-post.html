@@ -316,7 +316,7 @@
       </div>
     </div>
     <div class="create-post-actions">
-      <button>Publicar</button>
+      <button id="btn-publicar">Publicar</button>
     </div>
   </div>
 </div>
@@ -396,6 +396,37 @@
       } else {
         console.error("El archivo seleccionado no es una imagen");
       }
+    }
+  });
+
+  document.querySelector("#btn-publicar").addEventListener("click", () => {
+    const textoPost = textArea.value;
+    const imgsPost = selectImage.querySelector("input").files;
+    const videosPost = selectVideo.querySelector("input").files;
+
+    const formData = new FormData();
+    formData.append("texto_post", textoPost);
+    for (let i = 0; i < imgsPost.length; i++) {
+      formData.append("imgs_post[]", imgsPost[i]);
+    }
+
+    for (let i = 0; i < videosPost.length; i++) {
+      formData.append("videos_post[]", videosPost[i]);
+    }
+
+    try {
+      const response = fetch("/handle-form/post", {
+        method: "POST",
+        body: formData,
+      }).then((res) => res.json());
+
+      if (response.ok) {
+        if (response == true) {
+          alert("Publicación realizada con éxito");
+        }
+      }
+    } catch (error) {
+      console.error(error);
     }
   });
 </script>
