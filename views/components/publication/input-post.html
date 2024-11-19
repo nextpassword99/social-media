@@ -371,6 +371,7 @@
   });
 
   selectImage.querySelector("input").addEventListener("change", (event) => {
+    preview.innerHTML = "";
     const files = event.target.files;
 
     if (files.length > 0) {
@@ -399,7 +400,9 @@
     }
   });
 
-  document.querySelector("#btn-publicar").addEventListener("click", () => {
+  document
+    .querySelector("#btn-publicar")
+    .addEventListener("click", async () => {
     const textoPost = textArea.value;
     const imgsPost = selectImage.querySelector("input").files;
     const videosPost = selectVideo.querySelector("input").files;
