@@ -216,6 +216,16 @@ class UserController
   private function generarCrearPost(): string
   {
     $template_crear_post = file_get_contents(__DIR__ . '/../views/components/publication/input-post.html');
-    return $template_crear_post;
+    return str_replace(
+      [
+        '{{imagen_perfil}}',
+        '{{autor_post}}',
+      ],
+      [
+        $this->data_usuario_session['foto_perfil'],
+        $this->data_usuario_session['nombre_completo'],
+      ],
+      $template_crear_post
+    );
   }
 }
