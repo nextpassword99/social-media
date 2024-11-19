@@ -440,4 +440,13 @@
       console.error(error);
     }
   });
+
+  function getDataUser() {
+    const perfil = document.querySelector(".create-post-perfil img").src;
+    const nombre = document.querySelector(
+      ".create-post-perfil span"
+    ).textContent;
+
+    return { perfil, nombre };
+  }
 </script>
