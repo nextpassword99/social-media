@@ -25,7 +25,7 @@ if (isset($_FILES['imgs_post'])) {
     $ruta_archivo = $carpeta_uploads . '/posts/imgs/' . basename($nombre_unico);
 
     if (move_uploaded_file($value, $ruta_archivo)) {
-      $archivos['imgs'][] = $ruta_archivo;
+      $archivos['imgs'][] = '/' . $ruta_archivo;
     }
   }
 }
@@ -37,7 +37,7 @@ if (isset($_FILES['videos_post'])) {
     $ruta_archivo = $carpeta_uploads . '/posts/videos/' . basename($nombre_unico);
 
     if (move_uploaded_file($value, $ruta_archivo)) {
-      $archivos['videos'][] = $ruta_archivo;
+      $archivos['videos'][] = '/' .  $ruta_archivo;
     }
   }
 }
