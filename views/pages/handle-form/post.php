@@ -1,3 +1,15 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../../models/Auth.php';
+
+if (!Auth::validarSession()) {
+  echo json_encode([
+    'procesado' => false,
+    'mensaje' => 'Usuario no autenticado'
+  ]);
+  exit;
+}
+
 $carpeta_uploads = 'public/uploads';
 
 $archivos = [
