@@ -80,7 +80,7 @@
     padding: 1rem;
     width: 100%;
     max-width: 500px;
-    /* height: 410px; */
+    height: 610px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -183,14 +183,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    height: 15rem;
+    overflow: hidden;
   }
 
-  .pre-view-file .visual {
+  .pre-view-file :is(.visual, video) {
     height: auto;
-    object-fit: cover;
-  }
-
-  .pre-view-file video {
     object-fit: cover;
   }
 
@@ -211,6 +209,10 @@
   .pre-view-file .visual:first-child:nth-last-child(4),
   .pre-view-file .visual:first-child:nth-last-child(4) ~ .visual {
     width: calc(50% - 5px);
+  }
+
+  .pre-view-file:has(.visual) ~ .file-content label {
+    height: 3rem;
   }
 
   .file-content {
@@ -403,25 +405,25 @@
   document
     .querySelector("#btn-publicar")
     .addEventListener("click", async () => {
-    const textoPost = textArea.value;
-    const imgsPost = selectImage.querySelector("input").files;
-    const videosPost = selectVideo.querySelector("input").files;
+      const textoPost = textArea.value;
+      const imgsPost = selectImage.querySelector("input").files;
+      const videosPost = selectVideo.querySelector("input").files;
 
-    const formData = new FormData();
-    formData.append("texto_post", textoPost);
-    for (let i = 0; i < imgsPost.length; i++) {
-      formData.append("imgs_post[]", imgsPost[i]);
-    }
+      const formData = new FormData();
+      formData.append("texto_post", textoPost);
+      for (let i = 0; i < imgsPost.length; i++) {
+        formData.append("imgs_post[]", imgsPost[i]);
+      }
 
-    for (let i = 0; i < videosPost.length; i++) {
-      formData.append("videos_post[]", videosPost[i]);
-    }
+      for (let i = 0; i < videosPost.length; i++) {
+        formData.append("videos_post[]", videosPost[i]);
+      }
 
-    try {
+      try {
         const response = await fetch("/handle-form/post", {
-        method: "POST",
-        body: formData,
-      }).then((res) => res.json());
+          method: "POST",
+          body: formData,
+        }).then((res) => res.json());
 
         if (response.procesado) {
           const user = getDataUser();
@@ -438,11 +440,11 @@
           );
 
           agregarPostHtml(postHtml);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  });
+    });
 
   function vaciarCrearPost() {
     textArea.value = "";
