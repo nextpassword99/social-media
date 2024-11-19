@@ -28,6 +28,11 @@ if (isset($_FILES['videos_post'])) {
     }
   }
 }
+
+
+
+require_once __DIR__ . '/../../../models/Post.php';
+
 $post_id = Post::setPost($_SESSION['usuario_id'], $texto_post);
 
 if (!$post_id) {
