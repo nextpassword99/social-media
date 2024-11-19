@@ -9,6 +9,8 @@ class Usuario
   private $desc;
   private $ubi;
   private $estado_civil;
+  private $fecha_registro;
+  private $educacion;
   private $db;
 
   public function __construct($usuario_id)
@@ -35,6 +37,8 @@ class Usuario
     $this->desc = $data['descripcion'];
     $this->ubi = $data['ubicacion'];
     $this->estado_civil = $data['estado_civil'];
+    $this->fecha_registro = $data['fecha_registro'];
+    $this->educacion = $data['educacion'];
   }
 
   public function getUsuarioId()
@@ -72,6 +76,11 @@ class Usuario
     return $this->ubi;
   }
 
+  public function getFecha_registro(): string
+  {
+    return $this->fecha_registro;
+  }
+
   public function getEstadoCivil(): string
   {
     $estado = $this->estado_civil;
@@ -87,6 +96,10 @@ class Usuario
       default:
         return "Desconocido";
     }
+  }
+  public function getEducacion(): string
+  {
+    return $this->educacion;
   }
   /**
    * Devuelve una lista aleatoria de usuarios.

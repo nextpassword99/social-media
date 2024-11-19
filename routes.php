@@ -3,7 +3,8 @@ require_once __DIR__ . '/router.php';
 
 
 get('/', 'views/pages/index.php');
-get('/user/$usuario_id', 'views/pages/user');
+get('/user/$usuario_id', 'views/pages/user/user.php');
+get('/user/$usuario_id/detalles', 'views/pages/user/detalles.php');
 get('/amigos', 'views/pages/amigos.php');
 post('/handle-form/like', 'views/pages/handle-form/like.php');
 GET('/login', 'views/pages/login.php');

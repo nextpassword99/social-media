@@ -25,9 +25,31 @@ class UserController
     ];
   }
 
-  public function render()
+  public function renderHeader(): string
   {
+    return $this->encabezadoUsuario();
+  }
+
+  public function renderInfoUsuario(): string
+  {
+    return $this->generarInfoUsuario();
+  }
+
+  public function renderAside(): string
+  {
+    return $this->generarAside();
+  }
+
+  public function renderPosts(): string
+  {
+    return $this->postsUsuario();
+  }
+
+  public function renderCompletePage($elementos = []): string
+  {
+
     $template = file_get_contents(__DIR__ . '/../views/components/templates/user.html');
+
 
     $content = str_replace(
       [
@@ -35,20 +57,18 @@ class UserController
         '{{aside}}',
         '{{content}}'
       ],
-      [
-        $this->encabezadoUsuario(),
-        $this->generarAside(),
-        $this->postsUsuario(),
-      ],
+      $elementos,
       $template
     );
+
+
     $recursos = $this->cargarRecursos();
+
     return $content . $recursos;
   }
 
-  public function postsUsuario()
+  private function postsUsuario(): string
   {
-    // $usuario = new Usuario($usuario_id);
     $postObject = new Post($this->usuario->getUsuarioId());
     $posts_data = $postObject->getPostsPorIdUsuario($this->usuario->getUsuarioId());
 
@@ -78,7 +98,7 @@ class UserController
     return $post_html;
   }
 
-  public function encabezadoUsuario()
+  private function encabezadoUsuario(): string
   {
     $header_plantilla = file_get_contents(__DIR__ . '/../views/components/user-elements/header.html');
     return str_replace(
@@ -100,7 +120,7 @@ class UserController
     );
   }
 
-  function generarAside()
+  private function generarAside(): string
   {
     $detalles_usuario = $this->detallesUsuario();
     $fotos = $this->fotos();
@@ -108,7 +128,7 @@ class UserController
     return $detalles_usuario . $fotos;
   }
 
-  public function detallesUsuario()
+  private function detallesUsuario(): string
   {
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/details.html');
 
@@ -129,7 +149,7 @@ class UserController
     return $detalles_html;
   }
 
-  public function fotos()
+  private function fotos(): string
   {
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/fotos.html');
 
@@ -156,7 +176,32 @@ class UserController
     return $html;
   }
 
-  public function cargarRecursos()
+  private function generarInfoUsuario(): string
+  {
+    $template = file_get_contents(__DIR__ . '/../views/components/user/detalles-expandido.html');
+    $template = str_replace([
+      '{{nombre}}',
+      '{{apellido}}',
+      '{{email}}',
+      '{{descripcion}}',
+      '{{fecha_registro}}',
+      '{{ubicacion}}',
+      '{{estado_civil}}',
+      '{{educacion}}',
+    ], [
+      $this->usuario->getNombre(),
+      $this->usuario->getApellido(),
+      $this->usuario->getEmail(),
+      $this->usuario->getDescripcion(),
+      $this->usuario->getFecha_registro(),
+      $this->usuario->getUbicacion(),
+      $this->usuario->getEstadoCivil(),
+      $this->usuario->getEducacion(),
+    ], $template);
+    return $template;
+  }
+
+  private function cargarRecursos(): string
   {
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
