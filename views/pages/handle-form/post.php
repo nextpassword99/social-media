@@ -73,6 +73,7 @@ if (count($archivos['videos']) > 0) {
 echo json_encode([
   'procesado' => true,
   'mensaje' => 'Post creado correctamente',
+  'post_id' => $post_id
 ]);
 
 
