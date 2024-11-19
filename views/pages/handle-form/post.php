@@ -29,6 +29,8 @@ if (isset($_FILES['videos_post'])) {
   }
 }
 
+$texto_post = $_POST['texto_post'] ?? null;
+
 
 
 require_once __DIR__ . '/../../../models/Post.php';
