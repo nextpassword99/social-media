@@ -45,6 +45,11 @@ class UserController
     return $this->postsUsuario();
   }
 
+  public function renderCrearPost(): string
+  {
+    return $this->generarCrearPost();
+  }
+
   public function renderCompletePage($elementos = []): string
   {
 
@@ -208,7 +213,7 @@ class UserController
     return $scripts_comentarios . $styles_burbuja;
   }
 
-  private function generarCrearPost()
+  private function generarCrearPost(): string
   {
     $template_crear_post = file_get_contents(__DIR__ . '/../views/components/publication/input-post.html');
     return $template_crear_post;
