@@ -10,7 +10,7 @@ if (!Auth::validarSession()) {
   exit;
 }
 
-$carpeta_uploads = 'public/uploads';
+$carpeta_uploads = '/public/uploads';
 
 $archivos = [
   'imgs' => [],
