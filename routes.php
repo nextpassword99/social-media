@@ -13,5 +13,6 @@ POST('/login-process', 'views/pages/login.php');
 GET('/videos', 'views/pages/videos.php');
 GET('/videos/$post_id', 'views/pages/video_id.php');
 POST('/handle-form/comentario', 'views/pages/handle-form/comentario.php');
+POST('/handle-form/post', 'views/pages/handle-form/post.php');
 
 any('/404', 'views/pages/404.php');
