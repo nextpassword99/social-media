@@ -275,4 +275,16 @@ class Post
     return $stmt->rowCount() > 0;
   }
 
+  public static function setVideoPost($post_id, $video_url)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_videos (post_id, url_video) VALUES (:post_id, :url_video)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':url_video', $video_url, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+  }
 }
