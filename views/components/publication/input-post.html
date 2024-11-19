@@ -415,15 +415,26 @@
     }
 
     try {
-      const response = fetch("/handle-form/post", {
+        const response = await fetch("/handle-form/post", {
         method: "POST",
         body: formData,
       }).then((res) => res.json());
 
-      if (response.ok) {
-        if (response == true) {
-          alert("Publicación realizada con éxito");
-        }
+        if (response.procesado) {
+          const user = getDataUser();
+          const postHtml = crearPostHtml(
+            response.post_id,
+            user.perfil,
+            user.nombre,
+            new Date().toLocaleString(),
+            textArea.value,
+            preview.innerHTML || "",
+            0,
+            0,
+            ""
+          );
+
+          agregarPostHtml(postHtml);
       }
     } catch (error) {
       console.error(error);
