@@ -441,6 +441,24 @@
     }
   });
 
+  function vaciarCrearPost() {
+    textArea.value = "";
+    preview.innerHTML = "";
+    selectImage.querySelector("input").value = "";
+    selectVideo.querySelector("input").value = "";
+  }
+
+  function agregarPostHtml(postHtml) {
+    const container = document.querySelector(".content-user");
+    const postReferente = document.querySelector(".post-container");
+    const post = document.createElement("div");
+    post.innerHTML = postHtml;
+
+    container.insertBefore(post, postReferente);
+
+    vaciarCrearPost();
+  }
+
   function crearPostHtml(
     postId,
     imagenPerfil = "/public/uploads/users/perfil-img/predeterminado.jpg",
