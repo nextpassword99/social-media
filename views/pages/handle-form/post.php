@@ -45,3 +45,14 @@ if (!$post_id) {
   exit;
 }
 
+if (count($archivos['imgs']) > 0) {
+  foreach ($archivos['imgs'] as $key => $value) {
+    Post::setImgPost($post_id, $value);
+  }
+}
+
+if (count($archivos['videos']) > 0) {
+  foreach ($archivos['videos'] as $key => $value) {
+    Post::setImgPost($post_id, $value);
+  }
+}
