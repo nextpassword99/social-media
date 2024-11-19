@@ -70,3 +70,7 @@ function generarNombreArchivo($nombre_archivo)
   return $nombre_unico;
 }
 
+function sanitizarNombreArchivo($nombre_archivo)
+{
+  return preg_replace('/[^a-zA-Z0-9._-]/', '-', $nombre_archivo);
+}
