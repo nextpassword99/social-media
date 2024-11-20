@@ -48,7 +48,8 @@ class Post
     $query = "SELECT u.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
               FROM t_posts p
                       JOIN t_usuarios u ON u.usuario_id = p.usuario_id
-              WHERE p.usuario_id = :user_id";
+              WHERE p.usuario_id = :user_id
+              ORDER BY p.post_id DESC";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':user_id', $user_id);
     $stmt->execute();
