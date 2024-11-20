@@ -42,9 +42,10 @@ class Post
     return $this->fecha_publicacion;
   }
 
-  public function getPostsPorIdUsuario($user_id)
+  public static function getPostsPorIdUsuario($user_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT u.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
               FROM t_posts p
                       JOIN t_usuarios u ON u.usuario_id = p.usuario_id
@@ -57,9 +58,10 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getComentariosPorIdPost($post_id)
+  public static function getComentariosPorIdPost($post_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT c.usuario_id, c.contenido, c.fecha_comentario, u.foto_perfil, u.nombre, u.apellido
             FROM t_comentarios c
               JOIN t_usuarios u ON u.usuario_id = c.usuario_id
@@ -71,23 +73,25 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getCountComentariosPorIdPost() // Posible static
+  public static function getCountComentariosPorIdPost($post_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT COUNT(post_id) as count FROM t_comentarios WHERE post_id = :post_id";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':post_id', $this->post_id);
+    $stmt->bindParam(':post_id', $post_id);
     $stmt->execute();
 
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
   }
 
-  public function getUnComentarioPorIdPost() // Posible static
+  public static function getUnComentarioPorIdPost($post_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT * FROM t_comentarios WHERE post_id = :post_id ORDER BY fecha_comentario DESC LIMIT 1";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':post_id', $this->post_id);
+    $stmt->bindParam(':post_id', $post_id);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -107,9 +111,10 @@ class Post
     return $stmt->rowCount() > 0;
   }
 
-  public function getImgsPorIdPost($post_id)
+  public static function getImgsPorIdPost($post_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT * FROM t_imagenes WHERE post_id = :post_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':post_id', $post_id);
@@ -125,9 +130,10 @@ class Post
    *
    * @return array Los videos de la publicación.
    */
-  public function getVideosPorIdPost($post_id)
+  public static function getVideosPorIdPost($post_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT * FROM t_videos WHERE post_id = :post_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':post_id', $post_id);
@@ -136,9 +142,10 @@ class Post
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function getPostsAleatorios($limit = 10)
+  public static function getPostsAleatorios($limit = 10)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT p.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
               FROM t_posts p
                 JOIN t_usuarios u ON u.usuario_id = p.usuario_id
@@ -169,9 +176,10 @@ class Post
    *
    * @return int El número total de likes.
    */
-  public function getCountLikesPorIdPost($post_id): int
+  public static function getCountLikesPorIdPost($post_id): int
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $query = "SELECT COUNT(*) as count_likes FROM t_likes WHERE publicacion_id = :post_id";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':post_id', $post_id);
@@ -234,9 +242,10 @@ class Post
    *
    * @return bool True si el usuario ha dado like, false de lo contrario.
    */
-  public function checkIfLikeExists($post_id, $user_id)
+  public static function checkIfLikeExists($post_id, $user_id)
   {
-    $conn = $this->db->getConnection();
+    $db = new DB();
+    $conn = $db->getConnection();
     $sql = "SELECT COUNT(*) FROM t_likes WHERE publicacion_id = :post_id AND usuario_id = :user_id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':post_id', $post_id);
