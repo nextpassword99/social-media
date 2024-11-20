@@ -74,8 +74,7 @@ class UserController
 
   private function postsUsuario(): string
   {
-    $postObject = new Post($this->usuario->getUsuarioId());
-    $posts_data = $postObject->getPostsPorIdUsuario($this->usuario->getUsuarioId());
+    $posts_data = Post::getPostsPorIdUsuario($this->usuario->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
