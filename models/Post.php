@@ -244,4 +244,47 @@ class Post
 
     return $stmt->fetchColumn() > 0;
   }
+
+  public static function setPost($usuario_id, $post_text)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_posts (usuario_id, descripcion) VALUES (:usuario_id, :descripcion)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+    $stmt->bindParam(':descripcion', $post_text, PDO::PARAM_STR);
+    $stmt->execute();
+
+    if ($stmt->rowCount() > 0) {
+      return $conn->lastInsertId();
+    };
+
+    return false;
+  }
+
+  public static function setImgPost($post_id, $img_url)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_imagenes (post_id, url_imagen) VALUES (:post_id, :url_imagen)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':url_imagen', $img_url, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+  }
+
+  public static function setVideoPost($post_id, $video_url)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_videos (post_id, url_video) VALUES (:post_id, :url_video)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':url_video', $video_url, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+  }
 }

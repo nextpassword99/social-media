@@ -1,0 +1,120 @@
+<style>
+  .user-details-card {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .user-info,
+  .user-extra-info {
+    margin-bottom: 20px;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .info-item i {
+    font-size: 20px;
+    color: #007bff;
+    margin-right: 10px;
+  }
+
+  .info-item .label {
+    font-weight: bold;
+    color: #333;
+    min-width: 120px;
+  }
+
+  .info-item .value {
+    color: #555;
+  }
+
+  .info-item .value:hover {
+    color: #007bff;
+    cursor: default;
+  }
+
+  .user-info .info-item,
+  .user-extra-info .info-item {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .user-info .info-item .label,
+  .user-extra-info .info-item .label {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  .user-info .info-item .value,
+  .user-extra-info .info-item .value {
+    font-size: 1rem;
+    font-weight: normal;
+    color: #666;
+  }
+</style>
+
+<div class="user-details-card">
+  <h2 class="card-title">Detalles del Usuario</h2>
+
+  <div class="user-info">
+    <div class="info-item">
+      <i class="fas fa-user"></i>
+      <span class="label">Nombre:</span>
+      <span class="value">{{nombre}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-user"></i>
+      <span class="label">Apellido:</span>
+      <span class="value">{{apellido}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-envelope"></i>
+      <span class="label">Email:</span>
+      <span class="value">{{email}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-align-left"></i>
+      <span class="label">Descripción:</span>
+      <span class="value">{{descripcion}}</span>
+    </div>
+  </div>
+
+  <div class="user-extra-info">
+    <div class="info-item">
+      <i class="fas fa-calendar-alt"></i>
+      <span class="label">Fecha de registro:</span>
+      <span class="value">{{fecha_registro}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span class="label">Ubicación:</span>
+      <span class="value">{{ubicacion}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-heart"></i>
+      <span class="label">Estado Civil:</span>
+      <span class="value">{{estado_civil}}</span>
+    </div>
+    <div class="info-item">
+      <i class="fas fa-graduation-cap"></i>
+      <span class="label">Educación:</span>
+      <span class="value">{{educacion}}</span>
+    </div>
+  </div>
+</div>

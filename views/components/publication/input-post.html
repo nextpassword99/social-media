@@ -80,7 +80,7 @@
     padding: 1rem;
     width: 100%;
     max-width: 500px;
-    /* height: 410px; */
+    height: 610px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -183,14 +183,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    height: 15rem;
+    overflow: hidden;
   }
 
-  .pre-view-file .visual {
+  .pre-view-file :is(.visual, video) {
     height: auto;
-    object-fit: cover;
-  }
-
-  .pre-view-file video {
     object-fit: cover;
   }
 
@@ -213,6 +211,10 @@
     width: calc(50% - 5px);
   }
 
+  .pre-view-file:has(.visual) ~ .file-content label {
+    height: 3rem;
+  }
+
   .file-content {
     border: 2px solid #ddd;
     border-radius: 2px;
@@ -229,12 +231,23 @@
 
 <div class="post-container-create">
   <div class="post-header">
-    <img alt="Profile picture" class="profile-pic" src="{{imagen_perfil}}" />
-    <input class="post-input" placeholder="¿Qué estás pensando?" type="text" />
+    <img
+      alt="Profile picture"
+      class="profile-pic"
+      src="{{imagen_perfil}}"
+    />
+    <input
+      class="post-input"
+      placeholder="¿Qué estás pensando?"
+      type="text"
+    />
   </div>
   <div class="post-actions">
     <div class="post-action">
-      <i class="fas fa-video" style="color: #f02849"></i>
+      <i
+        class="fas fa-video"
+        style="color: #f02849"
+      ></i>
       <span>Agregar video o foto</span>
     </div>
   </div>
@@ -246,16 +259,27 @@
       <h2>Crear publicación</h2>
     </div>
     <div class="create-post-perfil">
-      <img class="profile-pic" src="{{imagen_perfil}}" alt="Profile picture" />
+      <img
+        class="profile-pic"
+        src="{{imagen_perfil}}"
+        alt="Profile picture"
+      />
       <span>{{autor_post}}</span>
     </div>
     <div class="create-post-input">
       <textarea placeholder="¿Qué estás pensando?"></textarea>
     </div>
 
-    <div class="pre-view-file" style="display: none"></div>
+    <div
+      class="pre-view-file"
+      style="display: none"
+    ></div>
     <div class="file-content">
-      <label class="select-image" for="input-imagen" style="display: none">
+      <label
+        class="select-image"
+        for="input-imagen"
+        style="display: none"
+      >
         <input
           id="input-imagen"
           type="file"
@@ -266,20 +290,35 @@
         <span>Arrastra tus imágenes</span>
       </label>
 
-      <label class="select-video" for="input-video" style="display: none">
-        <input id="input-video" type="file" accept="video/mp4" hidden />
+      <label
+        class="select-video"
+        for="input-video"
+        style="display: none"
+      >
+        <input
+          id="input-video"
+          type="file"
+          accept="video/mp4"
+          hidden
+        />
         <span>Arrastra tus videos</span>
       </label>
     </div>
 
     <div class="agregar-foto-video">
       <div class="upload-file">
-        <i id="icon-image" class="fas fa-image"></i>
-        <i id="icon-video" class="fas fa-video"></i>
+        <i
+          id="icon-image"
+          class="fas fa-image"
+        ></i>
+        <i
+          id="icon-video"
+          class="fas fa-video"
+        ></i>
       </div>
     </div>
     <div class="create-post-actions">
-      <button>Publicar</button>
+      <button id="btn-publicar">Publicar</button>
     </div>
   </div>
 </div>
@@ -334,6 +373,7 @@
   });
 
   selectImage.querySelector("input").addEventListener("change", (event) => {
+    preview.innerHTML = "";
     const files = event.target.files;
 
     if (files.length > 0) {
@@ -361,4 +401,140 @@
       }
     }
   });
+
+  document
+    .querySelector("#btn-publicar")
+    .addEventListener("click", async () => {
+      const textoPost = textArea.value;
+      const imgsPost = selectImage.querySelector("input").files;
+      const videosPost = selectVideo.querySelector("input").files;
+
+      const formData = new FormData();
+      formData.append("texto_post", textoPost);
+      for (let i = 0; i < imgsPost.length; i++) {
+        formData.append("imgs_post[]", imgsPost[i]);
+      }
+
+      for (let i = 0; i < videosPost.length; i++) {
+        formData.append("videos_post[]", videosPost[i]);
+      }
+
+      try {
+        const response = await fetch("/handle-form/post", {
+          method: "POST",
+          body: formData,
+        }).then((res) => res.json());
+
+        if (response.procesado) {
+          const user = getDataUser();
+          const postHtml = crearPostHtml(
+            response.post_id,
+            user.perfil,
+            user.nombre,
+            new Date().toLocaleString(),
+            textArea.value,
+            preview.innerHTML || "",
+            0,
+            0,
+            ""
+          );
+
+          agregarPostHtml(postHtml);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+  function vaciarCrearPost() {
+    textArea.value = "";
+    preview.innerHTML = "";
+    selectImage.querySelector("input").value = "";
+    selectVideo.querySelector("input").value = "";
+  }
+
+  function agregarPostHtml(postHtml) {
+    const container = document.querySelector(".content-user");
+    const postReferente = document.querySelector(".post-container");
+    const post = document.createElement("div");
+    post.innerHTML = postHtml;
+
+    container.insertBefore(post, postReferente);
+
+    vaciarCrearPost();
+  }
+
+  function crearPostHtml(
+    postId,
+    imagenPerfil = "/public/uploads/users/perfil-img/predeterminado.jpg",
+    autorPost,
+    fechaPost,
+    textoPost,
+    contentVisual,
+    numReacciones = 0,
+    numComentarios = 0,
+    contentComentarios = ""
+  ) {
+    const postHtml = `
+  <div class="post-container">
+    <div class="post-header">
+      <img
+        alt="Profile picture"
+        height="40"
+        src="${imagenPerfil}"
+        width="40"
+      />
+      <div>
+        <div class="post-author">${autorPost}</div>
+        <div class="post-date">
+          ${fechaPost} ·
+          <i class="fas fa-globe-americas"></i>
+        </div>
+      </div>
+    </div>
+    <div class="post-content">
+      <p>${textoPost}</p>
+    </div>
+    <div class="post-images">${contentVisual}</div>
+    <div class="post-reactions">
+      <div><span class="count-likes">${numReacciones}</span> me gusta</div>
+      <div>
+        <span class="count-comments">${numComentarios}</span> comentarios
+      </div>
+    </div>
+    <div class="post-actions">
+      <button
+        class="like-button"
+        data-post-id="${postId}"
+      >
+        <i class="fas fa-thumbs-up"></i>
+        Me gusta
+      </button>
+      <button>
+        <i class="far fa-comment"> </i>
+        Comentar
+      </button>
+      <button>
+        <i class="fas fa-share"> </i>
+        Compartir
+      </button>
+    </div>
+    <div class="post-comment">
+      <div class="historial-comment">
+        ${contentComentarios}
+      </div>
+    </div>
+  </div>`;
+
+    return postHtml;
+  }
+
+  function getDataUser() {
+    const perfil = document.querySelector(".create-post-perfil img").src;
+    const nombre = document.querySelector(
+      ".create-post-perfil span"
+    ).textContent;
+
+    return { perfil, nombre };
+  }
 </script>
