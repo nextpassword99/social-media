@@ -14,11 +14,28 @@ if (!Auth::validarSession()) {
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-require_once __DIR__ . '/../../../models/Post.php';
+if (!$data || !isset($data['post_id'], $data['comentario'])) {
+  echo json_encode([
+    'procesado' => false,
+    'mensaje' => 'Datos incompletos'
+  ]);
+  exit;
+}
 
-$post_id = $data['post_id'] ?? null;
-$usuario_id_session = $_SESSION['usuario_id'] ?? null;
-$comentario = $data['comentario'] ?? null;
+require_once __DIR__ . '/../../../repositories/ComentarioRepository.php';
+require_once __DIR__ . '/../../../services/ComentarioService.php';
 
-$esEnviado = Post::setComentario($post_id, $usuario_id_session, $comentario);
-echo json_encode($esEnviado);
+$post_id = $data['post_id'];
+$comentario = $data['comentario'];
+$usuario_id_session = $_SESSION['usuario_id'];
+
+$DB = new DB();
+$ComentarioRepository = new ComentarioRepository($DB);
+$ComentarioService  = new ComentarioService($ComentarioRepository);
+
+$esEnviado = $ComentarioService->setComentario($post_id, $usuario_id_session, $comentario);
+
+echo json_encode([
+  'procesado' => $esEnviado,
+  'data' => $data,
+]);
