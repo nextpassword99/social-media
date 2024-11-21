@@ -46,9 +46,9 @@ $texto_post = $_POST['texto_post'] ?? null;
 
 
 
-require_once __DIR__ . '/../../../models/Post.php';
+require_once __DIR__ . '/../../../services/PostService.php';
+require_once __DIR__ . '/../../../repositories/PostRepository.php';
 
-$post_id = Post::setPost($_SESSION['usuario_id'], $texto_post);
 
 if (!$post_id) {
   echo json_encode([
