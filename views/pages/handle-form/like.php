@@ -16,13 +16,15 @@ require_once __DIR__ . '/../../../models/Post.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
+if (!$data || !isset($data['post_id'])) {
+  echo json_encode([
+    'procesado' => false,
+    'mensaje' => 'Datos incompletos o incorrectos',
+  ]);
+}
+
 $usuario_id_session = $_SESSION['usuario_id'] ?? null;
 $post_id = $data['post_id'] ?? null;
-
-if (!$usuario_id_session || !$post_id) {
-  http_response_code(400);
-  die();
-}
 
 $response = false;
 $post = new Post($post_id);
