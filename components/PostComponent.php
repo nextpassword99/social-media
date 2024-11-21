@@ -71,7 +71,13 @@ class PostComponent
       $existeLike
     );
 
+    $comentario = new ComentarioComponent(
+      $this->foto_perfil_session,
+      $this->nombre_session,
+      $this->user_id_session,
+      $this->post_id,
       $this->comentarios
+    );
     $post_html = str_replace('{{content_comentarios}}', $comentario->render(), $post_html);
 
     return $post_html;
