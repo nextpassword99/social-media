@@ -12,4 +12,9 @@ class PostService
   {
     return $this->postRepository->getPostsPorUsuarioId($usuario_id);
   }
+
+  public function getPostsAleatorios($limit = 10)
+  {
+    return $this->postRepository->getPostsAleatorios($limit);
+  }
 }
