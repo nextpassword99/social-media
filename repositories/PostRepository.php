@@ -134,5 +134,17 @@ class PostRepository
     return $stmt->rowCount() > 0;
   }
 
-
+  public function getPostsAleatorios($limit = 10)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT p.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
+              FROM t_posts p
+                JOIN t_usuarios u ON u.usuario_id = p.usuario_id
+              ORDER BY RANDOM() 
+              LIMIT :limit";
+    $stmt = $conn->prepare($query);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
