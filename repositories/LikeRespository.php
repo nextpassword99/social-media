@@ -70,4 +70,23 @@ class LikeRepository
     return false;
   }
 
+  /**
+   * Verifica si un usuario ha dado like a una publicación.
+   *
+   * @param int $post_id El ID de la publicación a la que se va a verificar el like.
+   * @param int $user_id El ID del usuario que se va a verificar si ha dado like.
+   *
+   * @return bool True si el usuario ha dado like, false de lo contrario.
+   */
+  public function checkIfLikeExists($post_id, $user_id)
+  {
+    $conn = $this->db->getConnection();
+    $sql = "SELECT COUNT(*) FROM t_likes WHERE publicacion_id = :post_id AND usuario_id = :user_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':post_id', $post_id);
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->execute();
+
+    return $stmt->fetchColumn() > 0;
+  }
 }
