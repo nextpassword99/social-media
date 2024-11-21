@@ -21,4 +21,17 @@ class VideoRepository
     return $stmt->rowCount() > 0;
   }
 
+
+  public function getVideosPorPostId($post_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT url_video
+              FROM t_videos
+              WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
