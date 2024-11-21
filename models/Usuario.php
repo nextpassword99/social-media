@@ -6,7 +6,7 @@ class Usuario
   private $apellido;
   private $email;
   private $foto_perfil;
-  private $desc;
+  private $descripcion;
   private $ubi;
   private $estado_civil;
   private $fecha_registro;
@@ -44,7 +44,7 @@ class Usuario
 
   public function getDescripcion(): string
   {
-    return $this->desc;
+    return $this->descripcion;
   }
 
   public function getUbicacion(): string
