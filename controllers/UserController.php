@@ -68,7 +68,7 @@ class UserController
     $db = new DB();
     $postRepository = new PostRepository($db);
     $postService = new PostService($postRepository);
-    $posts_data = $postService->getPostsPorUsuarioId($this->usuario->getUsuarioId());
+    $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
@@ -113,11 +113,11 @@ class UserController
         '{{usuario_id_session}}',
       ],
       [
-        $this->usuario->getNombre() . ' ' . $this->usuario->getApellido(),
-        $this->usuario->getFotoPerfil(),
+        $this->UsuarioView->getNombre() . ' ' . $this->UsuarioView->getApellido(),
+        $this->UsuarioView->getFotoPerfil(),
         11 . ' amigos',
-        $this->usuario->getFotoPerfil() ?? '',
-        $this->data_usuario_session['usuario_id'],
+        $this->UsuarioView->getFotoPerfil() ?? '',
+        $this->UsuarioSession->getUsuarioId(),
       ],
       $header_plantilla
     );
@@ -142,9 +142,9 @@ class UserController
         '{{estado_civil}}',
       ],
       [
-        $this->usuario->getDescripcion(),
-        $this->usuario->getUbicacion(),
-        $this->usuario->getEstadoCivil(),
+        $this->UsuarioView->getDescripcion(),
+        $this->UsuarioView->getUbicacion(),
+        $this->UsuarioView->getEstadoCivil(),
       ],
       $detalles_plantilla
     );
@@ -156,7 +156,7 @@ class UserController
   {
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/fotos.html');
 
-    $id_usuario = $this->usuario->getUsuarioId();
+    $id_usuario = $this->UsuarioView->getUsuarioId();
     $imgs = Usuario::getImgsPorIdUsuario($id_usuario);
 
     $content_imgs = '';
@@ -192,14 +192,14 @@ class UserController
       '{{estado_civil}}',
       '{{educacion}}',
     ], [
-      $this->usuario->getNombre(),
-      $this->usuario->getApellido(),
-      $this->usuario->getEmail(),
-      $this->usuario->getDescripcion(),
-      $this->usuario->getFecha_registro(),
-      $this->usuario->getUbicacion(),
-      $this->usuario->getEstadoCivil(),
-      $this->usuario->getEducacion(),
+      $this->UsuarioView->getNombre(),
+      $this->UsuarioView->getApellido(),
+      $this->UsuarioView->getEmail(),
+      $this->UsuarioView->getDescripcion(),
+      $this->UsuarioView->getFecha_registro(),
+      $this->UsuarioView->getUbicacion(),
+      $this->UsuarioView->getEstadoCivil(),
+      $this->UsuarioView->getEducacion(),
     ], $template);
     return $template;
   }
