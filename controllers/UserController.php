@@ -11,7 +11,7 @@ class UserController
   private $UsuarioSession;
   private $db;
 
-  public function __construct($usuario_id_session, $usuario_id)
+  public function __construct($usuario_id_session, $usuario_id, DB $db)
   {
     $this->db = $db;
     $UsuarioRepository = new UsuarioRepository($db);
