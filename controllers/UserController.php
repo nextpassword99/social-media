@@ -9,6 +9,7 @@ class UserController
 {
   private $UsuarioView;
   private $UsuarioSession;
+  private $db;
 
   public function __construct($usuario_id_session, $usuario_id)
   {
@@ -68,8 +69,7 @@ class UserController
 
   private function postsUsuario(): string
   {
-    $db = new DB();
-    $postRepository = new PostRepository($db);
+    $postRepository = new PostRepository($this->db);
     $postService = new PostService($postRepository);
     $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
@@ -160,7 +160,7 @@ class UserController
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/fotos.html');
 
     $id_usuario = $this->UsuarioView->getUsuarioId();
-    $imgs = Usuario::getImgsPorIdUsuario($id_usuario);
+    $ImgRepository = new ImgRepository($this->db);
 
     $content_imgs = '';
     foreach ($imgs as $img) {
