@@ -113,4 +113,26 @@ class PostRepository
     return $posts;
   }
 
+  public function eliminarPost($post_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "DELETE FROM t_posts WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $query = "DELETE FROM t_imagenes WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $query = "DELETE FROM t_videos WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+  }
+
+
 }
