@@ -29,5 +29,7 @@ $post_id = $data['post_id'];
 $comentario = $data['comentario'];
 $usuario_id_session = $_SESSION['usuario_id'];
 
-$esEnviado = Post::setComentario($post_id, $usuario_id_session, $comentario);
-echo json_encode($esEnviado);
+$DB = new DB();
+$ComentarioRepository = new ComentarioRepository($DB);
+$ComentarioService  = new ComentarioService($ComentarioRepository);
+
