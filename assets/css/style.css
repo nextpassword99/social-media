@@ -10,6 +10,10 @@
   --background-text: #f2f2f2;
   --button-secondary: #e4e6eb;
   --button-secondary-hover: #d8dadf;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --border-radius-primary: 8px;
+  --border-radius-secondary: 10px;
+  --border-radius-three: 12px;
 }
 
 ::-webkit-scrollbar {
