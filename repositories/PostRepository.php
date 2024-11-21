@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/ImgRepository.php';
+require_once __DIR__ . '/VideoRepository.php';
+require_once __DIR__ . '/../models/Post.php';
+
 class PostRepository
 {
   private $db;
