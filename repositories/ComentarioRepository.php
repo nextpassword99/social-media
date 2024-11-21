@@ -41,4 +41,14 @@ class ComentarioRepository
     return $stmt->rowCount() > 0;
   }
 
+  public function getCountComentariosPorIdPost($post_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT COUNT(post_id) as count FROM t_comentarios WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id);
+    $stmt->execute();
+
+    return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+  }
 }
