@@ -26,4 +26,19 @@ class ComentarioRepository
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function setComentario($post_id, $usuario_id, $comentario)
+  {
+    $db = new DB();
+    $conn = $db->getConnection();
+    $query = "INSERT INTO t_comentarios (post_id, usuario_id, contenido) VALUES (:post_id, :usuario_id, :contenido)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
+    $stmt->bindParam(':contenido', $comentario, PDO::PARAM_STR);
+    $stmt->execute();
+
+    return $stmt->rowCount() > 0;
+  }
+
 }
