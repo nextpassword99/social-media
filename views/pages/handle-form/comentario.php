@@ -25,9 +25,9 @@ if (!$data || !isset($data['post_id'], $data['comentario'])) {
 require_once __DIR__ . '/../../../repositories/ComentarioRepository.php';
 require_once __DIR__ . '/../../../services/ComentarioService.php';
 
-$post_id = $data['post_id'] ?? null;
-$usuario_id_session = $_SESSION['usuario_id'] ?? null;
-$comentario = $data['comentario'] ?? null;
+$post_id = $data['post_id'];
+$comentario = $data['comentario'];
+$usuario_id_session = $_SESSION['usuario_id'];
 
 $esEnviado = Post::setComentario($post_id, $usuario_id_session, $comentario);
 echo json_encode($esEnviado);
