@@ -50,12 +50,17 @@ class ComentarioComponent
 
     foreach ($this->comentarios as $comentario) {
       if (isset($comentario['usuario_id_comentario'])) {
-      $comentarios_burbujas .= str_replace([
-        '{{imagen_autor_comentario}}',
-        '{{usuario_comentario}}',
-        '{{contenido_comentario}}',
-        '{{usuario_id_comentario}}',
-      ], [
+        $comentarios_burbujas .= str_replace([
+          '{{imagen_autor_comentario}}',
+          '{{usuario_comentario}}',
+          '{{contenido_comentario}}',
+          '{{usuario_id_comentario}}',
+        ], [
+          $comentario['comentario_usuario_foto_perfil'],
+          $comentario['comentario_usuario_nombre'] . ' ' . $comentario['comentario_usuario_apellido'],
+          $comentario['comentario'],
+          $comentario['usuario_id_comentario'],
+        ], $burbuja_platilla);
       }
     }
 
