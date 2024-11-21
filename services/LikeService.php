@@ -12,4 +12,10 @@ class LikeService
   {
     return $this->LikeRepository->getCountLikesPorIdPost($post_id);
   }
+
+  public function addLike($post_id, $user_id): bool
+  {
+    return $this->LikeRepository->addLike($post_id, $user_id);
+  }
+
 }
