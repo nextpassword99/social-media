@@ -2,14 +2,13 @@
 class ImgRepository
 {
   private $db;
-  
+
   public function __construct(DB $db)
   {
     $this->db = $db;
   }
 
-
-  public function agregarImgPost($post_id, $img_url)
+  public function setImgPost($post_id, $img_url)
   {
     $conn = $this->db->getConnection();
     $query = "INSERT INTO t_imagenes (post_id, url_imagen) VALUES (:post_id, :url_imagen)";
@@ -33,5 +32,4 @@ class ImgRepository
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-
 }
