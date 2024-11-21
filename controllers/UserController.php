@@ -7,8 +7,8 @@ require __DIR__ . '/../components/PostComponent.php';
 
 class UserController
 {
-  private $usuario;
-  private $data_usuario_session;
+  private $UsuarioView;
+  private $UsuarioSession;
 
   public function __construct($usuario_id_session, $usuario_id)
   {
