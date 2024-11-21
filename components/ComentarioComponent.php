@@ -49,19 +49,14 @@ class ComentarioComponent
     $comentarios_burbujas = '';
 
     foreach ($this->comentarios as $comentario) {
-      $usuario = new Usuario($comentario['usuario_id']);
-
+      if (isset($comentario['usuario_id_comentario'])) {
       $comentarios_burbujas .= str_replace([
         '{{imagen_autor_comentario}}',
         '{{usuario_comentario}}',
         '{{contenido_comentario}}',
         '{{usuario_id_comentario}}',
       ], [
-        $usuario->getFotoPerfil(),
-        $usuario->getNombre() . ' ' . $usuario->getApellido(),
-        $comentario['contenido'],
-        $usuario->getUsuarioId(),
-      ], HtmlHelper::removeStyles($comentario_burbuja));
+      }
     }
 
     return $comentarios_burbujas;
