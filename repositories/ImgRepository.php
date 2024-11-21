@@ -20,4 +20,18 @@ class ImgRepository
 
     return $stmt->rowCount() > 0;
   }
+
+  public function getImgsPorPostId($post_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT url_imagen 
+              FROM t_imagenes 
+              WHERE post_id = :post_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 }
