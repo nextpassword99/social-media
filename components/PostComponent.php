@@ -30,6 +30,11 @@ class PostComponent
     string $nombre_post,
     string $fecha_post,
     string $content_text,
+    int $likes_count,
+    int $comentarios_count,
+    array $comentarios,
+    array $imgs,
+    array $videos,
     string $post_template,
     string $visual = 'Mixto',
   ) {
