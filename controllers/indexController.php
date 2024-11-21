@@ -1,8 +1,10 @@
 <?php
-require_once __DIR__ . '/../models/Post.php';
+require_once __DIR__ . '/../repositories/PostRepository.php';
+require_once __DIR__ . '/../services/PostService.php';
 require_once __DIR__ . '/../models/Amigo.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
 require_once __DIR__ . '/../components/PostComponent.php';
+
 class IndexController
 {
   private $UsuarioSession;
@@ -13,6 +15,7 @@ class IndexController
     $this->UsuarioSession = $UsuarioSession;
     $this->DB = $DB;
   }
+
   public function render()
   {
     $template = file_get_contents(__DIR__ . '/../views/components/templates/index.html');
