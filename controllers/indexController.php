@@ -8,12 +8,12 @@ require_once __DIR__ . '/../components/PostComponent.php';
 class IndexController
 {
   private $UsuarioSession;
-  private $DB;
+  private $PostService;
 
-  public function __construct(Usuario $UsuarioSession, DB $DB)
+  public function __construct(Usuario $UsuarioSession, PostService $PostService)
   {
     $this->UsuarioSession = $UsuarioSession;
-    $this->DB = $DB;
+    $this->PostService = $PostService;
   }
 
   public function render()
@@ -35,9 +35,7 @@ class IndexController
 
   public function generarPosts()
   {
-    $PostRepository = new PostRepository($this->DB);
-    $PostService = new PostService($PostRepository);
-    $posts = $PostService->getPostsAleatorios(50);
+    $posts = $this->PostService->getPostsAleatorios(50);
 
     $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $file_post_sin_estilos = HtmlHelper::removeStyles($file_post);
