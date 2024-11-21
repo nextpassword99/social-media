@@ -86,15 +86,20 @@ class UserController
     $post_html = "";
     foreach ($posts_data as $post) {
       $post_component = new PostComponent(
-        $post['usuario_id'],
+        $this->data_usuario_session['usuario_id'],
         $this->data_usuario_session['foto_perfil'],
-        $post['post_id'],
-        $post['post_id'],
+        $post->getUsuarioId(),
+        $post->getPostId(),
         $this->usuario->getFotoPerfil(),
         $this->data_usuario_session['nombre_completo'],
-        $post["nombre"] . " " . $post["apellido"],
-        $post["fecha_publicacion"],
-        $post["descripcion"],
+        $post->getUsuarioNombreCompleto(),
+        $post->getFechaPublicacion(),
+        $post->getDescripcion(),
+        $post->getLikesCount(),
+        $post->getComentariosCount(),
+        $post->getComentarios(),
+        $post->getImgs(),
+        $post->getVideos(),
         $post_platilla_sin_estilos,
       );
       $post_html .= $post_component->render();
