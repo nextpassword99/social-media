@@ -23,8 +23,8 @@ if (!$data || !isset($data['post_id'])) {
   ]);
 }
 
-$usuario_id_session = $_SESSION['usuario_id'] ?? null;
-$post_id = $data['post_id'] ?? null;
+$usuario_id_session = $_SESSION['usuario_id'];
+$post_id = $data['post_id'];
 
 $response = false;
 $post = new Post($post_id);
