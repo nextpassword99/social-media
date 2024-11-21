@@ -101,38 +101,4 @@ class Usuario
   {
     return $this->educacion;
   }
-  /**
-   * Devuelve una lista aleatoria de usuarios.
-   *
-   * @param int $limit El número de usuarios a recuperar.
-   *
-   * @return array Los datos de los usuarios
-   */
-  public static function getUsuariosAleatorios($limit = 10)
-  {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $sql = "SELECT * FROM t_usuarios ORDER BY RANDOM() LIMIT :limit";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public static function getImgsPorIdUsuario($user_id)
-  {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $query = "SELECT i.* FROM t_imagenes i 
-              JOIN t_posts p ON i.post_id = p.post_id 
-              WHERE usuario_id = :usuario_id
-              ORDER BY i.fecha_subida DESC
-              LIMIT 9";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(':usuario_id', $user_id);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
 }
