@@ -161,6 +161,8 @@ class UserController
 
     $id_usuario = $this->UsuarioView->getUsuarioId();
     $ImgRepository = new ImgRepository($this->db);
+    $ImgService = new ImgService($ImgRepository);
+    $imgs = $ImgService->getImgsPorIdUsuario($id_usuario);
 
     $content_imgs = '';
     foreach ($imgs as $img) {
