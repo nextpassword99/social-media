@@ -33,3 +33,9 @@ $DB = new DB();
 $ComentarioRepository = new ComentarioRepository($DB);
 $ComentarioService  = new ComentarioService($ComentarioRepository);
 
+$esEnviado = $ComentarioService->setComentario($post_id, $usuario_id_session, $comentario);
+
+echo json_encode([
+  'procesado' => $esEnviado,
+  'data' => $data,
+]);
