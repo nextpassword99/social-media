@@ -18,4 +18,8 @@ class LikeService
     return $this->LikeRepository->addLike($post_id, $user_id);
   }
 
+  public function deleteLike($post_id, $user_id): bool
+  {
+    return $this->LikeRepository->deleteLike($post_id, $user_id);
+  }
 }
