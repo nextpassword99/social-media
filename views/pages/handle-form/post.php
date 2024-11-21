@@ -71,7 +71,7 @@ if (!$post_id) {
 echo json_encode([
   'procesado' => true,
   'data' => [
-  'post_id' => $post_id
+    'post_id' => $post_id
   ]
 ]);
 
