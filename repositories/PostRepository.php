@@ -150,10 +150,29 @@ class PostRepository
                             ROW_NUMBER() OVER (PARTITION BY c.post_id ORDER BY c.fecha_comentario DESC) AS rn
                      FROM t_comentarios c
                               JOIN t_usuarios u_comentario ON c.usuario_id = u_comentario.usuario_id)
+              SELECT p.post_id,
+                    p.usuario_id,
+                    p.descripcion,
+                    p.fecha_publicacion,
+                    u.nombre                AS usuario_nombre,
+                    u.apellido              AS usuario_apellido,
+                    u.foto_perfil           AS usuario_foto_perfil,
+                    COUNT(l.publicacion_id) AS likes_count,
+                    COUNT(c.post_id)        AS comentarios_count,
+                    lc.comentario,
+                    lc.usuario_id_comentario,
+                    lc.comentario_usuario_nombre,
+                    lc.comentario_usuario_apellido,
+                    lc.comentario_usuario_foto_perfil
               FROM t_posts p
-                JOIN t_usuarios u ON u.usuario_id = p.usuario_id
+                      JOIN t_usuarios u ON p.usuario_id = u.usuario_id
+                      LEFT JOIN t_likes l ON p.post_id = l.publicacion_id
+                      LEFT JOIN t_comentarios c ON p.post_id = c.post_id
+                      LEFT JOIN comentario lc ON p.post_id = lc.post_id AND lc.rn = 1
+              GROUP BY p.post_id, u.usuario_id, lc.comentario, lc.usuario_id_comentario, lc.comentario_usuario_nombre,
+                      lc.comentario_usuario_apellido, lc.comentario_usuario_foto_perfil
               ORDER BY RANDOM() 
-              LIMIT :limit";
+              LIMIT :limit;";
     $stmt = $conn->prepare($query);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
