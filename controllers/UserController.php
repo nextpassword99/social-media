@@ -12,18 +12,8 @@ class UserController
 
   public function __construct($usuario_id_session, $usuario_id)
   {
-    $this->usuario = new Usuario($usuario_id);
-    $this->cargarDatos($usuario_id_session);
-  }
-
-  public function cargarDatos($usuario_id_session)
-  {
-    $usuario = new Usuario($usuario_id_session);
-    $this->data_usuario_session = [
-      'usuario_id' => $usuario->getUsuarioId(),
-      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-      'foto_perfil' => $usuario->getFotoPerfil(),
-    ];
+    $this->UsuarioView = new Usuario($usuario_id);
+    $this->UsuarioSession = new Usuario($usuario_id_session);
   }
 
   public function renderHeader(): string
