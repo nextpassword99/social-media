@@ -93,7 +93,7 @@ class IndexController
 
     $amigo_card_sin_estilos = HtmlHelper::removeStyles($template_card);
 
-    $amigos = Amigo::getAmigosPorIdUsuario($this->usuario_id_session);
+    $amigos = Amigo::getAmigosPorIdUsuario($this->UsuarioSession->getUsuarioId());
     $amigo_card = HtmlHelper::extractStyles($template_card);
     foreach ($amigos as $amigo) {
       $amigo_card .= str_replace(
