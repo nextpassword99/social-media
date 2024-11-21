@@ -171,15 +171,44 @@ class PostRepository
                       LEFT JOIN comentario lc ON p.post_id = lc.post_id AND lc.rn = 1
               GROUP BY p.post_id, u.usuario_id, lc.comentario, lc.usuario_id_comentario, lc.comentario_usuario_nombre,
                       lc.comentario_usuario_apellido, lc.comentario_usuario_foto_perfil
-              ORDER BY RANDOM() 
+              ORDER BY RANDOM()
               LIMIT :limit;";
     $stmt = $conn->prepare($query);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
+    $data_posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $posts = [];
+
+    foreach ($data_posts as $post_data) {
       $ImgRepository = new ImgRepository($this->db);
       $VideoRepository = new VideoRepository($this->db);
 
       $imgs = $ImgRepository->getImgsPorPostId($post_data['post_id']);
       $videos = $VideoRepository->getVideosPorPostId($post_data['post_id']);
+      $comentarios = [
+        'comentario' => $post_data['comentario'] ?? '',
+        'comentario_usuario_nombre' => $post_data['comentario_usuario_nombre'] ?? '',
+        'comentario_usuario_apellido' => $post_data['comentario_usuario_apellido'] ?? '',
+        'comentario_usuario_foto_perfil' => $post_data['comentario_usuario_foto_perfil'] ?? '',
+      ];
+
+      $posts[] = new Post(
+        $post_data['post_id'],
+        $post_data['usuario_id'],
+        $post_data['descripcion'],
+        $post_data['fecha_publicacion'],
+        $post_data['usuario_nombre'],
+        $post_data['usuario_apellido'],
+        $post_data['usuario_foto_perfil'],
+        $post_data['likes_count'],
+        $post_data['comentarios_count'],
+        [$comentarios],
+        $imgs,
+        $videos
+      );
+    }
+
+    return $posts;
   }
 }
