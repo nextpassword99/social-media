@@ -43,15 +43,20 @@ class IndexController
     $post_html = '';
     foreach ($posts as $post) {
       $postComponent = new PostComponent(
-        $this->usuario_id_session,
-        $this->data_usuario_session['foto_perfil'],
-        $post["usuario_id"],
-        $post['post_id'],
-        $post['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
-        $post["nombre"] . " " . $post["apellido"],
-        $post["fecha_publicacion"],
-        $post["descripcion"],
+        $this->UsuarioSession->getUsuarioId(),
+        $this->UsuarioSession->getFotoPerfil(),
+        $post->getUsuarioId(),
+        $post->getPostId(),
+        $post->getUsuarioFotoPerfil(),
+        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
+        $post->getUsuarioNombreCompleto(),
+        $post->getFechaPublicacion(),
+        $post->getDescripcion(),
+        $post->getLikesCount(),
+        $post->getComentariosCount(),
+        $post->getComentarios(),
+        $post->getImgs(),
+        $post->getVideos(),
         $file_post_sin_estilos
       );
       $post_html .= $postComponent->render();
