@@ -77,9 +77,9 @@ class IndexController
         '{{id_usuario_actual}}'
       ],
       [
-        $this->data_usuario_session['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
-        $this->usuario_id_session ?? 1
+        $this->UsuarioSession->getFotoPerfil(),
+        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
+        $this->UsuarioSession->getUsuarioId()
       ],
       $template
     );
