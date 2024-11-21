@@ -17,4 +17,14 @@ class PostService
   {
     return $this->postRepository->getPostsAleatorios($limit);
   }
+
+  public function crearPost($usuario_id, $post_text, $imgs = [], $videos = [])
+  {
+    return $this->postRepository->crearPost($usuario_id, $post_text, $imgs, $videos);
+  }
+
+  public function eliminarPost($post_id)
+  {
+    return $this->postRepository->eliminarPost($post_id);
+  }
 }
