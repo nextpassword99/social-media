@@ -1,27 +1,21 @@
 <?php
-require_once __DIR__ . '/../models/Post.php';
+require_once __DIR__ . '/../repositories/PostRepository.php';
+require_once __DIR__ . '/../services/PostService.php';
 require_once __DIR__ . '/../models/Amigo.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
 require_once __DIR__ . '/../components/PostComponent.php';
+
 class IndexController
 {
-  private $usuario_id_session;
-  private $data_usuario_session;
-  public function __construct($usuario_id_session)
+  private $UsuarioSession;
+  private $PostService;
+
+  public function __construct(Usuario $UsuarioSession, PostService $PostService)
   {
-    $this->usuario_id_session = $usuario_id_session;
-    $this->cargarDatosSession();
+    $this->UsuarioSession = $UsuarioSession;
+    $this->PostService = $PostService;
   }
-  private function cargarDatosSession()
-  {
-    $usuario = new Usuario($this->usuario_id_session ?? 1);
-    $this->data_usuario_session = $usuario = [
-      // 'usuario_id' => $usuario->getUsuarioId(),
-      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-      'email' => $usuario->getEmail(),
-      'foto_perfil' => $usuario->getFotoPerfil()
-    ];
-  }
+
   public function render()
   {
     $template = file_get_contents(__DIR__ . '/../views/components/templates/index.html');
@@ -41,30 +35,32 @@ class IndexController
 
   public function generarPosts()
   {
-    $postObject = new Post($this->usuario_id_session);
-    $posts = $postObject->getPostsAleatorios();
+    $posts = $this->PostService->getPostsAleatorios(50);
 
     $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-    $file_post_estilos = HtmlHelper::extractStyles($file_post);
     $file_post_sin_estilos = HtmlHelper::removeStyles($file_post);
 
     $post_html = '';
     foreach ($posts as $post) {
       $postComponent = new PostComponent(
-        $this->usuario_id_session,
-        $this->data_usuario_session['foto_perfil'],
-        $post["usuario_id"],
-        $post['post_id'],
-        $post['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
-        $post["nombre"] . " " . $post["apellido"],
-        $post["fecha_publicacion"],
-        $post["descripcion"],
+        $this->UsuarioSession->getUsuarioId(),
+        $this->UsuarioSession->getFotoPerfil(),
+        $post->getUsuarioId(),
+        $post->getPostId(),
+        $post->getUsuarioFotoPerfil(),
+        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
+        $post->getUsuarioNombreCompleto(),
+        $post->getFechaPublicacion(),
+        $post->getDescripcion(),
+        $post->getLikesCount(),
+        $post->getComentariosCount(),
+        $post->getComentarios(),
+        $post->getImgs(),
+        $post->getVideos(),
         $file_post_sin_estilos
       );
       $post_html .= $postComponent->render();
     }
-    $post_html .= $file_post_estilos;
 
     return $post_html;
   }
@@ -80,9 +76,9 @@ class IndexController
         '{{id_usuario_actual}}'
       ],
       [
-        $this->data_usuario_session['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
-        $this->usuario_id_session ?? 1
+        $this->UsuarioSession->getFotoPerfil(),
+        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
+        $this->UsuarioSession->getUsuarioId()
       ],
       $template
     );
@@ -96,7 +92,7 @@ class IndexController
 
     $amigo_card_sin_estilos = HtmlHelper::removeStyles($template_card);
 
-    $amigos = Amigo::getAmigosPorIdUsuario($this->usuario_id_session);
+    $amigos = Amigo::getAmigosPorIdUsuario($this->UsuarioSession->getUsuarioId());
     $amigo_card = HtmlHelper::extractStyles($template_card);
     foreach ($amigos as $amigo) {
       $amigo_card .= str_replace(
@@ -120,6 +116,8 @@ class IndexController
   {
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
-    return $scripts_comentarios . $styles_burbuja;
+    $styles_file_post = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+
+    return $scripts_comentarios . $styles_burbuja . $styles_file_post;
   }
 }
