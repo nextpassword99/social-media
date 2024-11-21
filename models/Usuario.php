@@ -17,28 +17,6 @@ class Usuario
   {
     $this->usuario_id = $usuario_id;
     $this->db = new DB();
-    $this->cargarDatos();
-  }
-
-  private function cargarDatos()
-  {
-    $conn = $this->db->getConnection();
-    $query = "SELECT * FROM t_usuarios WHERE usuario_id = :usuario_id";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(":usuario_id", $this->usuario_id);
-    $stmt->execute();
-
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $this->nombre = $data['nombre'];
-    $this->apellido = $data['apellido'];
-    $this->email = $data['email'];
-    $this->foto_perfil = $data['foto_perfil'];
-    $this->desc = $data['descripcion'];
-    $this->ubi = $data['ubicacion'];
-    $this->estado_civil = $data['estado_civil'];
-    $this->fecha_registro = $data['fecha_registro'];
-    $this->educacion = $data['educacion'];
   }
 
   public function getUsuarioId()
