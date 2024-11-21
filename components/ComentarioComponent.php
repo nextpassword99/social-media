@@ -45,6 +45,7 @@ class ComentarioComponent
 
   private function generarBurbujas($comentario_burbuja)
   {
+    $burbuja_platilla = HtmlHelper::removeStyles($comentario_burbuja);
     $comentarios_burbujas = '';
 
     foreach ($this->comentarios as $comentario) {
