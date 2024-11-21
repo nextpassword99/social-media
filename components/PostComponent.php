@@ -12,6 +12,11 @@ class PostComponent
   private $nombre_post;
   private $fecha_post;
   private $content_text;
+  private $likes_count;
+  private $comentarios_count;
+  private $comentarios;
+  private $imgs;
+  private $videos;
   private $post_template;
   private $visual;
 
@@ -25,6 +30,11 @@ class PostComponent
     string $nombre_post,
     string $fecha_post,
     string $content_text,
+    int $likes_count,
+    int $comentarios_count,
+    array $comentarios,
+    array $imgs,
+    array $videos,
     string $post_template,
     string $visual = 'Mixto',
   ) {
@@ -37,26 +47,37 @@ class PostComponent
     $this->nombre_post = $nombre_post;
     $this->fecha_post = $fecha_post;
     $this->content_text = $content_text;
+    $this->likes_count = $likes_count;
+    $this->comentarios_count = $comentarios_count;
+    $this->comentarios = $comentarios;
+    $this->imgs = $imgs;
+    $this->videos = $videos;
     $this->post_template = $post_template;
     $this->visual = $visual;
   }
 
   public function render()
   {
-
-    $count_comentarios = Post::getCountComentariosPorIdPost($this->post_id);
-    $images = $this->visual == 'Mixto' || $this->visual == 'img' ? Post::getImgsPorIdPost($this->post_id) : [];
-    $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? Post::getVideosPorIdPost($this->post_id) : [];
-    $countLikes = Post::getCountLikesPorIdPost($this->post_id);
-    $existeLike = Post::checkIfLikeExists($this->post_id, $this->user_id_session);
-
-    $comentarios = Post::getUnComentarioPorIdPost($this->post_id);
+    $images = $this->visual == 'Mixto' || $this->visual == 'img' ? $this->imgs : [];
+    $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? $this->videos : [];
+    $existeLike = True;
 
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
-    $post_html = $this->remplazarVariablesHtml($count_comentarios, $contenido_visual, $countLikes, $existeLike);
+    $post_html = $this->remplazarVariablesHtml(
+      $this->comentarios_count,
+      $contenido_visual,
+      $this->likes_count,
+      $existeLike
+    );
 
-    $comentario = new ComentarioComponent($this->foto_perfil_session, $this->nombre_session, $this->user_id_session, $this->post_id, $comentarios);
+    $comentario = new ComentarioComponent(
+      $this->foto_perfil_session,
+      $this->nombre_session,
+      $this->user_id_session,
+      $this->post_id,
+      $this->comentarios
+    );
     $post_html = str_replace('{{content_comentarios}}', $comentario->render(), $post_html);
 
     return $post_html;
