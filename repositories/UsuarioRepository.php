@@ -7,4 +7,39 @@ class UsuarioRepository
     $this->db = $db;
   }
 
+  public function getDatosGeneralesUsuario($usuario_id)
+  {
+    $conn = $this->db->getConnection();
+    $query = "SELECT u.usuario_id,
+                     u.nombre,
+                     u.apellido,
+                     u.email,
+                     u.foto_perfil,
+                     u.descripcion,
+                     u.ubicacion,
+                     u.estado_civil,
+                     u.fecha_registro,
+                     u.educacion
+              FROM t_usuarios u 
+              WHERE usuario_id = :usuario_id";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':usuario_id', $usuario_id);
+    $stmt->execute();
+
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $Usuario = new Usuario(
+      $data['usuario_id'],
+      $data['nombre'],
+      $data['apellido'],
+      $data['email'],
+      $data['foto_perfil'],
+      $data['descripcion'],
+      $data['ubicacion'],
+      $data['estado_civil'],
+      $data['fecha_registro'],
+      $data['educacion']
+    );
+
+    return $Usuario;
+  }
 }
