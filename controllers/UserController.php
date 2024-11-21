@@ -1,6 +1,8 @@
 <?php
-require __DIR__ . '/../models/Usuario.php';
+require __DIR__ . '/../repositories/UsuarioRepository.php';
 require __DIR__ . '/../repositories/PostRepository.php';
+require __DIR__ . '/../services/ImgService.php';
+require __DIR__ . '/../services/UserService.php';
 require __DIR__ . '/../services/PostService.php';
 require __DIR__ . '/../utils/HtmlHelper.php';
 require __DIR__ . '/../components/PostComponent.php';
