@@ -12,8 +12,11 @@ class UserController
 
   public function __construct($usuario_id_session, $usuario_id)
   {
-    $this->UsuarioView = new Usuario($usuario_id);
-    $this->UsuarioSession = new Usuario($usuario_id_session);
+    $this->db = $db;
+    $UsuarioRepository = new UsuarioRepository($db);
+    $UserService = new UsuarioService($UsuarioRepository);
+    $this->UsuarioSession = $UserService->getDatosGeneralesUsuario($usuario_id_session);
+    $this->UsuarioView = $UserService->getDatosGeneralesUsuario($usuario_id);
   }
 
   public function renderHeader(): string
