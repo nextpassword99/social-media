@@ -34,4 +34,15 @@ class VideoRepository
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function getVideosAleatorios($limit = 10)
+  {
+    $conn = $this->db->getConnection();
+    $query = 'SELECT * FROM t_videos ORDER BY RANDOM() LIMIT :limite';
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':limite', $limit, PDO::PARAM_INT);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
