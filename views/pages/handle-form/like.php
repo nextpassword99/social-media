@@ -26,6 +26,10 @@ if (!$data || !isset($data['post_id'])) {
 $usuario_id_session = $_SESSION['usuario_id'];
 $post_id = $data['post_id'];
 
+$DB = new DB();
+$LikeRepository = new LikeRepository($DB);
+$LikeService = new LikeService($LikeRepository);
+
 $response = false;
 $post = new Post($post_id);
 if (!$post->checkIfLikeExists($post_id, $usuario_id_session)) {
