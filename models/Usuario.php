@@ -12,9 +12,28 @@ class Usuario
   private $fecha_registro;
   private $educacion;
 
-  public function __construct($usuario_id)
-  {
+  public function __construct(
+    $usuario_id,
+    $nombre,
+    $apellido,
+    $email,
+    $foto_perfil,
+    $descripcion,
+    $ubicacion,
+    $estado_civil,
+    $fecha_registro,
+    $educacion
+  ) {
     $this->id = $usuario_id;
+    $this->nombre = $nombre;
+    $this->apellido = $apellido;
+    $this->email = $email;
+    $this->foto_perfil = $foto_perfil;
+    $this->descripcion = $descripcion;
+    $this->ubicacion = $ubicacion;
+    $this->estado_civil = $estado_civil;
+    $this->fecha_registro = $fecha_registro;
+    $this->educacion = $educacion;
   }
 
   public function getUsuarioId()
