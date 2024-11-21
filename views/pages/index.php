@@ -12,8 +12,8 @@ require_once __DIR__ . '/../../controllers/indexController.php';
 
 $DB = new DB();
 $Usuario = new Usuario($_SESSION['usuario_id']);
-$PostReository = new PostRepository($DB);
-$PostService = new PostService($PostReository);
+$PostRepository = new PostRepository($DB);
+$PostService = new PostService($PostRepository);
 
 $index = new IndexController($Usuario, $PostService);
 $html = $index->render();

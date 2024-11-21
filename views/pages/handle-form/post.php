@@ -46,9 +46,19 @@ $texto_post = $_POST['texto_post'] ?? null;
 
 
 
-require_once __DIR__ . '/../../../models/Post.php';
+require_once __DIR__ . '/../../../services/PostService.php';
+require_once __DIR__ . '/../../../repositories/PostRepository.php';
 
-$post_id = Post::setPost($_SESSION['usuario_id'], $texto_post);
+$DB = new DB();
+$PostRepository = new PostRepository($DB);
+$PostService = new PostService($PostRepository);
+
+$post_id = $PostService->crearPost(
+  $_SESSION['usuario_id'],
+  $texto_post,
+  $archivos['imgs'],
+  $archivos['videos']
+);
 
 if (!$post_id) {
   echo json_encode([
@@ -58,22 +68,11 @@ if (!$post_id) {
   exit;
 }
 
-if (count($archivos['imgs']) > 0) {
-  foreach ($archivos['imgs'] as $key => $value) {
-    Post::setImgPost($post_id, $value);
-  }
-}
-
-if (count($archivos['videos']) > 0) {
-  foreach ($archivos['videos'] as $key => $value) {
-    Post::setImgPost($post_id, $value);
-  }
-}
-
 echo json_encode([
   'procesado' => true,
-  'mensaje' => 'Post creado correctamente',
-  'post_id' => $post_id
+  'data' => [
+    'post_id' => $post_id
+  ]
 ]);
 
 
