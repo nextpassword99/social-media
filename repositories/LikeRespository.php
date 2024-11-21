@@ -26,4 +26,26 @@ class LikeRepository
     return $stmt->fetch(PDO::FETCH_ASSOC)['count_likes'];
   }
 
+  /**
+   * Agrega un like a una publicación.
+   *
+   * @param int $post_id El ID de la publicación a la que se le va a agregar like.
+   * @param int $user_id El ID del usuario que está agregando el like.
+   *
+   * @return bool True si se agrego el like, false de lo contrario.
+   */
+  public function addLike($post_id, $user_id)
+  {
+    $conn = $this->db->getConnection();
+    $sql = "INSERT INTO t_likes (publicacion_id, usuario_id) VALUES (:post_id, :user_id)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':post_id', $post_id);
+    $stmt->bindParam(':user_id', $user_id);
+
+    if ($stmt->execute()) {
+      return $stmt->rowCount() > 0;
+    };
+    return false;
+  }
+
 }
