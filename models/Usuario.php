@@ -36,27 +36,27 @@ class Usuario
     $this->educacion = $educacion;
   }
 
-  public function getUsuarioId()
+  public function getUsuarioId(): int
   {
     return $this->id;
   }
 
-  public function getNombre()
+  public function getNombre(): string
   {
     return $this->nombre;
   }
 
-  public function getApellido()
+  public function getApellido(): string
   {
     return $this->apellido;
   }
 
-  public function getEmail()
+  public function getEmail(): string
   {
     return $this->email;
   }
 
-  public function getFotoPerfil()
+  public function getFotoPerfil(): string
   {
     return $this->foto_perfil;
   }
@@ -92,6 +92,7 @@ class Usuario
         return "Desconocido";
     }
   }
+
   public function getEducacion(): string
   {
     return $this->educacion;
