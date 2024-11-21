@@ -74,7 +74,10 @@ class UserController
 
   private function postsUsuario(): string
   {
-    $posts_data = Post::getPostsPorIdUsuario($this->usuario->getUsuarioId());
+    $db = new DB();
+    $postRepository = new PostRepository($db);
+    $postService = new PostService($postRepository);
+    $posts_data = $postService->getPostsPorUsuarioId($this->usuario->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
