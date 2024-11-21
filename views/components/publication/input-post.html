@@ -1,6 +1,8 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet">
+
 <style>
   .post-container-create {
-    background-color: #ffffff;
+    background-color: var(--background-primary);
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -23,20 +25,19 @@
   }
 
   .post-input {
-    background-color: #f0f2f5;
+    background-color: var(--background-input);
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
-    color: #b0b3b8;
     width: 100%;
   }
 
   .post-input:hover {
-    background-color: #e4e6e9;
+    background-color: var(--background-input-hover);
   }
 
   .post-input::placeholder {
-    color: #b0b3b8;
+    color: var(--text-color-secondary);
   }
 
   .post-actions {
@@ -50,7 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #b0b3b8;
+    color: var(--text-color-secondary);
     cursor: pointer;
     padding: 8px;
   }
@@ -60,7 +61,7 @@
   }
 
   .post-action:hover {
-    background-color: #f2f2f2;
+    background-color: var(--background-input-hover);
     border-radius: 5px;
   }
 
@@ -76,11 +77,10 @@
   }
 
   .create-post-content {
-    background-color: #ffffff;
+    background-color: var(--background-primary);
     padding: 1rem;
     width: 100%;
     max-width: 500px;
-    /* height: 410px; */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -100,7 +100,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #dddfe2;
+    border-bottom: 2px solid #ddd;
     padding: 12px;
   }
 
@@ -134,13 +134,13 @@
     padding: 10px;
     font-size: 1rem;
     border-radius: 12px;
-    background-color: #0866ff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--background-primary);
     cursor: pointer;
   }
 
   .create-post-actions button:hover {
-    background-color: darken(#0866ff, 10%);
+    background-color: darken(var(--primary-color), 10%);
   }
 
   .create-post-actions {
@@ -151,7 +151,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     border-radius: 8px;
     padding: 8px;
   }
@@ -166,7 +165,7 @@
     width: 100%;
     display: flex;
     font-size: 14px;
-    background-color: #f2f2f2f2;
+    background-color: var(--background-text);
     color: #f02849;
     flex-direction: column;
     border-radius: 8px;
@@ -176,7 +175,7 @@
   }
 
   .agregar-foto-video .upload-file i:hover {
-    background-color: #b0b3b8;
+    background-color: var(--background-input-hover);
   }
 
   .pre-view-file {
