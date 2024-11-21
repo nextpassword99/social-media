@@ -41,14 +41,9 @@ class Usuario
     return $this->id;
   }
 
-  public function getNombre(): string
+  public function getNombreCompleto(): string
   {
-    return $this->nombre;
-  }
-
-  public function getApellido(): string
-  {
-    return $this->apellido;
+    return $this->nombre . ' ' . $this->apellido;
   }
 
   public function getEmail(): string
