@@ -32,8 +32,9 @@ class IndexController
 
   public function generarPosts()
   {
-    $postObject = new Post($this->usuario_id_session);
-    $posts = $postObject->getPostsAleatorios();
+    $PostRepository = new PostRepository($this->DB);
+    $PostService = new PostService($PostRepository);
+    $posts = $PostService->getPostsAleatorios(50);
 
     $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $file_post_estilos = HtmlHelper::extractStyles($file_post);
