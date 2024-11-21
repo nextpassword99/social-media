@@ -14,7 +14,8 @@ if (!Auth::validarSession()) {
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-require_once __DIR__ . '/../../../models/Post.php';
+require_once __DIR__ . '/../../../repositories/ComentarioRepository.php';
+require_once __DIR__ . '/../../../services/ComentarioService.php';
 
 $post_id = $data['post_id'] ?? null;
 $usuario_id_session = $_SESSION['usuario_id'] ?? null;
