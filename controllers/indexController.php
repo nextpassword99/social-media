@@ -40,7 +40,6 @@ class IndexController
     $posts = $PostService->getPostsAleatorios(50);
 
     $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-    $file_post_estilos = HtmlHelper::extractStyles($file_post);
     $file_post_sin_estilos = HtmlHelper::removeStyles($file_post);
 
     $post_html = '';
@@ -64,7 +63,6 @@ class IndexController
       );
       $post_html .= $postComponent->render();
     }
-    $post_html .= $file_post_estilos;
 
     return $post_html;
   }
@@ -120,6 +118,8 @@ class IndexController
   {
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
-    return $scripts_comentarios . $styles_burbuja;
+    $styles_file_post = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+
+    return $scripts_comentarios . $styles_burbuja . $styles_file_post;
   }
 }
