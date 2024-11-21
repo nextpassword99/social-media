@@ -7,4 +7,9 @@ class ComentarioService
   {
     $this->ComentarioRepository = $ComentarioRepository;
   }
+
+  public function setComentario($post_id, $usuario_id, $comentario)
+  {
+    return $this->ComentarioRepository->setComentario($post_id, $usuario_id, $comentario);
+  }
 }
