@@ -12,7 +12,7 @@ class PostRepository
     $this->db = $db;
   }
 
-  public function crearPost($usuario_id, $post_text)
+  public function crearPost($usuario_id, $post_text, $imgs = [], $videos = [])
   {
     $conn = $this->db->getConnection();
     $query = "INSERT INTO t_posts (usuario_id, descripcion) VALUES (:usuario_id, :descripcion)";
@@ -20,6 +20,25 @@ class PostRepository
     $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
     $stmt->bindParam(':descripcion', $post_text, PDO::PARAM_STR);
     $stmt->execute();
+
+    $post_id = $conn->lastInsertId();
+
+    foreach ($imgs as $key => $value) {
+      $query = "INSERT INTO t_imagenes (post_id, url_imagen) VALUES (:post_id, :url_imagen)";
+      $stmt = $conn->prepare($query);
+      $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+      $stmt->bindParam(':url_imagen', $value, PDO::PARAM_STR);
+      $stmt->execute();
+    }
+
+
+    foreach ($videos as $key => $value) {
+      $query = "INSERT INTO t_videos (post_id, url_video) VALUES (:post_id, :url_video)";
+      $stmt = $conn->prepare($query);
+      $stmt->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+      $stmt->bindParam(':url_video', $value, PDO::PARAM_STR);
+      $stmt->execute();
+    }
 
     if ($stmt->rowCount() > 0) {
       return $conn->lastInsertId();
