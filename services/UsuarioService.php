@@ -1,5 +1,5 @@
 <?php
-class UserService
+class UsuarioService
 {
   private $UsuarioRepository;
 
@@ -7,7 +7,7 @@ class UserService
   {
     $this->UsuarioRepository = $UsuarioRepository;
   }
-  
+
   public function getDatosGeneralesUsuario($usuario_id)
   {
     return $this->UsuarioRepository->getDatosGeneralesUsuario($usuario_id);
