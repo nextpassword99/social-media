@@ -85,7 +85,7 @@ class UserController
         $post->getUsuarioId(),
         $post->getPostId(),
         $this->UsuarioView->getFotoPerfil(),
-        $this->UsuarioSession->getNombre(),
+        $this->UsuarioSession->getNombreCompleto(),
         $post->getUsuarioNombreCompleto(),
         $post->getFechaPublicacion(),
         $post->getDescripcion(),
@@ -116,7 +116,7 @@ class UserController
         '{{usuario_id_session}}',
       ],
       [
-        $this->UsuarioView->getNombre() . ' ' . $this->UsuarioView->getApellido(),
+        $this->UsuarioView->getNombreCompleto(),
         $this->UsuarioView->getFotoPerfil(),
         11 . ' amigos',
         $this->UsuarioView->getFotoPerfil() ?? '',
@@ -224,7 +224,7 @@ class UserController
       ],
       [
         $this->UsuarioSession->getFotoPerfil(),
-        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
+        $this->UsuarioSession->getNombreCompleto(),
       ],
       $template_crear_post
     );
