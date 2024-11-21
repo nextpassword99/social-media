@@ -58,14 +58,8 @@ class PostComponent
 
   public function render()
   {
-
-    $count_comentarios = Post::getCountComentariosPorIdPost($this->post_id);
-    $images = $this->visual == 'Mixto' || $this->visual == 'img' ? Post::getImgsPorIdPost($this->post_id) : [];
-    $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? Post::getVideosPorIdPost($this->post_id) : [];
-    $countLikes = Post::getCountLikesPorIdPost($this->post_id);
-    $existeLike = Post::checkIfLikeExists($this->post_id, $this->user_id_session);
-
-    $comentarios = Post::getUnComentarioPorIdPost($this->post_id);
+    $images = $this->visual == 'Mixto' || $this->visual == 'img' ? $this->imgs : [];
+    $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? $this->videos : [];
 
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
