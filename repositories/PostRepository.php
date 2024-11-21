@@ -176,6 +176,10 @@ class PostRepository
     $stmt = $conn->prepare($query);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $ImgRepository = new ImgRepository($this->db);
+      $VideoRepository = new VideoRepository($this->db);
+
+      $imgs = $ImgRepository->getImgsPorPostId($post_data['post_id']);
+      $videos = $VideoRepository->getVideosPorPostId($post_data['post_id']);
   }
 }
