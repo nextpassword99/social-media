@@ -12,6 +12,11 @@ class PostComponent
   private $nombre_post;
   private $fecha_post;
   private $content_text;
+  private $likes_count;
+  private $comentarios_count;
+  private $comentarios;
+  private $imgs;
+  private $videos;
   private $post_template;
   private $visual;
 
