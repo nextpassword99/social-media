@@ -2,7 +2,7 @@
   .container-comentarios {
     width: 100%;
   }
-  .container-comentarios textarea {
+  .container-comentarios input {
     width: 100%;
     height: 2rem;
     padding: 8px 20px;
@@ -20,7 +20,7 @@
     gap: 1rem;
   }
   .content-send-comentario
-    textarea:not(:placeholder-shown)
+    input:not(:placeholder-shown)
     ~ .content-button-comentario {
     display: block;
   }
@@ -50,7 +50,7 @@
       src="{{imagen_perfil}}"
       width="30"
     />
-    <textarea placeholder="Comentar como {{usuario_actual}}"></textarea>
+    <input placeholder="Comentar como {{usuario_actual}}" />
     <div class="content-button-comentario">
       <button>
         <i class="fas fa-paper-plane"></i>
@@ -100,11 +100,11 @@
       button.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const textarea = comentario.querySelector("textarea");
-        if (!textarea.value.trim()) return;
+        const input = comentario.querySelector("input");
+        if (!input.value.trim()) return;
 
         const idPost = comentario.dataset.idPost;
-        const comentarioText = textarea.value;
+        const comentarioText = input.value;
 
         fetch("/handle-form/comentario", {
           method: "POST",
@@ -128,7 +128,7 @@
 
               comentario.querySelector(".content-comentarios").innerHTML +=
                 comentarioHtml;
-              comentario.querySelector("textarea").value = "";
+              comentario.querySelector("input").value = "";
             } else {
               console.error("Error al agregar comentario");
             }
