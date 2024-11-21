@@ -7,4 +7,8 @@ class ImgService
   {
     $this->ImgRepository = $ImgRepository;
   }
+  public function getImgsPorIdUsuario($usuario_id)
+  {
+    return $this->ImgRepository->getImgsPorIdUsuario($usuario_id);
+  }
 }
