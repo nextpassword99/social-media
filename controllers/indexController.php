@@ -5,22 +5,13 @@ require_once __DIR__ . '/../utils/HtmlHelper.php';
 require_once __DIR__ . '/../components/PostComponent.php';
 class IndexController
 {
-  private $usuario_id_session;
-  private $data_usuario_session;
-  public function __construct($usuario_id_session)
+  private $UsuarioSession;
+  private $DB;
+
+  public function __construct(Usuario $UsuarioSession, DB $DB)
   {
-    $this->usuario_id_session = $usuario_id_session;
-    $this->cargarDatosSession();
-  }
-  private function cargarDatosSession()
-  {
-    $usuario = new Usuario($this->usuario_id_session ?? 1);
-    $this->data_usuario_session = $usuario = [
-      // 'usuario_id' => $usuario->getUsuarioId(),
-      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-      'email' => $usuario->getEmail(),
-      'foto_perfil' => $usuario->getFotoPerfil()
-    ];
+    $this->UsuarioSession = $UsuarioSession;
+    $this->DB = $DB;
   }
   public function render()
   {
