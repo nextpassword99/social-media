@@ -49,6 +49,9 @@ $texto_post = $_POST['texto_post'] ?? null;
 require_once __DIR__ . '/../../../services/PostService.php';
 require_once __DIR__ . '/../../../repositories/PostRepository.php';
 
+$DB = new DB();
+$PostRepository = new PostRepository($DB);
+$PostService = new PostService($PostRepository);
 
 if (!$post_id) {
   echo json_encode([
