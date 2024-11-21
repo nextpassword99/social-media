@@ -47,6 +47,11 @@ class PostComponent
     $this->nombre_post = $nombre_post;
     $this->fecha_post = $fecha_post;
     $this->content_text = $content_text;
+    $this->likes_count = $likes_count;
+    $this->comentarios_count = $comentarios_count;
+    $this->comentarios = $comentarios;
+    $this->imgs = $imgs;
+    $this->videos = $videos;
     $this->post_template = $post_template;
     $this->visual = $visual;
   }
