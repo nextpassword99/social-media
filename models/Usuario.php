@@ -1,7 +1,7 @@
 <?php
 class Usuario
 {
-  private $usuario_id;
+  private $id;
   private $nombre;
   private $apellido;
   private $email;
@@ -14,12 +14,12 @@ class Usuario
 
   public function __construct($usuario_id)
   {
-    $this->usuario_id = $usuario_id;
+    $this->id = $usuario_id;
   }
 
   public function getUsuarioId()
   {
-    return $this->usuario_id;
+    return $this->id;
   }
 
   public function getNombre()
