@@ -11,12 +11,10 @@ class Usuario
   private $estado_civil;
   private $fecha_registro;
   private $educacion;
-  private $db;
 
   public function __construct($usuario_id)
   {
     $this->usuario_id = $usuario_id;
-    $this->db = new DB();
   }
 
   public function getUsuarioId()
