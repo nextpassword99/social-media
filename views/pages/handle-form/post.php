@@ -70,8 +70,9 @@ if (!$post_id) {
 
 echo json_encode([
   'procesado' => true,
-  'mensaje' => 'Post creado correctamente',
+  'data' => [
   'post_id' => $post_id
+  ]
 ]);
 
 
