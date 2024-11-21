@@ -220,8 +220,8 @@ class UserController
         '{{autor_post}}',
       ],
       [
-        $this->data_usuario_session['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
+        $this->UsuarioSession->getFotoPerfil(),
+        $this->UsuarioSession->getNombre() . ' ' . $this->UsuarioSession->getApellido(),
       ],
       $template_crear_post
     );
