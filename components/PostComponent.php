@@ -64,8 +64,12 @@ class PostComponent
 
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
+    $post_html = $this->remplazarVariablesHtml(
       $this->comentarios_count,
+      $contenido_visual,
       $this->likes_count,
+      $existeLike
+    );
 
     $comentario = new ComentarioComponent($this->foto_perfil_session, $this->nombre_session, $this->user_id_session, $this->post_id, $comentarios);
     $post_html = str_replace('{{content_comentarios}}', $comentario->render(), $post_html);
