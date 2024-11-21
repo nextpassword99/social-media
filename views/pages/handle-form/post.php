@@ -53,6 +53,13 @@ $DB = new DB();
 $PostRepository = new PostRepository($DB);
 $PostService = new PostService($PostRepository);
 
+$post_id = $PostService->crearPost(
+  $_SESSION['usuario_id'],
+  $texto_post,
+  $archivos['imgs'],
+  $archivos['videos']
+);
+
 if (!$post_id) {
   echo json_encode([
     'procesado' => false,
