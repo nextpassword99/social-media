@@ -31,12 +31,9 @@ $DB = new DB();
 $LikeRepository = new LikeRepository($DB);
 $LikeService = new LikeService($LikeRepository);
 
-$response = false;
-$post = new Post($post_id);
-if (!$post->checkIfLikeExists($post_id, $usuario_id_session)) {
-  $response = $post->addLike($post_id, $usuario_id_session);
-} else {
-  $response = !$post->deleteLike($post_id, $usuario_id_session);
-}
+$isLike = !$LikeService->checkIfLikeExists($post_id, $usuario_id_session)
+  ? $isLike = $LikeService->addLike($post_id, $usuario_id_session)
+  : $isLike = !$LikeService->deleteLike($post_id, $usuario_id_session);
+
 
 echo json_encode($response);
