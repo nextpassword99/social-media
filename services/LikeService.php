@@ -22,4 +22,9 @@ class LikeService
   {
     return $this->LikeRepository->deleteLike($post_id, $user_id);
   }
+
+  public function checkIfLikeExists($post_id, $user_id): bool
+  {
+    return $this->LikeRepository->checkIfLikeExists($post_id, $user_id);
+  }
 }
