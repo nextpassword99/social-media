@@ -36,4 +36,9 @@ $isLike = !$LikeService->checkIfLikeExists($post_id, $usuario_id_session)
   : $isLike = !$LikeService->deleteLike($post_id, $usuario_id_session);
 
 
-echo json_encode($response);
+echo json_encode([
+  'procesado' => True,
+  'data' => [
+    'accion' => $isLike ? 'like' : 'unlike'
+  ]
+]);
