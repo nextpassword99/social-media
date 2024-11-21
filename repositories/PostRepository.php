@@ -141,7 +141,15 @@ class PostRepository
   public function getPostsAleatorios($limit = 10)
   {
     $conn = $this->db->getConnection();
-    $query = "SELECT p.usuario_id, p.post_id, p.descripcion, p.fecha_publicacion, u.foto_perfil, u.nombre, u.apellido
+    $query = "WITH comentario AS (SELECT c.post_id,
+                            c.contenido                                                                 AS comentario,
+                            u_comentario.usuario_id                                                     AS usuario_id_comentario,
+                            u_comentario.nombre                                                         AS comentario_usuario_nombre,
+                            u_comentario.apellido                                                       AS comentario_usuario_apellido,
+                            u_comentario.foto_perfil                                                    AS comentario_usuario_foto_perfil,
+                            ROW_NUMBER() OVER (PARTITION BY c.post_id ORDER BY c.fecha_comentario DESC) AS rn
+                     FROM t_comentarios c
+                              JOIN t_usuarios u_comentario ON c.usuario_id = u_comentario.usuario_id)
               FROM t_posts p
                 JOIN t_usuarios u ON u.usuario_id = p.usuario_id
               ORDER BY RANDOM() 
