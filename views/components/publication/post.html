@@ -39,10 +39,8 @@
     flex-wrap: wrap;
     gap: 10px;
   }
-  .post-images .visual {
+  .post-images :is(.visual, video) {
     height: auto;
-  }
-  .post-images video {
     object-fit: cover;
   }
   .post-images .visual:nth-child(1):nth-last-child(1) {
