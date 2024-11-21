@@ -60,6 +60,7 @@ class PostComponent
   {
     $images = $this->visual == 'Mixto' || $this->visual == 'img' ? $this->imgs : [];
     $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? $this->videos : [];
+    $existeLike = True;
 
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
