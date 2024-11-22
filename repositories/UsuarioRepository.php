@@ -45,7 +45,7 @@ class UsuarioRepository
     return $Usuario;
   }
 
-  public static function getUsuariosAleatorios($limit = 10)
+  public function getUsuariosDesconocidos($limit = 10)
   {
     $db = new DB();
     $conn = $db->getConnection();
