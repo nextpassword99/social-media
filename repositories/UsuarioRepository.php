@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../models/Usuario.php';
+
 class UsuarioRepository
 {
   private $db;
@@ -43,15 +45,50 @@ class UsuarioRepository
     return $Usuario;
   }
 
-  public static function getUsuariosAleatorios($limit = 10)
+  public function getUsuariosDesconocidos($limit = 10)
   {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $sql = "SELECT * FROM t_usuarios ORDER BY RANDOM() LIMIT :limit";
+    $conn = $this->db->getConnection();
+    $sql = "SELECT u.usuario_id,
+            u.nombre,
+            u.apellido,
+            u.email,
+            u.descripcion,
+            u.fecha_registro,
+            u.foto_perfil,
+            u.ubicacion,
+            u.estado_civil,
+            u.educacion
+
+      FROM t_usuarios u
+      WHERE NOT EXISTS (SELECT 1
+                        FROM t_amigos a
+                        WHERE u.usuario_id = a.usuario_id_1
+                          OR u.usuario_id = a.usuario_id_2)
+      ORDER BY u.usuario_id DESC
+      LIMIT :limit";
+
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $desconocidos_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $desconocidos = [];
+    foreach ($desconocidos_data as $desconocido) {
+      $desconocidos[] = new Usuario(
+        $desconocido['usuario_id'],
+        $desconocido['nombre'],
+        $desconocido['apellido'],
+        $desconocido['email'],
+        $desconocido['foto_perfil'],
+        $desconocido['descripcion'],
+        $desconocido['ubicacion'],
+        $desconocido['estado_civil'],
+        $desconocido['fecha_registro'],
+        $desconocido['educacion']
+      );
+    }
+
+    return $desconocidos;
   }
 }
