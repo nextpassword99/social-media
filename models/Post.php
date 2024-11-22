@@ -9,6 +9,7 @@ class Post
   private $usuario_nombre;
   private $usuario_apellido;
   private $usuario_foto_perfil;
+  private $is_like;
   private $likes_count;
   private $comentarios_count;
   private $comentarios = [];
@@ -23,6 +24,7 @@ class Post
     $usuario_nombre,
     $usuario_apellido,
     $usuario_foto_perfil,
+    $is_like,
     $likes_count,
     $comentarios_count,
     $comentarios = [],
@@ -37,6 +39,7 @@ class Post
     $this->usuario_apellido = $usuario_apellido;
     $this->usuario_foto_perfil = $usuario_foto_perfil;
     $this->comentarios_count = $comentarios_count;
+    $this->is_like = $is_like;
     $this->likes_count = $likes_count;
     $this->comentarios = $comentarios;
     $this->imgs = $imgs;
@@ -66,6 +69,10 @@ class Post
   public function getUsuarioFotoPerfil(): string
   {
     return $this->usuario_foto_perfil;
+  }
+  public function getIsLike(): bool
+  {
+    return $this->is_like;
   }
   public function getLikesCount(): int
   {
