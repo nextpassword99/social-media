@@ -118,7 +118,8 @@ class IndexController
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
     $styles_file_post = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+    $scripts_file_post = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
 
-    return $scripts_comentarios . $styles_burbuja . $styles_file_post;
+    return $scripts_comentarios . $styles_burbuja . $styles_file_post . $scripts_file_post;
   }
 }
