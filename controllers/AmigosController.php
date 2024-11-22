@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../repositories/UsuarioRepository.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
 
 class AmigosController
