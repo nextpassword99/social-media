@@ -35,7 +35,7 @@ class IndexController
 
   public function generarPosts()
   {
-    $posts = $this->PostService->getPostsAleatorios(50);
+    $posts = $this->PostService->getPostsAleatorios($this->UsuarioSession->getUsuarioId(), 50);
 
     $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $file_post_sin_scripts = HtmlHelper::removeScripts($file_post);
