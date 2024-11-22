@@ -3,11 +3,11 @@ require_once __DIR__ . '/../utils/HtmlHelper.php';
 
 class AmigosController
 {
-  private $UsuarioRepository;
+  private $UsuarioService;
 
-  public function __construct(UsuarioRepository $UsuarioRepository)
+  public function __construct(UsuarioService $UsuarioService)
   {
-    $this->UsuarioRepository = $UsuarioRepository;
+    $this->UsuarioService = $UsuarioService;
   }
 
   public function render()
@@ -35,7 +35,7 @@ class AmigosController
     $platilla = file_get_contents(__DIR__ . '/../views/components/amigos/no-friend-card.html');
     $platilla_sin_estilos = HtmlHelper::removeStyles($platilla);
 
-    $usuarios_desconocidos = $this->UsuarioRepository->getUsuariosDesconocidos(10);
+    $usuarios_desconocidos = $this->UsuarioService->getUsuariosDesconocidos(10);
 
     $html_tarjetas = '';
     foreach ($usuarios_desconocidos as $usuario) {
