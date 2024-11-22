@@ -12,7 +12,7 @@ if (!Auth::validarSession()) {
   exit;
 }
 
-require_once __DIR__ . '/../../../repositories/LikeRespository.php';
+require_once __DIR__ . '/../../../repositories/LikeRepository.php';
 require_once __DIR__ . '/../../../services/LikeService.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
