@@ -17,5 +17,8 @@ $DB = new DB();
 $UsuarioRepository = new UsuarioRepository($DB);
 $UsuarioService = new UsuarioService($UsuarioRepository);
 $Usuario = $UsuarioService->getDatosGeneralesUsuario($_SESSION['usuario_id']);
+$VideoRepository = new VideoRepository($DB);
+$VideoService = new VideoService($VideoRepository);
+
 $html =  new Layout($videos->render(), ['titulo_pagina' => 'Videos']);
 $html->render();
