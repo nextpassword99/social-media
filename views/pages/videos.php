@@ -20,5 +20,6 @@ $Usuario = $UsuarioService->getDatosGeneralesUsuario($_SESSION['usuario_id']);
 $VideoRepository = new VideoRepository($DB);
 $VideoService = new VideoService($VideoRepository);
 
+$videos =  new VideosController($Usuario, $VideoService);
 $html =  new Layout($videos->render(), ['titulo_pagina' => 'Videos']);
 $html->render();
