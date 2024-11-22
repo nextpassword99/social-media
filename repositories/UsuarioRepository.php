@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../models/Usuario.php';
+
 class UsuarioRepository
 {
   private $db;
