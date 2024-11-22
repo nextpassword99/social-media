@@ -80,9 +80,9 @@
       ".content-send-comentario"
     );
     const imagenUsuario = sendComentario.querySelector("img").src;
-    const comentario = sendComentario.querySelector("textarea").value;
+    const comentario = sendComentario.querySelector("input").value;
     const autor = sendComentario
-      .querySelector("textarea")
+      .querySelector("input")
       .placeholder.replace("Comentar como ", "");
 
     return {
@@ -118,7 +118,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data === true) {
+            if (data.procesado === true) {
               const data = obtenerDatos(comentario);
               const comentarioHtml = crearComentario(
                 data.imagenAutor,
