@@ -14,6 +14,7 @@ require_once __DIR__ . '/../../services/UsuarioService.php';
 
 $DB = new DB();
 $UsuarioRepository = new UsuarioRepository($DB);
+$UsuarioService =  new UsuarioService($UsuarioRepository);
 $PostRepository = new PostRepository($DB);
 $PostService = new PostService($PostRepository);
 
