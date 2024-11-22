@@ -1,26 +1,14 @@
 <?php
-require_once __DIR__ . '/../models/Usuario.php';
+require_once __DIR__ . '/../repositories/UsuarioRepository.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
+
 class AmigosController
 {
-  private $usuario_id_session;
-  private $data_usuario_session;
+  private $UsuarioRepository;
 
-  public function __construct($usuario_id_session)
+  public function __construct(UsuarioRepository $UsuarioRepository)
   {
-    $this->usuario_id_session = $usuario_id_session;
-    $this->cargarDatosSession();
-  }
-  private function cargarDatosSession()
-  {
-    $usuario = new Usuario($this->usuario_id_session);
-    $this->data_usuario_session = [
-      'usuario_id' => $usuario->getUsuarioId(),
-      'nombre' => $usuario->getNombre(),
-      'apellido' => $usuario->getApellido(),
-      'email' => $usuario->getEmail(),
-      'foto_perfil' => $usuario->getFotoPerfil()
-    ];
+    $this->UsuarioRepository = $UsuarioRepository;
   }
 
   public function render()
@@ -28,7 +16,7 @@ class AmigosController
     $template = file_get_contents(__DIR__ . '/../views/components/templates/amigos.html');
     $content_user = $this->generarTarjetasNoAmigos();
 
-    return str_replace(
+    $html = str_replace(
       [
         '{{content_no_amigos}}'
       ],
@@ -37,6 +25,10 @@ class AmigosController
       ],
       $template
     );
+
+    $recursos = $this->cargarRecursos();
+
+    return $html . $recursos;
   }
 
   public function generarTarjetasNoAmigos()
@@ -44,10 +36,10 @@ class AmigosController
     $platilla = file_get_contents(__DIR__ . '/../views/components/amigos/no-friend-card.html');
     $platilla_sin_estilos = HtmlHelper::removeStyles($platilla);
 
-    $usuarios_aleatorios = Usuario::getUsuariosAleatorios(10);
+    $usuarios_desconocidos = $this->UsuarioRepository->getUsuariosDesconocidos(10);
 
-    $html_tarjetas = HtmlHelper::extractStyles($platilla);
-    foreach ($usuarios_aleatorios as $usuario) {
+    $html_tarjetas = '';
+    foreach ($usuarios_desconocidos as $usuario) {
       $tarjeta = str_replace(
         [
           '{{nombre_no_amigo}}',
@@ -55,8 +47,8 @@ class AmigosController
           '{{amigos_relacionados}}'
         ],
         [
-          $usuario['nombre'] . ' ' . $usuario['apellido'],
-          $usuario['foto_perfil'],
+          $usuario->getNombreCompleto(),
+          $usuario->getFotoPerfil(),
           'El amigo'
         ],
         $platilla_sin_estilos
@@ -65,5 +57,12 @@ class AmigosController
     }
 
     return $html_tarjetas;
+  }
+
+  public function cargarRecursos()
+  {
+    $style_tarjeta_no_amigos = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/amigos/no-friend-card.html'));
+
+    return $style_tarjeta_no_amigos;
   }
 }
