@@ -16,5 +16,6 @@ require_once __DIR__ . '/../../services/VideoService.php';
 $DB = new DB();
 $UsuarioRepository = new UsuarioRepository($DB);
 $UsuarioService = new UsuarioService($UsuarioRepository);
+$Usuario = $UsuarioService->getDatosGeneralesUsuario($_SESSION['usuario_id']);
 $html =  new Layout($videos->render(), ['titulo_pagina' => 'Videos']);
 $html->render();
