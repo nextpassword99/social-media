@@ -12,6 +12,7 @@ class PostComponent
   private $nombre_post;
   private $fecha_post;
   private $content_text;
+  private $is_like;
   private $likes_count;
   private $comentarios_count;
   private $comentarios;
@@ -30,6 +31,7 @@ class PostComponent
     string $nombre_post,
     string $fecha_post,
     string $content_text,
+    bool $is_like,
     int $likes_count,
     int $comentarios_count,
     array $comentarios,
@@ -47,6 +49,7 @@ class PostComponent
     $this->nombre_post = $nombre_post;
     $this->fecha_post = $fecha_post;
     $this->content_text = $content_text;
+    $this->is_like = $is_like;
     $this->likes_count = $likes_count;
     $this->comentarios_count = $comentarios_count;
     $this->comentarios = $comentarios;
@@ -60,7 +63,6 @@ class PostComponent
   {
     $images = $this->visual == 'Mixto' || $this->visual == 'img' ? $this->imgs : [];
     $videos = $this->visual == 'Mixto' || $this->visual == 'video' ? $this->videos : [];
-    $existeLike = True;
 
     $contenido_visual = $this->generarContenidoVisual($images, $videos);
 
@@ -68,7 +70,6 @@ class PostComponent
       $this->comentarios_count,
       $contenido_visual,
       $this->likes_count,
-      $existeLike
     );
 
     $comentario = new ComentarioComponent(
@@ -98,7 +99,7 @@ class PostComponent
     return $contenido_visual;
   }
 
-  private function remplazarVariablesHtml($count_comentarios, $contenido_visual, $countLikes, $existeLike)
+  private function remplazarVariablesHtml($count_comentarios, $contenido_visual, $countLikes)
   {
     return str_replace([
       '{{imagen_perfil}}',
@@ -121,7 +122,7 @@ class PostComponent
       $count_comentarios,
       $this->post_id,
       $this->nombre_session,
-      $existeLike ? 'fas' : 'far'
+      $this->is_like ? 'fas' : 'far'
     ], $this->post_template);
   }
 }

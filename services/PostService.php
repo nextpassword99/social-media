@@ -13,9 +13,9 @@ class PostService
     return $this->postRepository->getPostsPorUsuarioId($usuario_id);
   }
 
-  public function getPostsAleatorios($limit = 10)
+  public function getPostsAleatorios($usuario_id, $limit = 10)
   {
-    return $this->postRepository->getPostsAleatorios($limit);
+    return $this->postRepository->getPostsAleatorios($usuario_id, $limit);
   }
 
   public function crearPost($usuario_id, $post_text, $imgs = [], $videos = [])
