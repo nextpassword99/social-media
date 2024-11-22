@@ -10,6 +10,8 @@ if (!Auth::validarSession()) {
 
 require_once __DIR__ . '/../layouts/layout.php';
 require_once __DIR__ . '/../../controllers/AmigosController.php';
+require_once __DIR__ . '/../../repositories/UsuarioRepository.php';
+require_once __DIR__ . '/../../services/UsuarioService.php';
 
 $DB = new DB();
 $UsuarioRepository = new UsuarioRepository($DB);
