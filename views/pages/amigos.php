@@ -11,6 +11,6 @@ if (!Auth::validarSession()) {
 require_once __DIR__ . '/../layouts/layout.php';
 require_once __DIR__ . '/../../controllers/AmigosController.php';
 
-$amigos = new AmigosController($_SESSION['usuario_id']);
+$DB = new DB();
 $html = new Layout($amigos->render(), ['titulo_pagina' => 'Amigos']);;
 $html->render();
