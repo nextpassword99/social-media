@@ -8,4 +8,8 @@ class VideoService
     $this->VideoRepository = $VideoRepository;
   }
 
+  public function getVideosAleatorios($limit = 10)
+  {
+    return $this->VideoRepository->getVideosAleatorios($limit);
+  }
 }
