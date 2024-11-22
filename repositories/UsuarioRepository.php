@@ -47,9 +47,7 @@ class UsuarioRepository
 
   public function getUsuariosDesconocidos($limit = 10)
   {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $sql = "SELECT * FROM t_usuarios ORDER BY RANDOM() LIMIT :limit";
+    $conn = $this->db->getConnection();
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
