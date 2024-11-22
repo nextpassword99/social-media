@@ -12,4 +12,9 @@ class UsuarioService
   {
     return $this->UsuarioRepository->getDatosGeneralesUsuario($usuario_id);
   }
+
+  public function getUsuariosDesconocidos($limit = 10)
+  {
+    return $this->UsuarioRepository->getUsuariosDesconocidos($limit);
+  }
 }
