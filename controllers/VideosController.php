@@ -62,7 +62,9 @@ class VideosController
     {
         $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
         $script_comentario = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
+        $post_script = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+        $post_style = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
 
-        return $script_comentario . $styles_burbuja;
+        return $script_comentario . $styles_burbuja . $post_script . $post_style;
     }
 }
