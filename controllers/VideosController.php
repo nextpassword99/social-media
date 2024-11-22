@@ -6,23 +6,13 @@ require_once __DIR__ . "/../utils/HtmlHelper.php";
 
 class VideosController
 {
-    private $usuario_id_session;
-    private $datos;
+    private $Usuario;
+    private $VideoService;
 
-    public function __construct($usuario_id_session)
+    public function __construct(Usuario $Usuario, VideoService $VideoService)
     {
-        $this->usuario_id_session = $usuario_id_session;
-        $this->cargar_datos();
-    }
-
-    private function cargar_datos()
-    {
-        $usuario = new Usuario($this->usuario_id_session);
-        $datos = [
-            'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-            'foto_perfil' => $usuario->getFotoPerfil(),
-        ];
-        $this->datos = $datos;
+        $this->Usuario = $Usuario;
+        $this->VideoService = $VideoService;
     }
 
     public function render()
