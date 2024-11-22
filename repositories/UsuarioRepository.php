@@ -48,6 +48,25 @@ class UsuarioRepository
   public function getUsuariosDesconocidos($limit = 10)
   {
     $conn = $this->db->getConnection();
+    $sql = "SELECT u.usuario_id,
+            u.nombre,
+            u.apellido,
+            u.email,
+            u.descripcion,
+            u.fecha_registro,
+            u.foto_perfil,
+            u.ubicacion,
+            u.estado_civil,
+            u.educacion
+
+      FROM t_usuarios u
+      WHERE NOT EXISTS (SELECT 1
+                        FROM t_amigos a
+                        WHERE u.usuario_id = a.usuario_id_1
+                          OR u.usuario_id = a.usuario_id_2)
+      ORDER BY u.usuario_id DESC
+      LIMIT :limit";
+
     $stmt = $conn->prepare($sql);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
