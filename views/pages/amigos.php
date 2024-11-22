@@ -12,5 +12,7 @@ require_once __DIR__ . '/../layouts/layout.php';
 require_once __DIR__ . '/../../controllers/AmigosController.php';
 
 $DB = new DB();
+$UsuarioRepository = new UsuarioRepository($DB);
+
 $html = new Layout($amigos->render(), ['titulo_pagina' => 'Amigos']);;
 $html->render();
