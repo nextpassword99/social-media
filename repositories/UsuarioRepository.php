@@ -71,6 +71,24 @@ class UsuarioRepository
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
     $stmt->execute();
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $desconocidos_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $desconocidos = [];
+    foreach ($desconocidos_data as $desconocido) {
+      $desconocidos[] = new Usuario(
+        $desconocido['usuario_id'],
+        $desconocido['nombre'],
+        $desconocido['apellido'],
+        $desconocido['email'],
+        $desconocido['foto_perfil'],
+        $desconocido['descripcion'],
+        $desconocido['ubicacion'],
+        $desconocido['estado_civil'],
+        $desconocido['fecha_registro'],
+        $desconocido['educacion']
+      );
+    }
+
+    return $desconocidos;
   }
 }
