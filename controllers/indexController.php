@@ -53,6 +53,7 @@ class IndexController
         $post->getUsuarioNombreCompleto(),
         $post->getFechaPublicacion(),
         $post->getDescripcion(),
+        $post->getIsLike(),
         $post->getLikesCount(),
         $post->getComentariosCount(),
         $post->getComentarios(),
