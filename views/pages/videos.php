@@ -14,5 +14,7 @@ require_once __DIR__ . '/../../repositories/VideoRepository.php';
 require_once __DIR__ . '/../../services/VideoService.php';
 
 $DB = new DB();
+$UsuarioRepository = new UsuarioRepository($DB);
+$UsuarioService = new UsuarioService($UsuarioRepository);
 $html =  new Layout($videos->render(), ['titulo_pagina' => 'Videos']);
 $html->render();
