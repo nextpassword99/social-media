@@ -33,21 +33,24 @@ class VideosController
         $file_post_sin_scripts = HtmlHelper::removeScripts($file_post_sin_estilos);
 
         $post_html = '';
-        foreach ($videos as $video) {
-            $post = new Post($video['post_id']);
-            $usuario = new Usuario($post->getUsuarioId() ?? 1);
+        foreach ($post_video as $post) {
             $postComponent = new PostComponent(
-                $this->usuario_id_session ?? 1,
-                $this->datos['foto_perfil'],
-                $post->getUsuarioId() ?? 1,
-                $video['post_id'],
-                $usuario->getFotoPerfil(),
-                $this->datos['nombre_completo'],
-                $usuario->getNombre() . " " . $usuario->getApellido(),
+                $this->Usuario->getUsuarioId(),
+                $this->Usuario->getFotoPerfil(),
+                $post->getUsuarioId(),
+                $post->getPostId(),
+                $post->getUsuarioFotoPerfil(),
+                $this->Usuario->getNombreCompleto(),
+                $post->getUsuarioNombreCompleto(),
                 $post->getFechaPublicacion(),
-                $post->getDescripcion() ?? "",
-                $file_post_sin_estilos,
-                'video',
+                $post->getDescripcion(),
+                $post->getIsLike(),
+                $post->getLikesCount(),
+                $post->getComentariosCount(),
+                $post->getComentarios(),
+                $post->getImgs(),
+                $post->getVideos(),
+                $file_post_sin_scripts,
             );
             $post_html .= $postComponent->render();
         }
