@@ -200,3 +200,41 @@
     </div>
   </div>
 </div>
+
+<script>
+  const allPostContainer = document.querySelectorAll(".post-container");
+
+  allPostContainer.forEach((postContainer) => {
+    const likeButton = postContainer.querySelector(".like-button");
+    const likeCount = postContainer.querySelector(
+      ".post-reactions .count-likes"
+    );
+
+    if (likeButton) {
+      likeButton.addEventListener("click", function () {
+        const postId = this.dataset.postId;
+
+        fetch("/handle-form/like", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ post_id: postId }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.procesado === true) {
+              if (data.data.accion === "like") {
+                likeButton.querySelector("i").classList.replace("far", "fas");
+                likeCount.textContent = parseInt(likeCount.textContent) + 1;
+              } else if (data.data.accion === "unlike") {
+                likeButton.querySelector("i").classList.replace("fas", "far");
+                likeCount.textContent = parseInt(likeCount.textContent) - 1;
+              }
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      });
+    }
+  });
+</script>
