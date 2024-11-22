@@ -28,7 +28,6 @@ class VideosController
         $post_video = $this->VideoService->getVideosAleatorios();
 
         $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-        $file_post_estilos = HtmlHelper::extractStyles($file_post);
         $file_post_sin_estilos = HtmlHelper::removeStyles($file_post);
         $file_post_sin_scripts = HtmlHelper::removeScripts($file_post_sin_estilos);
 
