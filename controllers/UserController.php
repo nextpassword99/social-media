@@ -76,7 +76,6 @@ class UserController
     $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-    $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
     $post_platilla_sin_estilos = HtmlHelper::removeStyles($post_platilla);
 
     $post_html = "";
@@ -100,8 +99,6 @@ class UserController
       );
       $post_html .= $post_component->render();
     }
-
-    $post_html .= $post_plantilla_estilos;
 
     return $post_html;
   }
