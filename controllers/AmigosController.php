@@ -31,10 +31,10 @@ class AmigosController
     $platilla = file_get_contents(__DIR__ . '/../views/components/amigos/no-friend-card.html');
     $platilla_sin_estilos = HtmlHelper::removeStyles($platilla);
 
-    $usuarios_aleatorios = Usuario::getUsuariosAleatorios(10);
+    $usuarios_desconocidos = $this->UsuarioRepository->getUsuariosDesconocidos(10);
 
-    $html_tarjetas = HtmlHelper::extractStyles($platilla);
-    foreach ($usuarios_aleatorios as $usuario) {
+    $html_tarjetas = '';
+    foreach ($usuarios_desconocidos as $usuario) {
       $tarjeta = str_replace(
         [
           '{{nombre_no_amigo}}',
@@ -42,8 +42,8 @@ class AmigosController
           '{{amigos_relacionados}}'
         ],
         [
-          $usuario['nombre'] . ' ' . $usuario['apellido'],
-          $usuario['foto_perfil'],
+          $usuario->getNombreCompleto(),
+          $usuario->getFotoPerfil(),
           'El amigo'
         ],
         $platilla_sin_estilos
