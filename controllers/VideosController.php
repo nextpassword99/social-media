@@ -21,10 +21,11 @@ class VideosController
         $recursos = $this->cargarRecursos();
         return $videos . $recursos;
     }
+
+
     public function generarPosts()
     {
-        $postObject = new Post($this->usuario_id_session ?? 1);
-        $videos = $postObject->getVideosAleatorios();
+        $post_video = $this->VideoService->getVideosAleatorios();
 
         $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
         $file_post_estilos = HtmlHelper::extractStyles($file_post);
