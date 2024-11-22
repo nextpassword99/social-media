@@ -215,7 +215,9 @@ class UserController
   {
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
-    return $scripts_comentarios . $styles_burbuja;
+    $styles_post = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+
+    return $scripts_comentarios . $styles_burbuja . $styles_post;
   }
 
   private function generarCrearPost(): string
