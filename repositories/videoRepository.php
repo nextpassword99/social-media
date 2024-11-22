@@ -82,7 +82,38 @@ class VideoRepository
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
     $stmt->execute();
+    $posts_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $posts = [];
+
+    foreach ($posts_data as $post_data) {
+      $imgs = [];
+      $videos = $this->getVideosPorPostId($post_data['post_id']);
+      $comentarios = [
+        'comentario' => $post_data['comentario'],
+        'usuario_id_comentario' => $post_data['usuario_id_comentario'],
+        'comentario_usuario_nombre' => $post_data['comentario_usuario_nombre'],
+        'comentario_usuario_apellido' => $post_data['comentario_usuario_apellido'],
+        'comentario_usuario_foto_perfil' => $post_data['comentario_usuario_foto_perfil'],
+      ];
+
+      $posts[] = new Post(
+        $post_data['post_id'],
+        $post_data['usuario_id'],
+        $post_data['descripcion'],
+        $post_data['fecha_publicacion'],
+        $post_data['usuario_nombre'],
+        $post_data['usuario_apellido'],
+        $post_data['usuario_foto_perfil'],
+        $post_data['is_like'],
+        $post_data['likes_count'],
+        $post_data['comentarios_count'],
+        [$comentarios],
+        $imgs,
+        $videos
+      );
+    }
+
+    return $posts;
   }
 }
