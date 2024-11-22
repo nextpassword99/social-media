@@ -6,23 +6,13 @@ require_once __DIR__ . "/../utils/HtmlHelper.php";
 
 class VideosController
 {
-    private $usuario_id_session;
-    private $datos;
+    private $Usuario;
+    private $VideoService;
 
-    public function __construct($usuario_id_session)
+    public function __construct(Usuario $Usuario, VideoService $VideoService)
     {
-        $this->usuario_id_session = $usuario_id_session;
-        $this->cargar_datos();
-    }
-
-    private function cargar_datos()
-    {
-        $usuario = new Usuario($this->usuario_id_session);
-        $datos = [
-            'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-            'foto_perfil' => $usuario->getFotoPerfil(),
-        ];
-        $this->datos = $datos;
+        $this->Usuario = $Usuario;
+        $this->VideoService = $VideoService;
     }
 
     public function render()
@@ -31,35 +21,38 @@ class VideosController
         $recursos = $this->cargarRecursos();
         return $videos . $recursos;
     }
+
+
     public function generarPosts()
     {
-        $postObject = new Post($this->usuario_id_session ?? 1);
-        $videos = $postObject->getVideosAleatorios();
+        $post_video = $this->VideoService->getVideosAleatorios();
 
         $file_post = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-        $file_post_estilos = HtmlHelper::extractStyles($file_post);
         $file_post_sin_estilos = HtmlHelper::removeStyles($file_post);
+        $file_post_sin_scripts = HtmlHelper::removeScripts($file_post_sin_estilos);
 
         $post_html = '';
-        foreach ($videos as $video) {
-            $post = new Post($video['post_id']);
-            $usuario = new Usuario($post->getUsuarioId() ?? 1);
+        foreach ($post_video as $post) {
             $postComponent = new PostComponent(
-                $this->usuario_id_session ?? 1,
-                $this->datos['foto_perfil'],
-                $post->getUsuarioId() ?? 1,
-                $video['post_id'],
-                $usuario->getFotoPerfil(),
-                $this->datos['nombre_completo'],
-                $usuario->getNombre() . " " . $usuario->getApellido(),
+                $this->Usuario->getUsuarioId(),
+                $this->Usuario->getFotoPerfil(),
+                $post->getUsuarioId(),
+                $post->getPostId(),
+                $post->getUsuarioFotoPerfil(),
+                $this->Usuario->getNombreCompleto(),
+                $post->getUsuarioNombreCompleto(),
                 $post->getFechaPublicacion(),
-                $post->getDescripcion() ?? "",
-                $file_post_sin_estilos,
-                'video',
+                $post->getDescripcion(),
+                $post->getIsLike(),
+                $post->getLikesCount(),
+                $post->getComentariosCount(),
+                $post->getComentarios(),
+                $post->getImgs(),
+                $post->getVideos(),
+                $file_post_sin_scripts,
             );
             $post_html .= $postComponent->render();
         }
-        $post_html .= $file_post_estilos;
 
         return $post_html;
     }
@@ -68,7 +61,9 @@ class VideosController
     {
         $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
         $script_comentario = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
+        $post_script = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+        $post_style = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
 
-        return $script_comentario . $styles_burbuja;
+        return $script_comentario . $styles_burbuja . $post_script . $post_style;
     }
 }
