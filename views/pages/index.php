@@ -9,11 +9,15 @@ if (!Auth::validarSession()) {
 
 require_once __DIR__ . '/../layouts/layout.php';
 require_once __DIR__ . '/../../controllers/indexController.php';
+require_once __DIR__ . '/../../repositories/UsuarioRepository.php';
+require_once __DIR__ . '/../../services/UsuarioService.php';
 
 $DB = new DB();
-$Usuario = new Usuario($_SESSION['usuario_id']);
-$PostReository = new PostRepository($DB);
-$PostService = new PostService($PostReository);
+$UsuarioRepository = new UsuarioRepository($DB);
+$UsuarioService =  new UsuarioService($UsuarioRepository);
+$Usuario = $UsuarioService->getDatosGeneralesUsuario($_SESSION['usuario_id']);
+$PostRepository = new PostRepository($DB);
+$PostService = new PostService($PostRepository);
 
 $index = new IndexController($Usuario, $PostService);
 $html = $index->render();

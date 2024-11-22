@@ -1,79 +1,79 @@
 <?php
 class Usuario
 {
-  private $usuario_id;
+  private $id;
   private $nombre;
   private $apellido;
   private $email;
   private $foto_perfil;
-  private $desc;
-  private $ubi;
+  private $descripcion;
+  private $ubicacion;
   private $estado_civil;
   private $fecha_registro;
   private $educacion;
-  private $db;
 
-  public function __construct($usuario_id)
-  {
-    $this->usuario_id = $usuario_id;
-    $this->db = new DB();
-    $this->cargarDatos();
+  public function __construct(
+    $usuario_id,
+    $nombre,
+    $apellido,
+    $email,
+    $foto_perfil,
+    $descripcion,
+    $ubicacion,
+    $estado_civil,
+    $fecha_registro,
+    $educacion
+  ) {
+    $this->id = $usuario_id;
+    $this->nombre = $nombre;
+    $this->apellido = $apellido;
+    $this->email = $email;
+    $this->foto_perfil = $foto_perfil;
+    $this->descripcion = $descripcion;
+    $this->ubicacion = $ubicacion;
+    $this->estado_civil = $estado_civil;
+    $this->fecha_registro = $fecha_registro;
+    $this->educacion = $educacion;
   }
 
-  private function cargarDatos()
+  public function getUsuarioId(): int
   {
-    $conn = $this->db->getConnection();
-    $query = "SELECT * FROM t_usuarios WHERE usuario_id = :usuario_id";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(":usuario_id", $this->usuario_id);
-    $stmt->execute();
-
-    $data = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $this->nombre = $data['nombre'];
-    $this->apellido = $data['apellido'];
-    $this->email = $data['email'];
-    $this->foto_perfil = $data['foto_perfil'];
-    $this->desc = $data['descripcion'];
-    $this->ubi = $data['ubicacion'];
-    $this->estado_civil = $data['estado_civil'];
-    $this->fecha_registro = $data['fecha_registro'];
-    $this->educacion = $data['educacion'];
+    return $this->id;
   }
 
-  public function getUsuarioId()
-  {
-    return $this->usuario_id;
-  }
-
-  public function getNombre()
+  public function getNombre(): string
   {
     return $this->nombre;
   }
 
-  public function getApellido()
+  public function getApellido(): string
   {
     return $this->apellido;
   }
 
-  public function getEmail()
+  public function getNombreCompleto(): string
+  {
+    return $this->nombre . ' ' . $this->apellido;
+  }
+
+  public function getEmail(): string
   {
     return $this->email;
   }
 
-  public function getFotoPerfil()
+  public function getFotoPerfil(): string
   {
     return $this->foto_perfil;
   }
 
   public function getDescripcion(): string
   {
-    return $this->desc;
+    return $this->descripcion;
   }
 
   public function getUbicacion(): string
   {
-    return $this->ubi;
+    return $this->ubicacion;
   }
 
   public function getFecha_registro(): string
@@ -97,42 +97,9 @@ class Usuario
         return "Desconocido";
     }
   }
+
   public function getEducacion(): string
   {
     return $this->educacion;
-  }
-  /**
-   * Devuelve una lista aleatoria de usuarios.
-   *
-   * @param int $limit El número de usuarios a recuperar.
-   *
-   * @return array Los datos de los usuarios
-   */
-  public static function getUsuariosAleatorios($limit = 10)
-  {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $sql = "SELECT * FROM t_usuarios ORDER BY RANDOM() LIMIT :limit";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public static function getImgsPorIdUsuario($user_id)
-  {
-    $db = new DB();
-    $conn = $db->getConnection();
-    $query = "SELECT i.* FROM t_imagenes i 
-              JOIN t_posts p ON i.post_id = p.post_id 
-              WHERE usuario_id = :usuario_id
-              ORDER BY i.fecha_subida DESC
-              LIMIT 9";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(':usuario_id', $user_id);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 }

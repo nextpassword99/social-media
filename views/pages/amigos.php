@@ -10,7 +10,13 @@ if (!Auth::validarSession()) {
 
 require_once __DIR__ . '/../layouts/layout.php';
 require_once __DIR__ . '/../../controllers/AmigosController.php';
+require_once __DIR__ . '/../../repositories/UsuarioRepository.php';
+require_once __DIR__ . '/../../services/UsuarioService.php';
 
-$amigos = new AmigosController($_SESSION['usuario_id']);
+$DB = new DB();
+$UsuarioRepository = new UsuarioRepository($DB);
+$UsuarioService = new UsuarioService($UsuarioRepository);
+
+$amigos = new AmigosController($UsuarioService);
 $html = new Layout($amigos->render(), ['titulo_pagina' => 'Amigos']);;
 $html->render();

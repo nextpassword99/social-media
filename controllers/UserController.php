@@ -1,29 +1,25 @@
 <?php
-require __DIR__ . '/../models/Usuario.php';
+require __DIR__ . '/../repositories/UsuarioRepository.php';
 require __DIR__ . '/../repositories/PostRepository.php';
+require __DIR__ . '/../services/ImgService.php';
+require __DIR__ . '/../services/UsuarioService.php';
 require __DIR__ . '/../services/PostService.php';
 require __DIR__ . '/../utils/HtmlHelper.php';
 require __DIR__ . '/../components/PostComponent.php';
 
 class UserController
 {
-  private $usuario;
-  private $data_usuario_session;
+  private $UsuarioView;
+  private $UsuarioSession;
+  private $db;
 
-  public function __construct($usuario_id_session, $usuario_id)
+  public function __construct($usuario_id_session, $usuario_id, DB $db)
   {
-    $this->usuario = new Usuario($usuario_id);
-    $this->cargarDatos($usuario_id_session);
-  }
-
-  public function cargarDatos($usuario_id_session)
-  {
-    $usuario = new Usuario($usuario_id_session);
-    $this->data_usuario_session = [
-      'usuario_id' => $usuario->getUsuarioId(),
-      'nombre_completo' => $usuario->getNombre() . ' ' . $usuario->getApellido(),
-      'foto_perfil' => $usuario->getFotoPerfil(),
-    ];
+    $this->db = $db;
+    $UsuarioRepository = new UsuarioRepository($db);
+    $UserService = new UsuarioService($UsuarioRepository);
+    $this->UsuarioSession = $UserService->getDatosGeneralesUsuario($usuario_id_session);
+    $this->UsuarioView = $UserService->getDatosGeneralesUsuario($usuario_id);
   }
 
   public function renderHeader(): string
@@ -75,10 +71,9 @@ class UserController
 
   private function postsUsuario(): string
   {
-    $db = new DB();
-    $postRepository = new PostRepository($db);
+    $postRepository = new PostRepository($this->db);
     $postService = new PostService($postRepository);
-    $posts_data = $postService->getPostsPorUsuarioId($this->usuario->getUsuarioId());
+    $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
     $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
@@ -87,12 +82,12 @@ class UserController
     $post_html = "";
     foreach ($posts_data as $post) {
       $post_component = new PostComponent(
-        $this->data_usuario_session['usuario_id'],
-        $this->data_usuario_session['foto_perfil'],
+        $this->UsuarioSession->getUsuarioId(),
+        $this->UsuarioSession->getFotoPerfil(),
         $post->getUsuarioId(),
         $post->getPostId(),
-        $this->usuario->getFotoPerfil(),
-        $this->data_usuario_session['nombre_completo'],
+        $this->UsuarioView->getFotoPerfil(),
+        $this->UsuarioSession->getNombreCompleto(),
         $post->getUsuarioNombreCompleto(),
         $post->getFechaPublicacion(),
         $post->getDescripcion(),
@@ -123,11 +118,11 @@ class UserController
         '{{usuario_id_session}}',
       ],
       [
-        $this->usuario->getNombre() . ' ' . $this->usuario->getApellido(),
-        $this->usuario->getFotoPerfil(),
+        $this->UsuarioView->getNombreCompleto(),
+        $this->UsuarioView->getFotoPerfil(),
         11 . ' amigos',
-        $this->usuario->getFotoPerfil() ?? '',
-        $this->data_usuario_session['usuario_id'],
+        $this->UsuarioView->getFotoPerfil() ?? '',
+        $this->UsuarioSession->getUsuarioId(),
       ],
       $header_plantilla
     );
@@ -152,9 +147,9 @@ class UserController
         '{{estado_civil}}',
       ],
       [
-        $this->usuario->getDescripcion(),
-        $this->usuario->getUbicacion(),
-        $this->usuario->getEstadoCivil(),
+        $this->UsuarioView->getDescripcion(),
+        $this->UsuarioView->getUbicacion(),
+        $this->UsuarioView->getEstadoCivil(),
       ],
       $detalles_plantilla
     );
@@ -166,8 +161,10 @@ class UserController
   {
     $detalles_plantilla = file_get_contents(__DIR__ . '/../views/components/aside/fotos.html');
 
-    $id_usuario = $this->usuario->getUsuarioId();
-    $imgs = Usuario::getImgsPorIdUsuario($id_usuario);
+    $id_usuario = $this->UsuarioView->getUsuarioId();
+    $ImgRepository = new ImgRepository($this->db);
+    $ImgService = new ImgService($ImgRepository);
+    $imgs = $ImgService->getImgsPorIdUsuario($id_usuario);
 
     $content_imgs = '';
     foreach ($imgs as $img) {
@@ -202,14 +199,14 @@ class UserController
       '{{estado_civil}}',
       '{{educacion}}',
     ], [
-      $this->usuario->getNombre(),
-      $this->usuario->getApellido(),
-      $this->usuario->getEmail(),
-      $this->usuario->getDescripcion(),
-      $this->usuario->getFecha_registro(),
-      $this->usuario->getUbicacion(),
-      $this->usuario->getEstadoCivil(),
-      $this->usuario->getEducacion(),
+      $this->UsuarioView->getNombre(),
+      $this->UsuarioView->getApellido(),
+      $this->UsuarioView->getEmail(),
+      $this->UsuarioView->getDescripcion(),
+      $this->UsuarioView->getFecha_registro(),
+      $this->UsuarioView->getUbicacion(),
+      $this->UsuarioView->getEstadoCivil(),
+      $this->UsuarioView->getEducacion(),
     ], $template);
     return $template;
   }
@@ -230,8 +227,8 @@ class UserController
         '{{autor_post}}',
       ],
       [
-        $this->data_usuario_session['foto_perfil'],
-        $this->data_usuario_session['nombre_completo'],
+        $this->UsuarioSession->getFotoPerfil(),
+        $this->UsuarioSession->getNombreCompleto(),
       ],
       $template_crear_post
     );
