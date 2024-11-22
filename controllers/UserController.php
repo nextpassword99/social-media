@@ -76,7 +76,8 @@ class UserController
     $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-    $post_platilla_sin_estilos = HtmlHelper::removeStyles($post_platilla);
+    $post_plantilla_sin_scripts = HtmlHelper::removeScripts($post_platilla);
+    $post_plantilla_sin_styles = HtmlHelper::removeStyles($post_plantilla_sin_scripts);
 
     $post_html = "";
     foreach ($posts_data as $post) {
