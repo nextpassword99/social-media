@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../repositories/UsuarioRepository.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
+
 class AmigosController
 {
   private $UsuarioRepository;
@@ -15,7 +16,7 @@ class AmigosController
     $template = file_get_contents(__DIR__ . '/../views/components/templates/amigos.html');
     $content_user = $this->generarTarjetasNoAmigos();
 
-    return str_replace(
+    $html = str_replace(
       [
         '{{content_no_amigos}}'
       ],
@@ -24,6 +25,10 @@ class AmigosController
       ],
       $template
     );
+
+    $recursos = $this->cargarRecursos();
+
+    return $html . $recursos;
   }
 
   public function generarTarjetasNoAmigos()
