@@ -96,7 +96,7 @@ class UserController
         $post->getComentarios(),
         $post->getImgs(),
         $post->getVideos(),
-        $post_platilla_sin_estilos,
+        $post_plantilla_sin_styles,
       );
       $post_html .= $post_component->render();
     }
