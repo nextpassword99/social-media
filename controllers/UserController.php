@@ -76,8 +76,8 @@ class UserController
     $posts_data = $postService->getPostsPorUsuarioId($this->UsuarioView->getUsuarioId());
 
     $post_platilla = file_get_contents(__DIR__ . '/../views/components/publication/post.html');
-    $post_plantilla_estilos = HtmlHelper::extractStyles($post_platilla);
-    $post_platilla_sin_estilos = HtmlHelper::removeStyles($post_platilla);
+    $post_plantilla_sin_scripts = HtmlHelper::removeScripts($post_platilla);
+    $post_plantilla_sin_styles = HtmlHelper::removeStyles($post_plantilla_sin_scripts);
 
     $post_html = "";
     foreach ($posts_data as $post) {
@@ -96,12 +96,10 @@ class UserController
         $post->getComentarios(),
         $post->getImgs(),
         $post->getVideos(),
-        $post_platilla_sin_estilos,
+        $post_plantilla_sin_styles,
       );
       $post_html .= $post_component->render();
     }
-
-    $post_html .= $post_plantilla_estilos;
 
     return $post_html;
   }
@@ -215,7 +213,10 @@ class UserController
   {
     $scripts_comentarios = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/contenedor-comentario.html'));
     $styles_burbuja = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/burbuja-comentario.html'));
-    return $scripts_comentarios . $styles_burbuja;
+    $styles_post = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+    $script_post = HtmlHelper::extractScripts(file_get_contents(__DIR__ . '/../views/components/publication/post.html'));
+
+    return $scripts_comentarios . $styles_burbuja . $styles_post . $script_post;
   }
 
   private function generarCrearPost(): string
