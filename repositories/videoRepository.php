@@ -80,7 +80,7 @@ class VideoRepository
               ORDER BY p.fecha_publicacion DESC";
 
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':limite', $limit, PDO::PARAM_INT);
+    $stmt->bindParam(':usuario_id', $usuario_id, PDO::PARAM_INT);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
