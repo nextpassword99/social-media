@@ -53,4 +53,11 @@ class AmigosController
 
     return $html_tarjetas;
   }
+
+  public function cargarRecursos()
+  {
+    $style_tarjeta_no_amigos = HtmlHelper::extractStyles(file_get_contents(__DIR__ . '/../views/components/amigos/no-friend-card.html'));
+
+    return $style_tarjeta_no_amigos;
+  }
 }
