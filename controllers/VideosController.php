@@ -54,7 +54,6 @@ class VideosController
             );
             $post_html .= $postComponent->render();
         }
-        $post_html .= $file_post_estilos;
 
         return $post_html;
     }
