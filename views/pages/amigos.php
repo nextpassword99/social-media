@@ -14,5 +14,6 @@ require_once __DIR__ . '/../../controllers/AmigosController.php';
 $DB = new DB();
 $UsuarioRepository = new UsuarioRepository($DB);
 
+$amigos = new AmigosController($UsuarioRepository);
 $html = new Layout($amigos->render(), ['titulo_pagina' => 'Amigos']);;
 $html->render();
