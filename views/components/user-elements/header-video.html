@@ -2,14 +2,14 @@
   .vd-header {
     display: flex;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var(--background-primary);
     padding: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: auto;
+    box-shadow: var(--box-shadow);
   }
   .vd-header button {
-    background-color: #e0e3ea;
-    color: black;
+    background-color: var(--background-input);
+    color: var(--text-color);
     border: none;
     border-radius: 20px;
     padding: 8px 15px;
@@ -22,13 +22,13 @@
   .vd-header .vd-text {
     font-weight: 1000;
     font-size: 25px;
-    color: black;
+    color: var(--text-color);
     margin-right: 15px;
     text-decoration: none;
   }
   .vd-text a {
     text-decoration: none;
-    color: black;
+    color: var(--text-color);
   }
   .vd-header .vd-text:hover {
     text-decoration: underline;
@@ -40,7 +40,7 @@
     align-items: center;
     margin-left: 10px;
     border-radius: 20px;
-    background-color: #e0e3ea;
+    background-color: var(--background-input);
     padding: 8px 15px;
     position: relative;
     margin-left: auto;
@@ -54,7 +54,7 @@
   }
 
   .vd-search i {
-    color: #757575ff;
+    color: var(--text-color-secondary);
   }
 </style>
 
