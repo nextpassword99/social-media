@@ -3,24 +3,11 @@ require_once __DIR__ . '/../repositories/UsuarioRepository.php';
 require_once __DIR__ . '/../utils/HtmlHelper.php';
 class AmigosController
 {
-  private $usuario_id_session;
-  private $data_usuario_session;
+  private $UsuarioRepository;
 
-  public function __construct($usuario_id_session)
+  public function __construct(UsuarioRepository $UsuarioRepository)
   {
-    $this->usuario_id_session = $usuario_id_session;
-    $this->cargarDatosSession();
-  }
-  private function cargarDatosSession()
-  {
-    $usuario = new Usuario($this->usuario_id_session);
-    $this->data_usuario_session = [
-      'usuario_id' => $usuario->getUsuarioId(),
-      'nombre' => $usuario->getNombre(),
-      'apellido' => $usuario->getApellido(),
-      'email' => $usuario->getEmail(),
-      'foto_perfil' => $usuario->getFotoPerfil()
-    ];
+    $this->UsuarioRepository = $UsuarioRepository;
   }
 
   public function render()
