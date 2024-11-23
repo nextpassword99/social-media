@@ -28,7 +28,7 @@
     align-items: center;
     padding: 20px;
     background-color: var(--background-primary);
-    border-bottom: 1px solid #dddfe2;
+    border-bottom: var(--border-top-bottom);
   }
   .profile-photo {
     width: 168px;
@@ -59,15 +59,13 @@
   }
   .profile-details p {
     margin: 5px 0;
-    color: var(--text-color-secondary);
+    color: var(--text-color);
   }
   .profile-actions {
     display: flex;
     align-items: center;
   }
   .profile-actions button {
-    background-color: var(--primary-color);
-    color: var(--background-primary);
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -76,12 +74,12 @@
     cursor: pointer;
   }
   .profile-actions .edit-profile {
-    background-color: #e4e6eb;
-    color: black;
+    background-color: var(--background-input);
+    color: var(--background-text);
   }
   .profile-actions .more-options {
-    background-color: #e4e6eb;
-    color: black;
+    background-color: var(--background-input);
+    color: var(--background-text);
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
@@ -90,7 +88,7 @@
     display: flex;
     justify-content: space-around;
     background-color: var(--background-primary);
-    border-bottom: 1px solid #dddfe2;
+    border-bottom: var(--border-top-bottom);
   }
   .nav-tabs a {
     padding: 15px 20px;
