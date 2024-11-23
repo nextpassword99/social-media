@@ -13,6 +13,13 @@ if (!Auth::validarSession()) {
 
 $carpeta_uploads = 'public/uploads';
 
+if (!file_exists($carpeta_uploads)) {
+  $carpeta_img = $carpeta_uploads . '/posts/imgs/';
+  $carpeta_video = $carpeta_uploads . '/posts/videos/';
+  mkdir($carpeta_img, 0777, true);
+  mkdir($carpeta_video, 0777, true);
+}
+
 $archivos = [
   'imgs' => [],
   'videos' => []
@@ -79,7 +86,7 @@ echo json_encode([
 function generarNombreArchivo($nombre_archivo)
 {
   $extension = pathinfo($nombre_archivo, PATHINFO_EXTENSION);
-  $nombre_unico = uniqid() . '.' . $extension;
+  $nombre_unico = strtolower(uniqid() . '.' . $extension);
   return $nombre_unico;
 }
 
