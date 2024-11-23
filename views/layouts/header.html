@@ -1,55 +1,146 @@
 <style>
-  .header {
-    background-color: var(--background-primary);
-    padding: 10px 20px;
+  .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
   }
-  .header .logo {
+
+  .icon-bar {
     display: flex;
     align-items: center;
-    text-transform: uppercase;
+
+  }
+
+  .icon-bar img {
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    border-radius: 50%;
+
+  }
+
+  .face-text a {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0866ff;
+    cursor: pointer;
+  }
+
+  .face-text:hover {
+    text-decoration: underline;
+  }
+
+  .icon-container {
+    display: flex;
+    justify-content: space-around;
+    max-width: 300px;
+    flex: 1;
+  }
+
+  .icon {
+    font-size: 24px;
+    color: #121417;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .icon:hover {
+    background-color: #e4e6eb;
+    color: #1877f2;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 70%;
+    right: 0;
+    margin-top: 10px;
+    flex-direction: column;
+    width: 250px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+
+  .profile:hover .dropdown {
+    display: flex;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #121417;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+
+  .icon-circle {
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    color: #121417;
+  }
+  .cerrar {
     text-decoration: none;
     color: black;
   }
-  .header img {
-    height: 30px;
-    padding: 5px 10px;
-    border-radius: 20px;
-  }
-  .header .icons {
-    display: flex;
-    align-items: center;
-  }
-  .header .icons i {
-    margin: 0 10px;
-    font-size: 20px;
-    color: #606770;
-  }
 </style>
 
-<div class="header">
-  <a
-    href="/"
-    class="logo"
-  >
-    <img
-      src="https://cdn-icons-png.flaticon.com/512/9942/9942115.png"
-      alt=""
-    />
-    <span>Social Media</span>
-  </a>
-  <div class="icons">
-    <a href="/"><i class="fas fa-home"></i></a>
-    <a href="/videos"><i class="fas fa-tv"></i></a>
-    <a href="/amigos"><i class="fas fa-bell"></i></a>
-    <a href="/logout"><i class="fas fa-user-circle"></i></a>
+
+<div class="navbar">
+  <div class="icon-bar">
+    <div>
+    </div>
+    <div class="face-text"><a href="/" class="logo">Social Media</a></div>
+  </div>
+  <div class="icon-container">
+    <a href="/"><span class="icon" title="Inicio"><i class="fas fa-home"></i></span></a>
+    <a href="/amigos"><span class="icon" title="Amigos"><i class="fas fa-user-friends"></i></span></a>
+    <a href="/videos"><span class="icon" title="Videos"><i class="fas fa-tv"></i></span></a>
+  </div>
+  <div class="profile" title="Perfil">
+    <img src="https://img.freepik.com/vector-gratis/circulo-azul-usuario-blanco_78370-4707.jpg"
+      alt="Profile Picture" />
+    <div class="dropdown">
+      <div class="menu-item">
+        <span class="icon-circle"><i class="fas fa-cog"></i></span>
+        <span>Configuración</span>
+      </div>
+      <div class="menu-item">
+        <span class="icon-circle"><i class="fas fa-sign-out-alt"></i></span>
+        <span><a href="/logout" class="cerrar">Cerrar Sesión</a></span>
+      </div>
+    </div>
   </div>
 </div>
