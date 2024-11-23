@@ -1,0 +1,268 @@
+<style>
+  .reg-text {
+    display: flex;
+    font-size: 4rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    color: #0866ff;
+    padding: 20px 0;
+  }
+  .reg-text-one {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px 0;
+  }
+  .reg-container {
+    display: flex;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    flex-direction: column;
+  }
+  .linea {
+    width: 100%;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
+  }
+  .reg-content {
+    display: flex;
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .reg-form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .reg-form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .reg-text-two {
+    font-size: 0.7rem;
+    font-family: Arial, sans-serif;
+    margin-bottom: -10px;
+    color: #606770;
+  }
+  .reg-form-group-two {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .reg-form-group-two select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .reg-form-group-three {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .reg-form-group-three .input-content {
+    display: flex;
+    box-shadow: 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    white-space: nowrap;
+  }
+  .input-content input {
+    height: 11px;
+    margin-right: auto;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn button {
+    background: #00a400;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    width: 60%;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .btn button:hover {
+    background: #039503;
+  }
+  .reg-form-group-four {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    margin-top: -10px;
+  }
+  .reg-form-group-four input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+</style>
+<form action="">
+  <div class="reg-text">Social Media</div>
+  <div class="reg-container">
+    <div class="reg-text-one">Crear una cuenta</div>
+    <div class="linea"></div>
+    <div class="reg-content">
+      <div class="reg-form-group">
+        <div>
+          <input type="text" name="nombre" placeholder="Nombre" required />
+        </div>
+        <div>
+          <input type="text" name="apellido" placeholder="Apellido" required />
+        </div>
+      </div>
+      <div class="reg-text-two">Fecha de nacimiento</div>
+      <div class="reg-form-group-two">
+        <select id="dia" name="dia" required>
+          <option value="" disabled selected>Día</option>
+        </select>
+        <select id="mes" name="mes" required>
+          <option value="" disabled selected>Mes</option>
+        </select>
+        <select id="año" name="año" required>
+          <option value="" disabled selected>Año</option>
+        </select>
+      </div>
+      <div class="reg-text-two">Genéro</div>
+      <div class="reg-form-group-three">
+        <div class="input-content">
+          <label>
+            <input
+              type="radio"
+              id="selectMujer"
+              name="genero"
+              value="Mujer"
+              required
+            />Mujer
+          </label>
+        </div>
+        <div class="input-content">
+          <label>
+            <input
+              type="radio"
+              id="selectHombre"
+              name="genero"
+              value="Hombre"
+              required
+            />Hombre
+          </label>
+        </div>
+        <div class="input-content">
+          <label>
+            <input
+              type="radio"
+              name="genero"
+              value="Personalizado"
+              id="selectPersonalizado"
+              required
+            />Personalizado
+          </label>
+        </div>
+      </div>
+      <div class="reg-form-group-four">
+        <input
+          type="text"
+          id="selection"
+          style="display: none"
+          placeholder="Genéro"
+          required
+        />
+      </div>
+      <div class="reg-form-group">
+        <input type="email" placeholder="Correo electrónico" required />
+      </div>
+      <div class="reg-form-group">
+        <input type="password" placeholder="Contraseña" required />
+      </div>
+      <div class="btn">
+        <button type="submit">Registrarte</button>
+      </div>
+    </div>
+  </div>
+</form>
+<script>
+  const birthDaySelect = document.getElementById("dia");
+  const birthMonthSelect = document.getElementById("mes");
+  const birthYearSelect = document.getElementById("año");
+  for (let i = 1; i <= 31; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i;
+    birthDaySelect.appendChild(option);
+  }
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  months.forEach((month, index) => {
+    const option = document.createElement("option");
+    option.value = index + 1;
+    option.textContent = month;
+    birthMonthSelect.appendChild(option);
+  });
+  const currentYear = new Date().getFullYear();
+  for (let i = currentYear; i >= 1900; i--) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i;
+    birthYearSelect.appendChild(option);
+  }
+
+  const mostrar = document.getElementById("selection");
+  const personalizado = document.getElementById("selectPersonalizado");
+  const clickMujer = document.getElementById("selectMujer");
+  const clickHombre = document.getElementById("selectHombre");
+
+  const mostrarContenido = () => {
+    if (personalizado.checked) {
+      mostrar.style.display = "block";
+    } else {
+      mostrar.style.display = "none";
+    }
+  };
+  const ocultoSiempre = () => {
+    mostrar.style.display = "none";
+  };
+
+  personalizado.addEventListener("click", mostrarContenido);
+  clickMujer.addEventListener("click", ocultoSiempre);
+  clickHombre.addEventListener("click", ocultoSiempre);
+
+  mostrarContenido();
+</script>
