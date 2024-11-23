@@ -122,7 +122,7 @@ class PostComponent
       $count_comentarios,
       $this->post_id,
       $this->nombre_session,
-      $this->is_like ? 'fas' : 'far'
+      $this->is_like ? 'fa-solid' : 'fa-regular'
     ], $this->post_template);
   }
 }

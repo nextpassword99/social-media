@@ -183,7 +183,7 @@
       class="like-button"
       data-post-id="{{post_id}}"
     >
-      <i class="{{is_liked}} fa-thumbs-up"></i> /*Conectar con fa-solid y fa-regular*/
+      <i class="{{is_liked}} fa-thumbs-up"></i>
       Me gusta
     </button>
     <button>
@@ -226,10 +226,10 @@
           .then((data) => {
             if (data.procesado === true) {
               if (data.data.accion === "like") {
-                likeButton.querySelector("i").classList.replace("far", "fas");
+                likeButton.querySelector("i").classList.replace("fa-regular", "fa-solid");
                 likeCount.textContent = parseInt(likeCount.textContent) + 1;
               } else if (data.data.accion === "unlike") {
-                likeButton.querySelector("i").classList.replace("fas", "far");
+                likeButton.querySelector("i").classList.replace("fa-solid", "fa-regular");
                 likeCount.textContent = parseInt(likeCount.textContent) - 1;
               }
             }
