@@ -37,7 +37,7 @@ CREATE TABLE t_likes (
 );
 
 CREATE TABLE t_amigos (
-  amistad_id INTEGER PRIMARY KEY,
+  amistad_id SERIAL PRIMARY KEY,
   usuario_id_1 INTEGER REFERENCES t_usuarios (usuario_id) ON DELETE CASCADE,
   usuario_id_2 INTEGER REFERENCES t_usuarios (usuario_id) ON DELETE CASCADE,
   fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
