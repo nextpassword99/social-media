@@ -14,7 +14,7 @@ CREATE TABLE t_usuarios (
 );
 
 CREATE TABLE t_posts (
-  post_id INTEGER PRIMARY KEY,
+  post_id SERIAL PRIMARY KEY,
   usuario_id INTEGER REFERENCES t_usuarios (usuario_id) ON DELETE CASCADE,
   descripcion TEXT NOT NULL,
   fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
