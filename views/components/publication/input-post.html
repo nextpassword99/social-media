@@ -1,18 +1,22 @@
 <style>
   .post-container-create {
-    background-color: #ffffff;
+    background-color: var(--background-primary);
     border-radius: 8px;
     padding: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
     max-width: 680px;
     margin: 0 auto;
     margin-bottom: 10px;
+    border: var(--border);
   }
 
   .post-header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+  }
+  .post-header .post-input::placeholder{
+    color: var(--background-text);
   }
 
   .profile-pic {
@@ -23,26 +27,26 @@
   }
 
   .post-input {
-    background-color: #f0f2f5;
+    background-color: var(--background-input);
     border: none;
     border-radius: 20px;
     padding: 10px 15px;
-    color: #b0b3b8;
     width: 100%;
   }
 
   .post-input:hover {
-    background-color: #e4e6e9;
+    background-color: var(--background-input-hover);
   }
 
   .post-input::placeholder {
-    color: #b0b3b8;
+    color: var(--text-color-secondary);
   }
 
-  .post-actions {
+  .post-actions-a {
     display: flex;
     justify-content: space-around;
     margin-top: 10px;
+    border-top: var(--border-top-bottom);
   }
 
   .post-action {
@@ -50,7 +54,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #b0b3b8;
+    color: var(--text-color-secondary);
     cursor: pointer;
     padding: 8px;
   }
@@ -60,7 +64,7 @@
   }
 
   .post-action:hover {
-    background-color: #f2f2f2;
+    background-color: var(--background-input-hover);
     border-radius: 5px;
   }
 
@@ -76,17 +80,18 @@
   }
 
   .create-post-content {
-    background-color: #ffffff;
+    background-color: var(--background-primary);
     padding: 1rem;
     width: 100%;
     max-width: 500px;
-    height: 610px;
+    height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
+    border: var(--border);
   }
 
   .create-post-perfil {
@@ -100,7 +105,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    border-bottom: 1px solid #dddfe2;
+    border-bottom: 2px solid #ddd;
     padding: 12px;
   }
 
@@ -134,13 +139,13 @@
     padding: 10px;
     font-size: 1rem;
     border-radius: 12px;
-    background-color: #0866ff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--background-primary);
     cursor: pointer;
   }
 
   .create-post-actions button:hover {
-    background-color: darken(#0866ff, 10%);
+    background-color: darken(var(--primary-color), 10%);
   }
 
   .create-post-actions {
@@ -151,9 +156,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     border-radius: 8px;
-    padding: 8px;
+    padding: 8px 0;
   }
 
   .agregar-foto-video .upload-file {
@@ -163,10 +167,9 @@
   }
 
   .agregar-foto-video .upload-file i {
-    width: 100%;
     display: flex;
     font-size: 14px;
-    background-color: #f2f2f2f2;
+    background-color: var(--background-input);
     color: #f02849;
     flex-direction: column;
     border-radius: 8px;
@@ -176,7 +179,7 @@
   }
 
   .agregar-foto-video .upload-file i:hover {
-    background-color: #b0b3b8;
+    background-color: var(--background-input-hover);
   }
 
   .pre-view-file {
@@ -216,7 +219,7 @@
   }
 
   .file-content {
-    border: 2px solid #ddd;
+    border: var(--border-top-bottom);
     border-radius: 2px;
     width: 100%;
   }
@@ -242,10 +245,10 @@
       type="text"
     />
   </div>
-  <div class="post-actions">
+  <div class="post-actions-a">
     <div class="post-action">
       <i
-        class="fas fa-video"
+        class="fa-solid fa-video"
         style="color: #f02849"
       ></i>
       <span>Agregar video o foto</span>
@@ -309,11 +312,11 @@
       <div class="upload-file">
         <i
           id="icon-image"
-          class="fas fa-image"
+          class="fa-solid fa-image"
         ></i>
         <i
           id="icon-video"
-          class="fas fa-video"
+          class="fa-solid fa-video"
         ></i>
       </div>
     </div>
@@ -488,7 +491,7 @@
         <div class="post-author">${autorPost}</div>
         <div class="post-date">
           ${fechaPost} ·
-          <i class="fas fa-globe-americas"></i>
+          <i class="fa-solid fa-earth-americas"></i>
         </div>
       </div>
     </div>
@@ -507,15 +510,15 @@
         class="like-button"
         data-post-id="${postId}"
       >
-        <i class="fas fa-thumbs-up"></i>
+        <i class="fa-regular fa-thumbs-up"></i>
         Me gusta
       </button>
       <button>
-        <i class="far fa-comment"> </i>
+        <i class="fa-regular fa-comment"></i>
         Comentar
       </button>
       <button>
-        <i class="fas fa-share"> </i>
+        <i class="fa-solid fa-share"></i>
         Compartir
       </button>
     </div>

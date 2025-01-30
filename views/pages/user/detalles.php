@@ -8,8 +8,10 @@ if (!Auth::validarSession()) {
 
 require_once __DIR__ . '/../../../controllers/UserController.php';
 require_once __DIR__ . '/../../layouts/layout.php';
+require_once __DIR__ . '/../../../models/DB.php';
 
-$html_user = new UserController($_SESSION['usuario_id'], $usuario_id);
+$DB = new DB();
+$html_user = new UserController($_SESSION['usuario_id'], $usuario_id, $DB);
 
 
 $unido = [

@@ -2,10 +2,10 @@
   .card-no-amigo {
     width: 100%;
     max-width: 201px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-primary);
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: white;
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-primary);
     height: fit-content;
   }
 
@@ -37,7 +37,7 @@
     font-weight: bold;
   }
   .card-no-amigo .info-amigo .amigos-relacionados {
-    color: #606770;
+    color: var(--text-color-secondary);
   }
   .card-no-amigo .container-buttons {
     display: flex;
@@ -48,17 +48,17 @@
     width: 100%;
     border: none;
     padding: 8px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-primary);
     cursor: pointer;
   }
   .card-no-amigo .container-buttons button:nth-child(1) {
-    background-color: #eaf4fe;
-    color: blue;
+    background-color: var(--background-input);
+    color: var(--primary-color);
     font-weight: bold;
   }
   .card-no-amigo .container-buttons button:nth-child(2) {
-    background-color: #e4e6eb;
-    color: black;
+    background-color: var(--background-secondary);
+    color: var(--text-color);
     font-weight: bold;
   }
 </style>

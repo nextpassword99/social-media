@@ -4,10 +4,11 @@
     max-width: 680px;
     margin: 0 auto;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: var(--background-primary);
     border: 1px solid #dddfe2;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow);
+    border: var(--border);
   }
   .post-header {
     display: flex;
@@ -24,7 +25,7 @@
     font-weight: bold;
   }
   .post-header .post-date {
-    color: #606770;
+    color: var(--text-color-secondary);
     font-size: 12px;
   }
   .post-content {
@@ -60,11 +61,11 @@
   }
   .post-reactions {
     padding: 10px 15px;
-    border-top: 1px solid #dddfe2;
+    border-top: var(--border-top-bottom);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #606770;
+    color: var(--text-color-secondary);
     font-size: 14px;
   }
   .post-reactions img {
@@ -76,13 +77,13 @@
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
-    border-top: 1px solid #dddfe2;
-    border-bottom: 1px solid #dddfe2;
+    border-top: var(--border-top-bottom);
+    border-bottom: var(--border-top-bottom);
   }
   .post-actions button {
     background: none;
     border: none;
-    color: #606770;
+    color: var(--text-color-secondary);
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -142,7 +143,7 @@
   .post-comment .comment-send-post button {
     background: none;
     border: none;
-    color: #606770;
+    color: var(--text-color-secondary);
     font-size: 14px;
     cursor: pointer;
     display: flex;
@@ -163,7 +164,7 @@
       <div class="post-author">{{autor_post}}</div>
       <div class="post-date">
         {{fecha_post}} ·
-        <i class="fas fa-globe-americas"> </i>
+        <i class="fa-solid fa-earth-americas"></i>
       </div>
     </div>
   </div>
@@ -186,11 +187,11 @@
       Me gusta
     </button>
     <button>
-      <i class="far fa-comment"> </i>
+      <i class="fa-regular fa-comment"></i>
       Comentar
     </button>
     <button>
-      <i class="fas fa-share"> </i>
+      <i class="fa-solid fa-share"></i>
       Compartir
     </button>
   </div>
@@ -225,10 +226,10 @@
           .then((data) => {
             if (data.procesado === true) {
               if (data.data.accion === "like") {
-                likeButton.querySelector("i").classList.replace("far", "fas");
+                likeButton.querySelector("i").classList.replace("fa-regular", "fa-solid");
                 likeCount.textContent = parseInt(likeCount.textContent) + 1;
               } else if (data.data.accion === "unlike") {
-                likeButton.querySelector("i").classList.replace("fas", "far");
+                likeButton.querySelector("i").classList.replace("fa-solid", "fa-regular");
                 likeCount.textContent = parseInt(likeCount.textContent) - 1;
               }
             }

@@ -14,5 +14,6 @@ GET('/videos', 'views/pages/videos.php');
 GET('/videos/$post_id', 'views/pages/video_id.php');
 POST('/handle-form/comentario', 'views/pages/handle-form/comentario.php');
 POST('/handle-form/post', 'views/pages/handle-form/post.php');
+GET('/logout', 'views/pages/logout.php');
 
 any('/404', 'views/pages/404.php');

@@ -5,9 +5,11 @@
   }
   .information-user .content-detalles {
     border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--background-primary);
+    box-shadow: var(--box-shadow);
     padding: 1rem;
+    border: var(--border);
+
   }
   .information-user h2 {
     font-size: 18px;
@@ -18,10 +20,10 @@
     margin-bottom: 20px;
   }
   .button {
-    background-color: var(--button-secondary);
+    background-color: var(--background-input);
     border: none;
     border-radius: 6px;
-    color: #050505;
+    color: var(--background-text);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,15 +49,15 @@
     <h2>Detalles</h2>
     <div class="details">
       <div class="info">
-        <i class="fas pencil"></i>
+        <i class="fa-solid fa-pencil"></i>
         {{descripcion}}
       </div>
       <div class="info">
-        <i class="fas fa-home"></i>
+        <i class="fa-solid fa-house"></i>
         Vive en {{lugar_vive}}
       </div>
       <div class="info">
-        <i class="fas fa-users"></i>
+        <i class="fa-solid fa-user"></i>
         {{estado_civil}}
       </div>
       <a href="/config/" class="button">Editar detalles</a>
